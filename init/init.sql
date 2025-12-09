@@ -39,7 +39,6 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL,
     phone_number VARCHAR(15),
     password_hash VARCHAR(255) NOT NULL,
-    birth_date DATE,
     role_id INTEGER NOT NULL,
     rodne_cislo VARCHAR(12) NOT NULL,
     date_of_birth DATE NOT NULL,
