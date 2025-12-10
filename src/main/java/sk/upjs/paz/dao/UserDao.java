@@ -5,9 +5,14 @@ import sk.upjs.paz.model.User;
 import java.util.List;
 
 public interface UserDao {
-    User findById(long id);
-    User findByEmail(String email);
+    List<User> getAll();
+    User getById(long id);
+    User getByEmail(String email);
+    List<User> getByDistrict(long districtId);
+
     void insert(User user);
     void update(User user);
-    List<User> getAll();
+    void delete(long id);
+
+    boolean existsByEmail(String email);
 }
