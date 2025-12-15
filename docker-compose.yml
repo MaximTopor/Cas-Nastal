@@ -4,8 +4,8 @@ services:
     container_name: casn_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: casnast
+      POSTGRES_PASSWORD: casnast
       POSTGRES_DB: cn
     ports:
       - "5433:5432"

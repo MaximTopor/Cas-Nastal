@@ -3,14 +3,18 @@ package sk.upjs.paz.dao;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import sk.upjs.paz.dao.psdao.*;
+
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public enum Factory {
     INSTANCE;
 
-    private volatile JdbcOperations jdbcOps;
+    private volatile JdbcOperations jdbc;
 
-    private volatile UserDao userDao;
+    private volatile UserDao UserDao;
     private volatile RoleDao roleDao;
     private volatile DistrictDao districtDao;
     private volatile TermDao termDao;
@@ -21,30 +25,58 @@ public enum Factory {
 
     private final Object lock = new Object();
 
+    Factory() {
+        this.jdbc = createJdbc();
+        runSql("init/init.sql");
+        runSql("init/test.sql");
+    }
+
+    private JdbcOperations createJdbc() {
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setDriverClassName("org.postgresql.Driver");
+        ds.setUrl("jdbc:postgresql://localhost:5433/cn");
+        ds.setUsername("casnast");
+        ds.setPassword("casnast");
+
+        return new JdbcTemplate(ds);
+    }
+
+    private void runSql(String path) {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(path)) {
+            if (is == null) return;
+
+            String sql = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+            jdbc.execute(sql);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to execute " + path, e);
+        }
+    }
+
     public JdbcOperations getJdbcOperations() {
-        if (jdbcOps == null) {
+        if (jdbc == null) {
             synchronized (lock) {
-                if (jdbcOps == null) {
+                if (jdbc == null) {
                     var ds = new PGSimpleDataSource();
                     ds.setURL(System.getProperty("DB_JDBC", "jdbc:postgresql://localhost:5432/cn"));
                     ds.setUser(System.getProperty("DB_USER", "postgres"));
                     ds.setPassword(System.getProperty("DB_PASSWORD", "1234"));
-                    jdbcOps = new JdbcTemplate(ds);
+                    jdbc = new JdbcTemplate(ds);
                 }
             }
         }
-        return jdbcOps;
+        return jdbc;
     }
 
     public UserDao getUserDao() {
-        if (userDao == null) {
+        if (UserDao == null) {
             synchronized (lock) {
-                if (userDao == null) {
-                    userDao = new PostgresUserDao(getJdbcOperations());
+                if (UserDao == null) {
+                    UserDao = new PostgresUserDao(getJdbcOperations());
                 }
             }
         }
-        return userDao;
+        return UserDao;
     }
 
     public RoleDao getRoleDao() {

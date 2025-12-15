@@ -18,4 +18,10 @@
             GridPane.rowIndex="2"
             GridPane.columnIndex="1"
             onAction="#login"/>
+
+    <Label fx:id="errorLabel"
+           text=""
+           style="-fx-text-fill: red;"
+           GridPane.rowIndex="3"
+           GridPane.columnIndex="1"/>
 </GridPane>

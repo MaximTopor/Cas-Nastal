@@ -1,8 +1,11 @@
 package sk.upjs.paz.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import sk.upjs.paz.model.User;
+import sk.upjs.paz.service.UserService;
 import sk.upjs.paz.app.SceneManager;
 
 public class LoginController {
@@ -13,13 +16,33 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
-    public void login() {
+    @FXML
+    private Label errorLabel;
+
+    private final UserService userService = new UserService();
+
+    @FXML
+    private void initialize() {
+        errorLabel.setText("");
+    }
+
+    @FXML
+    private void login() {
+        System.out.println("LOGIN BUTTON CLICKED");
+
         String email = emailField.getText();
-        String pass = passwordField.getText();
+        String password = passwordField.getText();
 
-        System.out.println("Login attempt: " + email);
+        User user = userService.authenticate(email, password);
 
-        // TODO: підключення до DB і перевірка паролю
-        SceneManager.switchTo("dashboard.fxml", "Dashboard");
+        if (user == null) {
+            System.out.println("AUTH FAILED");
+            errorLabel.setText("Nesprávny email alebo heslo");
+            return;
+        }
+
+        System.out.println("AUTH OK");
+        SceneManager.openUserScene(user);
     }
 }
+
