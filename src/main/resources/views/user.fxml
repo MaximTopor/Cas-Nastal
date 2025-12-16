@@ -22,6 +22,7 @@
 
         <Button prefHeight="60"
                 prefWidth="250"
+                onAction="#openTermWindow"
                 style="-fx-border-color: black; -fx-border-width: 2;"
                 text="Term">
             <HBox.margin>
@@ -31,6 +32,7 @@
 
         <Button prefHeight="60"
                 prefWidth="250"
+                onAction="#openMessageWindow"
                 style="-fx-border-color: black; -fx-border-width: 2;"
                 text="Message">
             <HBox.margin>

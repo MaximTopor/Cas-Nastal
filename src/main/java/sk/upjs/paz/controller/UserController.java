@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import sk.upjs.paz.model.User;
 import sk.upjs.paz.app.SceneManager;
 
+
 import javafx.scene.image.ImageView;
 
 public class UserController {
@@ -16,6 +17,17 @@ public class UserController {
     @FXML private Label addressLabel;
     @FXML private Label personalNumberLabel;
     @FXML private ImageView mainPhoto;
+
+    @FXML
+    private void openTermWindow()
+    {
+        SceneManager.openTermWindow();
+    }
+
+    @FXML
+    private void openMessageWindow(){
+        SceneManager.openMessageWindow();
+    }
 
     private User user;
 

@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sk.upjs.paz.controller.termController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefWidth="900"
+            prefHeight="600">
+
+    <!-- Головний контейнер -->
+    <VBox spacing="0"
+          AnchorPane.topAnchor="0"
+          AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0">
+
+        <!-- ===== TOP BAR ===== -->
+        <HBox prefHeight="80"
+              spacing="10"
+              alignment="CENTER_LEFT"
+              style="-fx-border-color: black; -fx-border-width: 2;">
+
+            <!-- padding MUST be Insets -->
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <!-- Ліва частина (довгий блок) -->
+            <Region HBox.hgrow="ALWAYS"
+                    style="-fx-border-color: black; -fx-border-width: 2;" />
+
+            <!-- Права кнопка / блок -->
+            <Button text="Profile"
+                    prefWidth="120"
+                    prefHeight="40"
+                    onAction="#backToProfile"
+                    style="-fx-border-color: black; -fx-border-width: 2;" />
+
+        </HBox>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <AnchorPane VBox.vgrow="ALWAYS"
+                    style="-fx-border-color: black; -fx-border-width: 2;">
+            <!-- Тут буде основний контент -->
+        </AnchorPane>
+
+    </VBox>
 
 </AnchorPane>

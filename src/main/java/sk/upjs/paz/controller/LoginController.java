@@ -8,7 +8,7 @@ import sk.upjs.paz.model.User;
 import sk.upjs.paz.service.UserService;
 import sk.upjs.paz.app.SceneManager;
 
-public class LoginController {
+public class LoginController { ;
 
     @FXML
     private TextField emailField;

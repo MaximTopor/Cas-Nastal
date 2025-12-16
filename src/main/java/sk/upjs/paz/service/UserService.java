@@ -37,10 +37,14 @@ public class UserService {
         }
 
         // ZATIAĽ jednoduché porovnanie (neskôr hash)
-        if (!user.getPasswordHash().equals(rawPassword)) {
+        if (!(user.getPasswordHash().equals(rawPassword))) {
             return null;
         }
 
         return user;
+    }
+
+    public User getUserById(long userId) {
+        return userDao.getById(userId);
     }
 }
