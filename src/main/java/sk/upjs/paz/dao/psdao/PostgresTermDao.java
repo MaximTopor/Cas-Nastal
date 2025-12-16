@@ -19,6 +19,7 @@ public class PostgresTermDao implements TermDao {
         String sql = """
         SELECT
             id_terms,
+            type,
             date,
             start_time,
             end_time,
@@ -32,6 +33,7 @@ public class PostgresTermDao implements TermDao {
         return jdbc.query(sql, (rs, rowNum) ->
                 new Term(
                         rs.getLong("id_terms"),
+                        rs.getString("type"),
                         rs.getObject("date", java.time.LocalDate.class),
                         rs.getObject("start_time", java.time.LocalTime.class),
                         rs.getObject("end_time", java.time.LocalTime.class),

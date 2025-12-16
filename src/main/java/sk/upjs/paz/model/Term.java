@@ -11,6 +11,7 @@ import java.time.LocalTime;
 public class Term {
 
     private long idTerms;
+    private String type;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -20,6 +21,7 @@ public class Term {
 
     public Term(
             long idTerms,
+            String type,
             java.time.LocalDate date,
             java.time.LocalTime startTime,
             java.time.LocalTime endTime,
@@ -28,6 +30,7 @@ public class Term {
             long districtId
     ) {
         this.idTerms = idTerms;
+        this.type = type;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;

@@ -5,31 +5,20 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Getter
 public class User {
     private long idUser;
-    @Getter
     private String name;
-    @Getter
     private String surname;
-    @Getter
     private String email;
-    @Getter
     private String phoneNumber;
-    @Getter
     private String passwordHash;
-    @Getter
     private String personalNumber;
-    @Getter
     private LocalDate dateOfBirth;
-    @Getter
     private String address;
-    @Getter
     private int roleId;
-    @Getter
     private long districtId;
-    @Getter
     private LocalDateTime createdAt;
-    @Getter
     private LocalDateTime updatedAt;
 
     public User(
