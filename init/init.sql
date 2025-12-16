@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS terms (
     date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
-    adres VARCHAR(100) NOT NULL,
+    address VARCHAR(100) NOT NULL,
     capacity INTEGER NOT NULL,
     okres BIGINT NOT NULL,
     CONSTRAINT fk_terms_district

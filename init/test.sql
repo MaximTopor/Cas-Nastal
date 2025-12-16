@@ -91,6 +91,20 @@ INSERT INTO cn.users (
           3,
           NOW(),
           NOW()
+      ),
+      (
+          '1',
+          '1',
+          '1',
+          '1',
+          '1',
+          1,
+          '920202/5672',
+          DATE '1992-02-02',
+          'Letná 5',
+          3,
+          NOW(),
+          NOW()
       )
     ON CONFLICT (id_user) DO NOTHING;
 
