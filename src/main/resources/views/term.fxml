@@ -10,43 +10,78 @@
             prefWidth="900"
             prefHeight="600">
 
-    <!-- Головний контейнер -->
-    <VBox spacing="0"
+    <!-- ================= TOP BAR ================= -->
+    <HBox prefHeight="70"
+          spacing="10"
+          alignment="CENTER_LEFT"
+          style="-fx-border-color: black; -fx-border-width: 0;"
           AnchorPane.topAnchor="0"
-          AnchorPane.bottomAnchor="0"
           AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0">
 
-        <!-- ===== TOP BAR ===== -->
-        <HBox prefHeight="80"
-              spacing="10"
-              alignment="CENTER_LEFT"
-              style="-fx-border-color: black; -fx-border-width: 2;">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
 
-            <!-- padding MUST be Insets -->
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+        <Button text="Profile"
+                prefWidth="140"
+                onAction="#backToProfile"/>
 
-            <!-- Ліва частина (довгий блок) -->
-            <Region HBox.hgrow="ALWAYS"
-                    style="-fx-border-color: black; -fx-border-width: 2;" />
+    </HBox>
 
-            <!-- Права кнопка / блок -->
-            <Button text="Profile"
-                    prefWidth="120"
-                    prefHeight="40"
-                    onAction="#backToProfile"
-                    style="-fx-border-color: black; -fx-border-width: 2;" />
+    <!-- ================= SCROLLABLE CONTENT ================= -->
+    <ScrollPane fitToWidth="true"
+                AnchorPane.topAnchor="70"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0">
 
-        </HBox>
+        <content>
+            <VBox fx:id="termsContainer"
+                  spacing="20">
 
-        <!-- ===== MAIN CONTENT ===== -->
-        <AnchorPane VBox.vgrow="ALWAYS"
-                    style="-fx-border-color: black; -fx-border-width: 2;">
-            <!-- Тут буде основний контент -->
-        </AnchorPane>
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
 
-    </VBox>
+                <!-- ================= TERM CARD (EXAMPLE) ================= -->
+
+                <VBox spacing="10"
+                      style="-fx-border-color: black; -fx-border-width: 2;">
+
+                    <!-- Title -->
+                    <Label text="Lekárska prehliadka"
+                           style="-fx-font-size: 16; -fx-font-weight: bold;">
+
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </Label>
+
+                    <!-- Content -->
+                    <HBox spacing="20"
+                          alignment="CENTER_LEFT">
+
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text=" 20.03.2025  08:00 – 10:00"/>
+                            <Label text=" Poliklinika Košice, Trieda SNP 1"/>
+                            <Label text=" Kapacita: 30"/>
+                        </VBox>
+
+                        <Button fx:id="registerButton"
+                                 text="Zapísať sa"
+                                 onAction="#toggleRegistration"/>
+                    </HBox>
+                </VBox>
+
+                <!-- ====================================================== -->
+
+            </VBox>
+        </content>
+    </ScrollPane>
 
 </AnchorPane>

@@ -91,7 +91,64 @@ INSERT INTO cn.users (
           3,
           NOW(),
           NOW()
+      ),
+      (
+          '1',
+          '1',
+          '1',
+          '1',
+          '1',
+          1,
+          '1',
+          DATE '1999-01-01',
+          '1',
+          3,
+          NOW(),
+          NOW()
       )
     ON CONFLICT (id_user) DO NOTHING;
+
+INSERT INTO cn.terms (
+    type,
+    date,
+    start_time,
+    end_time,
+    adres,
+    capacity,
+    okres
+) VALUES ('Lekárska prehliadka',
+          '2025-03-20',
+          '08:00',
+          '10:00',
+          'Poliklinika Košice, Trieda SNP 1',
+          30,
+          1),
+
+-- 2
+         ('Očkovanie',
+          '2025-03-21',
+          '09:00',
+          '12:00',
+          'Zdravotné stredisko Terasa, Košice',
+          50,
+          2),
+
+-- 3
+         ('Administratívne vybavenie',
+          '2025-03-22',
+          '13:00',
+          '15:00',
+          'Mestský úrad Košice, Hlavná 68',
+          20,
+          1),
+
+-- 4
+         ('Školenie civilnej ochrany',
+          '2025-03-25',
+          '10:00',
+          '14:00',
+          'Kultúrne centrum Nad jazerom',
+          40,
+          3);
 
 COMMIT;

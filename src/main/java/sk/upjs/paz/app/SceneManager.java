@@ -18,7 +18,7 @@ public class SceneManager {
     }
 
     public static void openTermWindow() {
-        switchTo("term.fxml", "Login");
+        switchTo("term.fxml", "Term");
     }
 
     public static void backToProfile() {

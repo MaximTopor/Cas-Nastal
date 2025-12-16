@@ -9,4 +9,37 @@ public class Term {
     private String address;
     private int capacity;
     private long districtId;
+
+
+    public long getIdTerms() {
+        return idTerms;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public long getDistrictId() {
+        return districtId;
+    }
 }
