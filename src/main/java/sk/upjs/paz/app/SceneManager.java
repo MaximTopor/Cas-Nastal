@@ -36,6 +36,15 @@ public class SceneManager {
         }
     }
 
+    public static User getCurrentUser() {
+        if (currentUser == null) {
+            throw new IllegalStateException(
+                    "Current user is not set. Did you forget to call setCurrentUser() after login?"
+            );
+        }
+        return currentUser;
+    }
+
     /* ================= SCENES ================= */
 
     public static void openLoginScene() {

@@ -16,6 +16,7 @@ public class PostgresTermDao implements TermDao {
 
     @Override
     public List<Term> getAll() {
+        System.out.println(">>> PostgresTermDao.getAll()");
         String sql = """
         SELECT
             id_terms,
@@ -29,8 +30,7 @@ public class PostgresTermDao implements TermDao {
         FROM cn.terms
         ORDER BY date, start_time
     """;
-
-        return jdbc.query(sql, (rs, rowNum) ->
+        var list = jdbc.query(sql, (rs, rowNum) ->
                 new Term(
                         rs.getLong("id_terms"),
                         rs.getString("type"),
@@ -42,6 +42,8 @@ public class PostgresTermDao implements TermDao {
                         rs.getLong("okres")
                 )
         );
+        System.out.println(">>> DAO terms count = " + list.size());
+        return list;
     }
 
 

@@ -34,17 +34,25 @@ public class PostgresScheduleDao implements ScheduleDao {
     }
 
     @Override
-    public void insert(Schedule schedule) {
-
-    }
-
-    @Override
     public void update(Schedule schedule) {
 
     }
 
     @Override
-    public void delete(long id) {
+    public void insert(long userId, long termId) {
+        String sql = """
+            INSERT INTO cn.schedule (status_of_application, id_user, id_terms)
+            VALUES ('pending', ?, ?)
+        """;
+        jdbc.update(sql, userId, termId);
+    }
 
+    @Override
+    public void delete(long userId, long termId) {
+        String sql = """
+            DELETE FROM cn.schedule
+            WHERE id_user = ? AND id_terms = ?
+        """;
+        jdbc.update(sql, userId, termId);
     }
 }

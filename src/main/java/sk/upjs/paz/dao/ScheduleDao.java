@@ -11,7 +11,7 @@ public interface ScheduleDao {
     List<Schedule> getByUser(long userId);
     List<Schedule> getByTerm(long termId);
 
-    void insert(Schedule schedule);
+    void insert(long userId, long termId);
     void update(Schedule schedule);
-    void delete(long id);
+    void delete(long userId, long termId);
 }

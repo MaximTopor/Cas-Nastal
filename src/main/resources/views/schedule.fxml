@@ -72,9 +72,9 @@
                             <Label text=" Kapacita: 30"/>
                         </VBox>
 
-<!--                        <Button fx:id="registerButton"-->
-<!--                                 text="Zapísať sa"-->
-<!--                                 onAction="#toggleRegistration"/>-->
+                        <Button fx:id="registerButton"
+                                 text="Zapísať sa"
+                                 onAction="#toggleRegistration"/>
                     </HBox>
                 </VBox>
 
