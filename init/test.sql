@@ -113,7 +113,7 @@ INSERT INTO cn.terms (
     date,
     start_time,
     end_time,
-    adres,
+    address,
     capacity,
     okres
 ) VALUES ('Lekárska prehliadka',
