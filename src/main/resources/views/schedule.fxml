@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sk.upjs.paz.controller.ScheduleController"
+            prefWidth="900"
+            prefHeight="600">
+
+    <!-- ================= TOP BAR ================= -->
+    <HBox prefHeight="70"
+          spacing="10"
+          alignment="CENTER_LEFT"
+          style="-fx-border-color: black; -fx-border-width: 0;"
+          AnchorPane.topAnchor="0"
+          AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0">
+
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <Button text="Profile"
+                prefWidth="140"
+                onAction="#backToProfile"/>
+
+    </HBox>
+
+    <!-- ================= SCROLLABLE CONTENT ================= -->
+    <ScrollPane fitToWidth="true"
+                AnchorPane.topAnchor="70"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0">
+
+        <content>
+            <VBox fx:id="termsContainer"
+                  spacing="20">
+
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <!-- ================= TERM CARD (EXAMPLE) ================= -->
+
+                <VBox spacing="10"
+                      style="-fx-border-color: black; -fx-border-width: 2;">
+
+                    <!-- Title -->
+                    <Label text="Lekárska prehliadka"
+                           style="-fx-font-size: 16; -fx-font-weight: bold;">
+
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </Label>
+
+                    <!-- Content -->
+                    <HBox spacing="20"
+                          alignment="CENTER_LEFT">
+
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text=" 20.03.2025  08:00 – 10:00"/>
+                            <Label text=" Poliklinika Košice, Trieda SNP 1"/>
+                            <Label text=" Kapacita: 30"/>
+                        </VBox>
+
+<!--                        <Button fx:id="registerButton"-->
+<!--                                 text="Zapísať sa"-->
+<!--                                 onAction="#toggleRegistration"/>-->
+                    </HBox>
+                </VBox>
+
+                <!-- ====================================================== -->
+
+            </VBox>
+        </content>
+    </ScrollPane>
+
+</AnchorPane>

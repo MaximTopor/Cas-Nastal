@@ -16,8 +16,33 @@ public class PostgresTermDao implements TermDao {
 
     @Override
     public List<Term> getAll() {
-        return List.of();
+        String sql = """
+        SELECT
+            id_terms,
+            date,
+            start_time,
+            end_time,
+            address,
+            capacity,
+            okres
+        FROM cn.terms
+        ORDER BY date, start_time
+    """;
+
+        return jdbc.query(sql, (rs, rowNum) ->
+                new Term(
+                        rs.getLong("id_terms"),
+                        rs.getObject("date", java.time.LocalDate.class),
+                        rs.getObject("start_time", java.time.LocalTime.class),
+                        rs.getObject("end_time", java.time.LocalTime.class),
+                        rs.getString("address"),
+                        rs.getInt("capacity"),
+                        rs.getLong("okres")
+                )
+        );
     }
+
+
 
     @Override
     public Term getById(long id) {
