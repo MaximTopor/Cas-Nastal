@@ -92,7 +92,7 @@ public class ScheduleController {
 
     @FXML
     private void onCreateTerm() {
-        // SceneManager.openCreateTermWindow();
+        SceneManager.openCreateTerm();
     }
 
     private VBox createTermCard(Term term) {
@@ -174,4 +174,6 @@ public class ScheduleController {
             applyFilters();
         }
     }
+
+
 }

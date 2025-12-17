@@ -28,7 +28,7 @@
                 onAction="#backToProfile"/>
 
         <Button fx:id="createTermButton"
-                text="Vytvoriť termín"
+                text="Create Term"
                 onAction="#onCreateTerm"/>
 
         <!-- Spacer pushes next elements to the right -->

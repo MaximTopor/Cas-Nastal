@@ -22,14 +22,14 @@ public class UserController {
     @FXML private ImageView mainPhoto;
     @FXML private ToggleButton themeToggle;
 
-    @FXML
-    private void toggleTheme() {
-        SceneManager.toggleTheme(themeToggle.getScene());
-
-        themeToggle.setText(
-                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
-        );
-    }
+//    @FXML
+//    private void toggleTheme() {
+//        SceneManager.toggleTheme(themeToggle.getScene());
+//
+//        themeToggle.setText(
+//                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
+//        );
+//    }
 
 
     @FXML
@@ -64,7 +64,7 @@ public class UserController {
     }
 
     @FXML
-    private void logout() {
+    private void Logout() {
         SceneManager.openLoginScene();
     }
 

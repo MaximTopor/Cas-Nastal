@@ -1,0 +1,32 @@
+.root {
+    -fx-background-color: #0f172a;
+    -fx-text-fill: #e5e7eb;
+
+    -fx-accent: #60a5fa;
+    -fx-focus-color: -fx-accent;
+}
+
+/* labels */
+.label {
+    -fx-text-fill: #e5e7eb;
+}
+
+/* inputs */
+.text-field,
+.password-field {
+    -fx-background-color: #111827;
+    -fx-border-color: #334155;
+    -fx-text-fill: #e5e7eb;
+}
+
+/* primary */
+.primary-btn {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: #ffffff;
+}
+
+/* secondary */
+.secondary-btn {
+    -fx-text-fill: #60a5fa;
+    -fx-border-color: #60a5fa;
+}

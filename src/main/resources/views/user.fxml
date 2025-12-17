@@ -12,7 +12,7 @@
             styleClass="root-pane">
 
     <!-- TOP BAR -->
-    <HBox alignment="CENTER_RIGHT"
+    <HBox alignment="CENTER"
           spacing="16"
           AnchorPane.topAnchor="0"
           AnchorPane.leftAnchor="0"
@@ -23,11 +23,7 @@
             <Insets top="14" right="24" bottom="14" left="24"/>
         </padding>
 
-        <ToggleButton fx:id="themeToggle"
-                      text="Theme"
-                      onAction="#toggleTheme"
-                      styleClass="theme-toggle"/>
-
+        <!-- LEFT -->
         <Button text="Term"
                 onAction="#openScheduleWindow"
                 styleClass="primary-btn"/>
@@ -35,6 +31,21 @@
         <Button text="Message"
                 onAction="#openMessageWindow"
                 styleClass="primary-btn"/>
+
+        <ToggleButton fx:id="themeToggle"
+                      text="Theme"
+                      styleClass="theme-toggle"/>
+<!--                      onAction="#toggleTheme"-->
+<!--                      styleClass="theme-toggle"/>-->
+
+        <!-- SPACER -->
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <!-- RIGHT (поки пусто або профіль) -->
+        <Button text="Logout"
+                onAction="#Logout"
+                styleClass="primary-btn"/>
+
     </HBox>
 
     <!-- PASSPORT CARD -->

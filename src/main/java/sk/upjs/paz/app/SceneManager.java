@@ -8,46 +8,76 @@ import javafx.stage.Stage;
 import sk.upjs.paz.controller.UserController;
 import sk.upjs.paz.model.User;
 
-import java.awt.*;
+import java.net.URL;
 
 public class SceneManager {
 
-    private static boolean darkTheme = true;
-    private static Stage acStage;
+    /* ================= THEME ================= */
+
+    public enum Theme {
+        LIGHT, DARK
+    }
+
+    private static Theme currentTheme = Theme.LIGHT;
+
+    private static String themeCss() {
+        return currentTheme == Theme.DARK
+                ? "/css/theme-dark.css"
+                : "/css/theme-light.css";
+    }
+
+    public static void toggleTheme(Scene scene) {
+        currentTheme = (currentTheme == Theme.DARK)
+                ? Theme.LIGHT
+                : Theme.DARK;
+
+        if (activeStage != null && activeStage.getScene() != null) {
+            String windowCss =
+                    (String) activeStage.getScene().getRoot()
+                            .getProperties().get("windowCss");
+
+            applyStyles(activeStage.getScene(), windowCss);
+        }
+    }
+
+    /* ================= STATE ================= */
+
+    private static Stage activeStage;
     private static User currentUser;
 
-    /* ================= INIT ================= */
-
     public static void setStage(Stage stage) {
-        acStage = stage;
-    }
-
-    public static boolean isDarkTheme() {
-        return darkTheme;
-    }
-
-    public static void toggleTheme() {
-        darkTheme = !darkTheme;
-
-        // 🔁 одразу застосувати до активної сцени
-        if (acStage != null && acStage.getScene() != null) {
-            applyTheme(acStage.getScene());
-        }
+        activeStage = stage;
     }
 
     public static User getCurrentUser() {
         if (currentUser == null) {
-            throw new IllegalStateException(
-                    "Current user is not set. Did you forget to call setCurrentUser() after login?"
-            );
+            throw new IllegalStateException("Current user is not set.");
         }
         return currentUser;
+    }
+
+    public static void backToProfile() {
+        if (currentUser != null) {
+            openUserScene(currentUser);
+        }
     }
 
     /* ================= SCENES ================= */
 
     public static void openLoginScene() {
-        switchTo("/views/login.fxml", "Login");
+        switchTo("/views/login.fxml", "Login", "/window/Login.css");
+    }
+
+    public static void openRegistrationWindow() {
+        switchTo("/views/Registration.fxml", "Registration", null);
+    }
+
+    public static void openCreateTerm() {
+        switchTo("/views/CreateTerm.fxml", "Create Term", null);
+    }
+
+    public static void openScheduleWindow() {
+        switchTo("/views/schedule.fxml", "Schedule", null);
     }
 
     public static void openUserScene(User user) {
@@ -63,99 +93,88 @@ public class SceneManager {
             controller.setUser(user);
 
             Scene scene = new Scene(root);
-            applyTheme(scene);
+            scene.getRoot().getProperties().put("windowCss", null);
 
-            acStage.setScene(scene);
-            acStage.setTitle("User panel");
-            acStage.setResizable(false);
-            acStage.show();
-            acStage.centerOnScreen();
+            applyStyles(scene, null);
+
+            activeStage.setScene(scene);
+            activeStage.setTitle("User panel");
+            activeStage.setResizable(false);
+            activeStage.centerOnScreen();
+            activeStage.show();
 
         } catch (Exception e) {
             throw new RuntimeException("Cannot load user scene", e);
         }
     }
 
-    public static void openScheduleWindow() {
-        switchTo("/views/schedule.fxml", "Term");
-    }
-
-    public static void backToProfile() {
-        if (currentUser != null) {
-            openUserScene(currentUser);
-        }
-    }
-
-    public static void openRegistrationWindow() {
-        switchTo("/views/Registration.fxml", "Registration");
-        acStage.centerOnScreen();
-    }
-
     public static void openMessageWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/message.fxml")
+                    SceneManager.class.getResource("/views/Message.fxml")
             );
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            applyTheme(scene);
+            scene.getRoot().getProperties().put("windowCss", null);
 
-            Stage messageStage = new Stage();
-            messageStage.setTitle("Messages");
-            messageStage.setScene(scene);
-            messageStage.setResizable(false);
+            applyStyles(scene, null);
 
-            messageStage.initOwner(acStage);
-            messageStage.initModality(Modality.WINDOW_MODAL);
-
-            messageStage.showAndWait();
+            Stage stage = new Stage();
+            stage.setTitle("Messages");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initOwner(activeStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.showAndWait();
 
         } catch (Exception e) {
             throw new RuntimeException("Cannot open message window", e);
         }
     }
 
-    public static void toggleTheme(Scene scene) {
-        darkTheme = !darkTheme;
-        applyTheme(scene);
-    }
-
     /* ================= CORE ================= */
 
-    private static void switchTo(String fxmlPath, String title) {
+    private static void switchTo(String fxml, String title, String windowCss) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource(fxmlPath)
+                    SceneManager.class.getResource(fxml)
             );
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            applyTheme(scene);
+            scene.getRoot().getProperties().put("windowCss", windowCss);
 
-            acStage.setScene(scene);
-            acStage.setTitle(title);
-            acStage.setResizable(false);
-            acStage.show();
+            applyStyles(scene, windowCss);
+
+            activeStage.setScene(scene);
+            activeStage.setTitle(title);
+            activeStage.setResizable(false);
+            activeStage.centerOnScreen();
+            activeStage.show();
 
         } catch (Exception e) {
-            System.err.println("Error loading FXML: " + fxmlPath);
-            e.printStackTrace();
+            throw new RuntimeException("Cannot load FXML: " + fxml, e);
         }
     }
 
-    private static void applyTheme(Scene scene) {
+    private static void applyStyles(Scene scene, String windowCss) {
         scene.getStylesheets().clear();
 
-        String css = darkTheme
-                ? "/css/dark.css"
-                : "/css/light.css";
-
-        var url = SceneManager.class.getResource(css);
-        if (url == null) {
-            throw new IllegalStateException("CSS not found: " + css);
+        // theme
+        URL themeUrl = SceneManager.class.getResource(themeCss());
+        if (themeUrl == null) {
+            throw new IllegalStateException("Theme CSS not found: " + themeCss());
         }
+        scene.getStylesheets().add(themeUrl.toExternalForm());
 
-        scene.getStylesheets().add(url.toExternalForm());
+        // window css (optional)
+        if (windowCss != null) {
+            URL windowUrl = SceneManager.class.getResource(windowCss);
+            if (windowUrl == null) {
+                throw new IllegalStateException("Window CSS not found: " + windowCss);
+            }
+            scene.getStylesheets().add(windowUrl.toExternalForm());
+        }
     }
 }

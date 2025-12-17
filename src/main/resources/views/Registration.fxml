@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefWidth="900" prefHeight="650"
+<BorderPane prefWidth="700" prefHeight="650"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sk.upjs.paz.controller.RegisterController">
@@ -39,6 +39,11 @@
                     <TextField promptText="Name"/>
                     <TextField promptText="Surname"/>
                     <DatePicker promptText="Birth date"/>
+                    <ComboBox fx:id="regionComboBox"
+                              promptText="Region"
+                              prefWidth="350"/>
+
+                    <TextField promptText="Locality"/>
                     <TextField promptText="Address"/>
                     <TextField promptText="Phone"/>
 
