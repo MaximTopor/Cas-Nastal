@@ -22,8 +22,6 @@ public class SceneManager {
         acStage = stage;
     }
 
-
-
     public static boolean isDarkTheme() {
         return darkTheme;
     }
@@ -63,10 +61,15 @@ public class SceneManager {
         switchTo("/views/schedule.fxml", "Term");
     }
 
+
     public static void backToProfile() {
         if (currentUser != null) {
             openUserScene(currentUser);
         }
+    }
+
+    public static void openRegistrationWindow() {
+        switchTo("/views/Registration.fxml", "Registration");
     }
 
     public static User getCurrentUser() {
@@ -101,8 +104,6 @@ public class SceneManager {
             throw new RuntimeException("Cannot open message window", e);
         }
     }
-
-    /* ================= THEME ================= */
 
     public static void toggleTheme(Scene scene) {
         darkTheme = !darkTheme;

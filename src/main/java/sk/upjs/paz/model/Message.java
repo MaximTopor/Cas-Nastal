@@ -1,5 +1,8 @@
 package sk.upjs.paz.model;
 
+import lombok.Getter;
+
+@Getter
 public class Message {
     private long idMessage;
     private long idSender;
@@ -27,35 +30,6 @@ public class Message {
         this.message = message;
         this.lastAction = lastAction;
     }
-
-    public long getIdSender() {
-        return idSender;
-    }
-
-    public long getIdRecipient() {
-        return idRecipient;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getDateSent() {
-        return dateSent;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getLastAction() {
-        return lastAction;
-    }
-
 }
 
 
