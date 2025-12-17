@@ -29,7 +29,7 @@
                       styleClass="theme-toggle"/>
 
         <Button text="Term"
-                onAction="#openTermWindow"
+                onAction="#openScheduleWindow"
                 styleClass="primary-btn"/>
 
         <Button text="Message"

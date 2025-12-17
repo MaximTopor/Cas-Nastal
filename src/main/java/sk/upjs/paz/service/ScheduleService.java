@@ -3,7 +3,6 @@ package sk.upjs.paz.service;
 import sk.upjs.paz.dao.Factory;
 import sk.upjs.paz.dao.ScheduleDao;
 import sk.upjs.paz.dao.TermDao;
-import sk.upjs.paz.dao.psdao.PostgresScheduleDao;
 import sk.upjs.paz.model.Term;
 
 import java.util.List;
@@ -24,5 +23,13 @@ public class ScheduleService {
 
     public void unregister(long userId, long termId) {
         scheduleDao.delete(userId, termId);
+    }
+
+    public boolean isUserRegistered(long userId, long termId) {
+        return scheduleDao.exists(userId, termId);
+    }
+
+    public void deleteTerm(long termId) {
+        scheduleDao.deleteTerm(termId);
     }
 }

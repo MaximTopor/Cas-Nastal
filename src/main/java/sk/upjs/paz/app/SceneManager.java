@@ -70,13 +70,14 @@ public class SceneManager {
             acStage.setTitle("User panel");
             acStage.setResizable(false);
             acStage.show();
+            acStage.centerOnScreen();
 
         } catch (Exception e) {
             throw new RuntimeException("Cannot load user scene", e);
         }
     }
 
-    public static void openTermWindow() {
+    public static void openScheduleWindow() {
         switchTo("/views/schedule.fxml", "Term");
     }
 
@@ -94,7 +95,7 @@ public class SceneManager {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            applyTheme(scene); // ✅ і тут теж
+            applyTheme(scene);
 
             Stage messageStage = new Stage();
             messageStage.setTitle("Messages");
@@ -105,6 +106,7 @@ public class SceneManager {
             messageStage.initModality(Modality.WINDOW_MODAL);
 
             messageStage.showAndWait();
+            messageStage.centerOnScreen();
 
         } catch (Exception e) {
             throw new RuntimeException("Cannot open message window", e);
@@ -121,7 +123,7 @@ public class SceneManager {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            applyTheme(scene); // ✅ ЗАВЖДИ
+            applyTheme(scene);
 
             acStage.setScene(scene);
             acStage.setTitle(title);

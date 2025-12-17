@@ -12,20 +12,34 @@
 
     <!-- ================= TOP BAR ================= -->
     <HBox prefHeight="70"
-          spacing="10"
+          spacing="15"
           alignment="CENTER_LEFT"
-          style="-fx-border-color: black; -fx-border-width: 0;"
           AnchorPane.topAnchor="0"
           AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0">
 
         <padding>
-            <Insets top="10" right="10" bottom="10" left="10"/>
+            <Insets top="10" right="15" bottom="10" left="15"/>
         </padding>
 
+        <!-- Profile button -->
         <Button text="Profile"
                 prefWidth="140"
                 onAction="#backToProfile"/>
+
+        <Button fx:id="createTermButton"
+                text="Vytvoriť termín"
+                onAction="#onCreateTerm"/>
+
+        <!-- Spacer pushes next elements to the right -->
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <!-- Filters -->
+        <CheckBox fx:id="myRegistrationsCheckBox"
+                  text="Moje zápisy"/>
+
+        <CheckBox fx:id="activeRegistrationsCheckBox"
+                  text="Aktuálne zápisy"/>
 
     </HBox>
 

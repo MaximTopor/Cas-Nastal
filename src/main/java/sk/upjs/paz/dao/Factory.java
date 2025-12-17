@@ -15,7 +15,6 @@ public enum Factory {
     private volatile JdbcOperations jdbc;
 
     private volatile UserDao UserDao;
-    private volatile RoleDao roleDao;
     private volatile DistrictDao districtDao;
     private volatile TermDao termDao;
     private volatile StatusDao statusDao;
@@ -77,17 +76,6 @@ public enum Factory {
             }
         }
         return UserDao;
-    }
-
-    public RoleDao getRoleDao() {
-        if (roleDao == null) {
-            synchronized (lock) {
-                if (roleDao == null) {
-                    roleDao = new PostgresRoleDao(getJdbcOperations());
-                }
-            }
-        }
-        return roleDao;
     }
 
     public DistrictDao getDistrictDao() {

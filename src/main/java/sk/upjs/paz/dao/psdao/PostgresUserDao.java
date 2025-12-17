@@ -2,6 +2,7 @@ package sk.upjs.paz.dao.psdao;
 
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import sk.upjs.paz.app.SceneManager;
 import sk.upjs.paz.dao.UserDao;
 import sk.upjs.paz.dao.psdao.mapper.UserRowMapper;
 import sk.upjs.paz.model.User;
@@ -31,6 +32,23 @@ public class PostgresUserDao implements UserDao {
     @Override
     public void delete(long id) {
 
+    }
+
+    @Override
+    public String getRoleName(long userId) {
+
+        String sql = """
+        SELECT r.name_of_role
+        FROM cn.users u
+        JOIN cn.roles r ON u.role_id = r.id_roles
+        WHERE u.id_user = ?
+    """;
+
+        return jdbc.queryForObject(
+                sql,
+                String.class,
+                userId
+        );
     }
 
     @Override

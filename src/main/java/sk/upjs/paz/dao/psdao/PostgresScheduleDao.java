@@ -55,4 +55,37 @@ public class PostgresScheduleDao implements ScheduleDao {
         """;
         jdbc.update(sql, userId, termId);
     }
+
+    @Override
+    public boolean exists(long userId, long termId) {
+
+        String sql = """
+        SELECT EXISTS (
+            SELECT 1
+            FROM cn.schedule
+            WHERE id_user = ? AND id_terms = ?
+        )
+    """;
+
+        return Boolean.TRUE.equals(
+                jdbc.queryForObject(
+                        sql,
+                        Boolean.class,
+                        userId,
+                        termId
+                )
+        );
+    }
+
+    @Override
+    public void deleteTerm(long termId) {
+
+        String sql = """
+        DELETE FROM cn.terms
+        WHERE id_terms = ?
+    """;
+
+        jdbc.update(sql, termId);
+    }
+
 }

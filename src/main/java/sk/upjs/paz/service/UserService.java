@@ -44,6 +44,15 @@ public class UserService {
         return user;
     }
 
+    public String getRoleName(long userId) {
+        return userDao.getRoleName(userId);
+    }
+
+    public boolean canManageTerms(long userId) {
+        String role = getRoleName(userId);
+        return "ADMIN".equals(role) || "WORKER".equals(role);
+    }
+
     public User getUserById(long userId) {
         return userDao.getById(userId);
     }

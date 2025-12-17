@@ -18,15 +18,7 @@ public class PostgresTermDao implements TermDao {
     public List<Term> getAll() {
         System.out.println(">>> PostgresTermDao.getAll()");
         String sql = """
-        SELECT
-            id_terms,
-            type,
-            date,
-            start_time,
-            end_time,
-            address,
-            capacity,
-            okres
+        SELECT *
         FROM cn.terms
         ORDER BY date, start_time
     """;

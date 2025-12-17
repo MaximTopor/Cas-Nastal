@@ -1,7 +1,6 @@
 package sk.upjs.paz.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import sk.upjs.paz.model.User;
@@ -30,9 +29,8 @@ public class UserController {
     }
 
     @FXML
-    private void openTermWindow()
-    {
-        SceneManager.openTermWindow();
+    private void openScheduleWindow() {
+        SceneManager.openScheduleWindow();
     }
 
     @FXML

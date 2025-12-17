@@ -14,5 +14,8 @@ public interface UserDao {
     void update(User user);
     void delete(long id);
 
+    String getRoleName(long userId);
+
+
     boolean existsByEmail(String email);
 }
