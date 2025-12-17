@@ -8,20 +8,19 @@ import javafx.stage.Stage;
 import sk.upjs.paz.controller.UserController;
 import sk.upjs.paz.model.User;
 
+import java.awt.*;
+
 public class SceneManager {
 
     private static boolean darkTheme = true;
-
     private static Stage acStage;
     private static User currentUser;
 
-    /* ================= STAGE ================= */
+    /* ================= INIT ================= */
 
     public static void setStage(Stage stage) {
         acStage = stage;
     }
-
-    /* ================= PUBLIC API ================= */
 
     public static boolean isDarkTheme() {
         return darkTheme;
@@ -64,7 +63,7 @@ public class SceneManager {
             controller.setUser(user);
 
             Scene scene = new Scene(root);
-            applyTheme(scene); // ✅ КРИТИЧНО
+            applyTheme(scene);
 
             acStage.setScene(scene);
             acStage.setTitle("User panel");
@@ -87,6 +86,19 @@ public class SceneManager {
         }
     }
 
+    public static void openRegistrationWindow() {
+        switchTo("/views/Registration.fxml", "Registration");
+    }
+
+    public static User getCurrentUser() {
+        if (currentUser == null) {
+            throw new IllegalStateException(
+                    "Current user is not set. Did you forget to call setCurrentUser() after login?"
+            );
+        }
+        return currentUser;
+    }
+
     public static void openMessageWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -106,11 +118,30 @@ public class SceneManager {
             messageStage.initModality(Modality.WINDOW_MODAL);
 
             messageStage.showAndWait();
-            messageStage.centerOnScreen();
 
         } catch (Exception e) {
             throw new RuntimeException("Cannot open message window", e);
         }
+    }
+
+    public static void toggleTheme(Scene scene) {
+        darkTheme = !darkTheme;
+        applyTheme(scene);
+    }
+
+    private static void applyTheme(Scene scene) {
+        scene.getStylesheets().clear();
+
+        String css = darkTheme
+                ? "/css/dark.css"
+                : "/css/light.css";
+
+        var url = SceneManager.class.getResource(css);
+        if (url == null) {
+            throw new IllegalStateException("CSS not found: " + css);
+        }
+
+        scene.getStylesheets().add(url.toExternalForm());
     }
 
     /* ================= CORE ================= */

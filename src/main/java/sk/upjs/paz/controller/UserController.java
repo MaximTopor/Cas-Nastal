@@ -1,6 +1,8 @@
 package sk.upjs.paz.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import sk.upjs.paz.model.User;
@@ -22,16 +24,19 @@ public class UserController {
 
     @FXML
     private void toggleTheme() {
-        SceneManager.toggleTheme();
+        SceneManager.toggleTheme(themeToggle.getScene());
+
         themeToggle.setText(
-                SceneManager.isDarkTheme() ? "🌙 Dark" : "☀ Light"
+                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
         );
     }
+
 
     @FXML
     private void openScheduleWindow() {
         SceneManager.openScheduleWindow();
     }
+
 
     @FXML
     private void openMessageWindow(){

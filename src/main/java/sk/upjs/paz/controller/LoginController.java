@@ -8,7 +8,7 @@ import sk.upjs.paz.model.User;
 import sk.upjs.paz.service.UserService;
 import sk.upjs.paz.app.SceneManager;
 
-public class LoginController { ;
+public class LoginController {
 
     @FXML
     private TextField emailField;
@@ -22,12 +22,14 @@ public class LoginController { ;
     private final UserService userService = new UserService();
 
     @FXML
-    private void initialize() {
-        errorLabel.setText("");
+    private void Registration() {
+       SceneManager.openRegistrationWindow();
     }
 
-    private void backToProfile(){
-        SceneManager.backToProfile();
+
+    @FXML
+    private void initialize() {
+        errorLabel.setText("");
     }
 
     @FXML

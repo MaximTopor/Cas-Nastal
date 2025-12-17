@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefWidth="900" prefHeight="650"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sk.upjs.paz.controller.RegisterController">
+
+    <!-- ================= TOP ================= -->
+    <top>
+        <HBox alignment="CENTER" prefHeight="70">
+            <Label text="Registration"
+                   style="-fx-font-size: 22; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <!-- ================= CENTER (SCROLL) ================= -->
+    <center>
+        <HBox alignment="CENTER">
+
+            <Region prefWidth="150"/>
+
+            <ScrollPane fitToWidth="true"
+                        prefViewportHeight="400"
+                        hbarPolicy="NEVER">
+
+                <VBox spacing="12" prefWidth="350">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <TextField promptText="Email"/>
+                    <PasswordField promptText="Password"/>
+                    <PasswordField promptText="Confirm password"/>
+
+                    <TextField promptText="Name"/>
+                    <TextField promptText="Surname"/>
+                    <DatePicker promptText="Birth date"/>
+                    <TextField promptText="Address"/>
+                    <TextField promptText="Phone"/>
+
+                </VBox>
+            </ScrollPane>
+
+            <Region prefWidth="150"/>
+
+        </HBox>
+    </center>
+
+    <!-- ================= BOTTOM ================= -->
+    <bottom>
+        <VBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Button text="Create"
+                    prefWidth="160"/>
+
+            <Button text="Login"
+                    prefWidth="160"
+                    onAction="#StepBackToLogin"/>
+        </VBox>
+    </bottom>
+</BorderPane>
