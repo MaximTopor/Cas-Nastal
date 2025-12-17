@@ -88,15 +88,7 @@ public class SceneManager {
 
     public static void openRegistrationWindow() {
         switchTo("/views/Registration.fxml", "Registration");
-    }
-
-    public static User getCurrentUser() {
-        if (currentUser == null) {
-            throw new IllegalStateException(
-                    "Current user is not set. Did you forget to call setCurrentUser() after login?"
-            );
-        }
-        return currentUser;
+        acStage.centerOnScreen();
     }
 
     public static void openMessageWindow() {
@@ -127,21 +119,6 @@ public class SceneManager {
     public static void toggleTheme(Scene scene) {
         darkTheme = !darkTheme;
         applyTheme(scene);
-    }
-
-    private static void applyTheme(Scene scene) {
-        scene.getStylesheets().clear();
-
-        String css = darkTheme
-                ? "/css/dark.css"
-                : "/css/light.css";
-
-        var url = SceneManager.class.getResource(css);
-        if (url == null) {
-            throw new IllegalStateException("CSS not found: " + css);
-        }
-
-        scene.getStylesheets().add(url.toExternalForm());
     }
 
     /* ================= CORE ================= */
