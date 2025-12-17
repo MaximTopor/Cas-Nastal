@@ -8,32 +8,24 @@ import javafx.stage.Stage;
 import sk.upjs.paz.controller.UserController;
 import sk.upjs.paz.model.User;
 
+import java.awt.*;
+
 public class SceneManager {
 
     private static boolean darkTheme = true;
-
     private static Stage acStage;
     private static User currentUser;
 
-    /* ================= STAGE ================= */
+    /* ================= INIT ================= */
 
     public static void setStage(Stage stage) {
         acStage = stage;
     }
 
-    /* ================= PUBLIC API ================= */
+
 
     public static boolean isDarkTheme() {
         return darkTheme;
-    }
-
-    public static void toggleTheme() {
-        darkTheme = !darkTheme;
-
-        // 🔁 одразу застосувати до активної сцени
-        if (acStage != null && acStage.getScene() != null) {
-            applyTheme(acStage.getScene());
-        }
     }
 
     /* ================= SCENES ================= */
@@ -55,7 +47,7 @@ public class SceneManager {
             controller.setUser(user);
 
             Scene scene = new Scene(root);
-            applyTheme(scene); // ✅ КРИТИЧНО
+            applyTheme(scene);
 
             acStage.setScene(scene);
             acStage.setTitle("User panel");
@@ -77,6 +69,15 @@ public class SceneManager {
         }
     }
 
+    public static User getCurrentUser() {
+        if (currentUser == null) {
+            throw new IllegalStateException(
+                    "Current user is not set. Did you forget to call setCurrentUser() after login?"
+            );
+        }
+        return currentUser;
+    }
+
     public static void openMessageWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -85,13 +86,12 @@ public class SceneManager {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            applyTheme(scene); // ✅ і тут теж
+            applyTheme(scene);
 
             Stage messageStage = new Stage();
             messageStage.setTitle("Messages");
             messageStage.setScene(scene);
             messageStage.setResizable(false);
-
             messageStage.initOwner(acStage);
             messageStage.initModality(Modality.WINDOW_MODAL);
 
@@ -102,27 +102,11 @@ public class SceneManager {
         }
     }
 
-    /* ================= CORE ================= */
+    /* ================= THEME ================= */
 
-    private static void switchTo(String fxmlPath, String title) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource(fxmlPath)
-            );
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            applyTheme(scene); // ✅ ЗАВЖДИ
-
-            acStage.setScene(scene);
-            acStage.setTitle(title);
-            acStage.setResizable(false);
-            acStage.show();
-
-        } catch (Exception e) {
-            System.err.println("Error loading FXML: " + fxmlPath);
-            e.printStackTrace();
-        }
+    public static void toggleTheme(Scene scene) {
+        darkTheme = !darkTheme;
+        applyTheme(scene);
     }
 
     private static void applyTheme(Scene scene) {
@@ -138,5 +122,27 @@ public class SceneManager {
         }
 
         scene.getStylesheets().add(url.toExternalForm());
+    }
+
+    /* ================= CORE ================= */
+
+    private static void switchTo(String fxmlPath, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource(fxmlPath)
+            );
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            applyTheme(scene);
+
+            acStage.setScene(scene);
+            acStage.setTitle(title);
+            acStage.setResizable(false);
+            acStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

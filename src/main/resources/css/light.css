@@ -1,66 +1,79 @@
+/* ================= ROOT ================= */
 .root-pane {
     -fx-font-family: "Segoe UI";
-    -fx-background-color: linear-gradient(to bottom, #eef5fb, #ffffff);
+    -fx-background-color: linear-gradient(to bottom, #f4f7fb, #e9eef5);
 }
 
+/* ================= TOP BAR ================= */
 .top-bar {
-    -fx-background-color: white;
-    -fx-border-color: #d6e4f2;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d4dbea;
     -fx-border-width: 0 0 2 0;
 }
 
+/* ================= BUTTONS (FIXED SIZE) ================= */
 .primary-btn {
-    -fx-background-color: linear-gradient(to bottom, #5fb6e9, #3a9bdc);
-    -fx-text-fill: white;
-    -fx-background-radius: 14;
     -fx-padding: 10 22;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-background-radius: 14;
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(to bottom, #4a90e2, #357abd);
 }
 
+.primary-btn:hover {
+    -fx-opacity: 0.9;
+}
+
+/* ================= THEME TOGGLE ================= */
 .theme-toggle {
     -fx-background-radius: 20;
     -fx-border-radius: 20;
-    -fx-background-color: white;
-    -fx-border-color: #d6e4f2;
+    -fx-background-color: #e6ecf5;
+    -fx-border-color: #cfd8e6;
+    -fx-text-fill: #1e2a3a;
 }
 
+/* ================= CARDS ================= */
 .passport-card {
-    -fx-background-color: white;
+    -fx-background-color: #ffffff;
     -fx-background-radius: 22;
     -fx-padding: 24;
-    -fx-effect: dropshadow(gaussian, rgba(0,80,160,0.15), 20, 0.3, 0, 6);
-}
-
-.passport-photo {
-    -fx-border-radius: 12;
-    -fx-border-color: #d6e4f2;
-    -fx-border-width: 2;
-}
-
-.passport-name {
-    -fx-text-fill: #0a2540;
-    -fx-font-size: 18;
-    -fx-font-weight: bold;
-}
-
-.passport-surname {
-    -fx-text-fill: #0a2540;
-    -fx-font-size: 22;
-    -fx-font-weight: bold;
-}
-
-.passport-sub {
-    -fx-text-fill: #5a7ca8;
-    -fx-font-size: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 18, 0.3, 0, 6);
 }
 
 .data-row {
-    -fx-background-color: #f2f7fc;
+    -fx-background-color: #e9eef5;
     -fx-background-radius: 12;
     -fx-padding: 10 14;
     -fx-spacing: 10;
 }
 
-.data-row Label {
-    -fx-text-fill: #0a2540;
-    -fx-font-size: 13;
+/* ================= TEXT ================= */
+.passport-name {
+    -fx-text-fill: #1e2a3a;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.passport-surname {
+    -fx-text-fill: #000000;
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+}
+
+.passport-sub {
+    -fx-text-fill: #6b7c93;
+    -fx-font-size: 12;
+}
+
+/* ================= MESSAGE WINDOW ONLY ================= */
+/* ❗ тільки колір, НЕ розмір */
+
+.root-pane .primary-btn {
+    -fx-background-color: linear-gradient(
+            to right,
+            #4a90e2,
+            #357abd
+    );
 }

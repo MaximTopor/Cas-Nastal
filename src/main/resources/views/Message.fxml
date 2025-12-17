@@ -8,62 +8,77 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sk.upjs.paz.controller.MessageController"
             prefWidth="900"
-            prefHeight="600">
+            prefHeight="600"
+            styleClass="root-pane">
 
     <!-- ================= TOP BAR ================= -->
     <HBox prefHeight="70"
           spacing="10"
           alignment="CENTER_LEFT"
+          styleClass="top-bar"
           AnchorPane.topAnchor="0"
           AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0">
 
         <padding>
-            <Insets top="10" right="10" bottom="10" left="10"/>
+            <Insets top="10" right="20" bottom="10" left="20"/>
         </padding>
 
         <Label text="Správy od administrácie"
-               style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+               styleClass="passport-name"/>
     </HBox>
 
     <!-- ================= SCROLLABLE CONTENT ================= -->
     <ScrollPane fitToWidth="true"
                 AnchorPane.topAnchor="70"
-                AnchorPane.bottomAnchor="0"
+                AnchorPane.bottomAnchor="120"
                 AnchorPane.leftAnchor="0"
-                AnchorPane.rightAnchor="0">
+                AnchorPane.rightAnchor="0"
+                style="-fx-background-color: transparent;">
 
         <content>
             <VBox fx:id="messagesContainer"
-                  spacing="20">
+                  spacing="16"
+                  styleClass="passport-card">
 
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
 
-                <!-- ================= MESSAGE CARD (EXAMPLE) ================= -->
+                <!-- ===== PRÍKLAD SPRÁVY (runtime sa generuje z Controlleru) ===== -->
+                <VBox spacing="6"
+                      styleClass="data-row">
 
-                <VBox spacing="8"
-                      style="-fx-border-color: black; -fx-border-width: 2;">
-
-                    <padding>
-                        <Insets top="10" right="10" bottom="10" left="10"/>
-                    </padding>
-
-                    <!-- Date -->
                     <Label text="20.03.2025"
-                           style="-fx-font-size: 12; -fx-text-fill: gray;"/>
+                           styleClass="passport-sub"/>
 
-                    <!-- Message text -->
                     <Label text="Prosíme všetkých používateľov, aby si skontrolovali svoje termíny a prišli aspoň 10 minút vopred."
                            wrapText="true"
-                           style="-fx-font-size: 14;"/>
+                           styleClass="passport-name"/>
                 </VBox>
-
-                <!-- =========================================================== -->
+                <!-- ============================================================ -->
 
             </VBox>
         </content>
     </ScrollPane>
+
+    <!-- ================= MESSAGE INPUT ================= -->
+    <HBox spacing="12"
+          AnchorPane.leftAnchor="20"
+          AnchorPane.rightAnchor="20"
+          AnchorPane.bottomAnchor="20">
+
+        <TextArea fx:id="messageInput"
+                  prefHeight="80"
+                  wrapText="true"
+                  promptText="Napíšte správu..."
+                  styleClass="data-row"/>
+
+        <Button fx:id="sendButton"
+                text="Odoslať"
+                prefWidth="120"
+                styleClass="primary-btn"
+                onAction="#sendMessage"/>
+    </HBox>
 
 </AnchorPane>

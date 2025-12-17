@@ -26,10 +26,6 @@ public class LoginController { ;
         errorLabel.setText("");
     }
 
-    private void backToProfile(){
-        SceneManager.backToProfile();
-    }
-
     @FXML
     private void login() {
         System.out.println("LOGIN BUTTON CLICKED");
