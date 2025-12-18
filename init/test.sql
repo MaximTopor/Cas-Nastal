@@ -65,16 +65,10 @@ INSERT INTO cn.users (
           NOW()
       ),
       (
-          'Peter',
-          'Novak',
-          'peter.novak@test.sk',
-          '0900000002',
-          'test123',
-          3,
-          '900101/1234',
-          DATE '1995-05-10',
+          'Peter','Novak','peter.novak@test.sk',
+            '0900000002','test123',3,'900101/1234',DATE '1995-05-10',
           'Hlavná 10',
-          1,
+          2,
           NOW(),
           NOW()
       ),

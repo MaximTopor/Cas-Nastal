@@ -1,0 +1,156 @@
+/* ================= ROOT ================= */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #0c1624,
+            #121f33
+    );
+}
+
+/* ================= TOP BAR ================= */
+
+.top-bar {
+    -fx-background-color: rgba(15,30,50,0.95);
+    -fx-border-color: #233b5a;
+    -fx-border-width: 0 0 2 0;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #4fa6dc,
+            #2f7fc4
+    );
+    -fx-text-fill: white;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.9;
+}
+
+.danger-btn {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #e55353,
+            #c93a3a
+    );
+    -fx-text-fill: white;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}
+
+.theme-toggle {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-background-color: #1b2f4a;
+    -fx-border-color: #2a3f5f;
+    -fx-text-fill: #eaf3ff;
+}
+
+/* ================= ID CARD ================= */
+
+.id-card {
+    -fx-background-color: #16263d;
+    -fx-background-radius: 22;
+    -fx-padding: 24;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(0,0,0,0.6),
+            24,
+            0.35,
+            0,
+            8
+    );
+}
+
+/* ================= PHOTO ================= */
+
+.id-photo {
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #2f4d73;
+    -fx-border-width: 2;
+}
+
+/* ================= NAME ================= */
+
+.id-surname {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+}
+
+.id-name {
+    -fx-text-fill: #eaf3ff;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.id-subtitle {
+    -fx-text-fill: #9bb8da;
+    -fx-font-size: 12;
+}
+
+/* ================= SEPARATOR ================= */
+
+.id-separator {
+    -fx-opacity: 0.6;
+}
+
+/* ================= DATA ROW ================= */
+
+.id-row {
+    -fx-background-color: linear-gradient(
+            to bottom right,
+            #1c2f4a,
+            #16273d
+    );
+    -fx-background-radius: 14;
+    -fx-padding: 12 16;
+    -fx-spacing: 12;
+
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+
+.id-row:hover {
+    -fx-background-color: linear-gradient(
+            to bottom right,
+            #223a5a,
+            #1b2f4a
+    );
+}
+
+/* ================= KEY / VALUE ================= */
+
+.id-key {
+    -fx-text-fill: #9bb8da;
+    -fx-pref-width: 140;
+    -fx-font-size: 12;
+}
+
+.id-value {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media screen and (max-width: 500px) {
+    .id-card {
+        -fx-pref-width: 360;
+    }
+
+    .id-key {
+        -fx-pref-width: 110;
+    }
+}

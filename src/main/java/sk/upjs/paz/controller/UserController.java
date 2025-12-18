@@ -1,8 +1,7 @@
 package sk.upjs.paz.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import sk.upjs.paz.model.User;
@@ -21,15 +20,26 @@ public class UserController {
     @FXML private Label personalNumberLabel;
     @FXML private ImageView mainPhoto;
     @FXML private ToggleButton themeToggle;
+    @FXML private Button StatusButton;
 
-//    @FXML
-//    private void toggleTheme() {
-//        SceneManager.toggleTheme(themeToggle.getScene());
-//
-//        themeToggle.setText(
-//                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
-//        );
-//    }
+    private static User currentUser = SceneManager.getCurrentUser();
+
+    @FXML
+    private void toggleTheme() {
+        SceneManager.toggleTheme(themeToggle.getScene());
+
+        themeToggle.setText(
+                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
+        );
+    }
+
+    @FXML
+    private void initialize() {
+        themeToggle.setText(
+                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
+        );
+        applyRolePermissions();
+    }
 
 
     @FXML
@@ -41,6 +51,20 @@ public class UserController {
     @FXML
     private void openMessageWindow(){
         SceneManager.openMessageWindow();
+    }
+
+    @FXML
+    private void openStatusWindow()
+    {
+        SceneManager.openStatusWindow();
+    }
+
+    private void applyRolePermissions() {
+        int role = currentUser.getRoleId();
+
+        if (role == 3 || role == 2) {
+            StatusButton.setDisable(true);
+        }
     }
 
     private User user;

@@ -7,6 +7,7 @@ import sk.upjs.paz.model.District;
 import sk.upjs.paz.model.Term;
 import sk.upjs.paz.service.CreateTermService;
 import sk.upjs.paz.service.DistrictService;
+import sk.upjs.paz.app.SceneManager;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -115,7 +116,7 @@ public class CreateTermController {
 
     @FXML
     private void backToSchedule() {
-        closeWindow();
+        SceneManager.openScheduleWindow();
     }
 
     /* ================= HELPERS ================= */

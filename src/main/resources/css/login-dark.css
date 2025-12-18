@@ -1,0 +1,84 @@
+/* ================= ROOT ================= */
+
+.login-root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #0c1624,
+            #121f33
+    );
+}
+
+/* ================= TITLE ================= */
+
+.login-title {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaf3ff;
+}
+
+/* ================= LABELS ================= */
+
+.label {
+    -fx-text-fill: #eaf3ff;
+    -fx-font-size: 13;
+}
+
+/* ================= INPUT ================= */
+
+.text-field,
+.password-field {
+    -fx-background-color: #16263d;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+
+    -fx-border-color: #2f4d73;
+    -fx-border-width: 1;
+
+    -fx-padding: 10 14;
+    -fx-font-size: 13;
+    -fx-text-fill: #ffffff;
+}
+
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #4fa6dc;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #4fa6dc,
+            #2f7fc4
+    );
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-padding: 10 26;
+    -fx-font-weight: bold;
+}
+
+.secondary-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #4fa6dc;
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+    -fx-text-fill: #4fa6dc;
+    -fx-padding: 10 26;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.9;
+}
+
+.secondary-btn:hover {
+    -fx-background-color: rgba(79,166,220,0.12);
+}
+
+/* ================= ERROR ================= */
+
+.error-label {
+    -fx-text-fill: #f87171;
+    -fx-font-size: 12;
+}

@@ -14,23 +14,80 @@ import java.net.URL;
 
 public class SceneManager {
 
-    private static Stage primaryStage;
-    private static User currentUser;
-    private static boolean darkTheme = true;
-
     /* ================= THEME ================= */
 
     public enum Theme {
         LIGHT, DARK
     }
 
-    private static Theme currentTheme = Theme.LIGHT;
+    private static Theme currentTheme = detectSystemTheme();
 
     private static String themeCss() {
         return currentTheme == Theme.DARK
-                ? "/css/theme-dark.css"
-                : "/css/theme-light.css";
+                ? "/css/user-dark.css"
+                : "/css/user-light.css";
     }
+
+    private static Theme detectSystemTheme() {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        try {
+            // ===== WINDOWS =====
+            if (os.contains("win")) {
+                Process process = new ProcessBuilder(
+                        "reg",
+                        "query",
+                        "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+                        "/v",
+                        "AppsUseLightTheme"
+                ).start();
+
+                try (var reader = new java.io.BufferedReader(
+                        new java.io.InputStreamReader(process.getInputStream())
+                )) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        if (line.contains("AppsUseLightTheme")) {
+                            return line.trim().endsWith("0x0")
+                                    ? Theme.DARK
+                                    : Theme.LIGHT;
+                        }
+                    }
+                }
+            }
+
+            // ===== macOS =====
+            if (os.contains("mac")) {
+                Process process = new ProcessBuilder(
+                        "defaults",
+                        "read",
+                        "-g",
+                        "AppleInterfaceStyle"
+                ).start();
+
+                try (var reader = new java.io.BufferedReader(
+                        new java.io.InputStreamReader(process.getInputStream())
+                )) {
+                    String result = reader.readLine();
+                    if (result != null && result.equalsIgnoreCase("Dark")) {
+                        return Theme.DARK;
+                    }
+                }
+            }
+
+        } catch (Exception ignored) {
+            // fallback нижче
+        }
+
+        // ===== FALLBACK =====
+        return Theme.LIGHT;
+    }
+
+
+    public static boolean isDarkTheme() {
+        return currentTheme == Theme.DARK;
+    }
+
 
     public static void toggleTheme(Scene scene) {
         currentTheme = (currentTheme == Theme.DARK)
@@ -49,6 +106,7 @@ public class SceneManager {
     /* ================= STATE ================= */
 
     private static Stage activeStage;
+    private static User currentUser;
 
     public static void setStage(Stage stage) {
         activeStage = stage;
@@ -70,19 +128,54 @@ public class SceneManager {
     /* ================= SCENES ================= */
 
     public static void openLoginScene() {
-        switchTo("/views/login.fxml", "Cas nastal+", "/window/Login.css");
+        String css = isDarkTheme()
+                ? "/css/login-dark.css"
+                : "/css/login-light.css";
+
+        switchTo("/views/login.fxml", "Login", css);
     }
 
+    public static void openStatusWindow() {
+        switchTo("/views/status.fxml", "Status", null);
+    }
+
+//    public static void openUserEditWindow(User user) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(
+//                    SceneManager.class.getResource("/views/EditUser.fxml")
+//            );
+//
+//            Parent root = loader.load();
+//
+//            EditUserController controller = loader.getController();
+//            controller.setUser(user); // ← ключовий момент
+//
+//            Scene scene = new Scene(root);
+//            applyTheme(scene);
+//
+//            Stage stage = new Stage();
+//            stage.setTitle("Edit user");
+//            stage.setScene(scene);
+//            stage.initOwner(acStage);
+//            stage.initModality(Modality.WINDOW_MODAL);
+//            stage.showAndWait();
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+
     public static void openRegistrationWindow() {
-        switchTo("/views/registration.fxml", "Cas nastal+", null);
+        switchTo("/views/Registration.fxml", "Registration", null);
     }
 
     public static void openCreateTerm() {
-        switchTo("/views/createTerm.fxml", "Cas nastal+", null);
+        switchTo("/views/CreateTerm.fxml", "Create Term", null);
     }
 
     public static void openScheduleWindow() {
-        switchTo("/views/schedule.fxml", "Cas nastal+", null);
+        switchTo("/views/schedule.fxml", "Schedule", null);
     }
 
     public static void openUserScene(User user) {
@@ -103,7 +196,7 @@ public class SceneManager {
             applyStyles(scene, null);
 
             activeStage.setScene(scene);
-            activeStage.setTitle("Cas nastal+");
+            activeStage.setTitle("User panel");
             activeStage.setResizable(false);
             activeStage.centerOnScreen();
             activeStage.show();
@@ -116,14 +209,19 @@ public class SceneManager {
     public static void openMessageWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/message.fxml")
+                    SceneManager.class.getResource("/views/Message.fxml")
             );
             Parent root = loader.load();
 
-            Scene scene = new Scene(root);
-            scene.getRoot().getProperties().put("windowCss", null);
+            // 🔥 вибір теми
+            String messageCss = isDarkTheme()
+                    ? "/css/message-dark.css"
+                    : "/css/message-light.css";
 
-            applyStyles(scene, null);
+            Scene scene = new Scene(root);
+            scene.getRoot().getProperties().put("windowCss", messageCss);
+
+            applyStyles(scene, messageCss);
 
             Stage stage = new Stage();
             stage.setTitle("Messages");
@@ -137,6 +235,8 @@ public class SceneManager {
             throw new RuntimeException("Cannot open message window", e);
         }
     }
+
+
 
     /* ================= CORE ================= */
 
@@ -183,13 +283,12 @@ public class SceneManager {
         }
     }
 
-
     public static void openEditTermWindow(Term term) {
         openCreateEditTermWindow(term);
     }
 
     private static void openCreateEditTermWindow(Term term) {
-        try {
+        /*try {
             FXMLLoader loader = new FXMLLoader(
                     SceneManager.class.getResource("/views/createTerm.fxml")
             );
@@ -214,11 +313,11 @@ public class SceneManager {
 
         } catch (Exception e) {
             throw new RuntimeException("Cannot open create/edit term window", e);
-        }
+        }*/
     }
 
     private static void applyTheme(Scene scene) {
-        scene.getStylesheets().clear();
+        /*scene.getStylesheets().clear();
 
         String css = darkTheme
                 ? "/css/theme-dark.css"
@@ -229,7 +328,6 @@ public class SceneManager {
             throw new IllegalStateException("CSS not found: " + css);
         }
 
-        scene.getStylesheets().add(url.toExternalForm());
+        scene.getStylesheets().add(url.toExternalForm());*/
     }
-
 }

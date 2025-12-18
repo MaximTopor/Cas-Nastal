@@ -1,0 +1,158 @@
+/* ================= ROOT ================= */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #0f1e33,
+            #0b1626
+    );
+}
+
+/* ================= TOP BAR ================= */
+
+.top-bar {
+    -fx-background-color: linear-gradient(
+            to right,
+            #0f233d,
+            #0c1d33
+    );
+    -fx-border-color: #1c3556;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* ================= TITLE ================= */
+
+.passport-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.passport-sub {
+    -fx-text-fill: #9bb8da;
+    -fx-font-size: 12;
+}
+
+/* ================= MESSAGE LIST ================= */
+
+.passport-card {
+    -fx-background-color: transparent;
+}
+
+/* ================= MESSAGE BUBBLE ================= */
+
+.data-row {
+    -fx-background-color: linear-gradient(
+            to bottom right,
+            #1b2f4a,
+            #16273d
+    );
+    -fx-background-radius: 16;
+    -fx-padding: 14;
+    -fx-spacing: 6;
+
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+}
+
+.data-row:hover {
+    -fx-background-color: linear-gradient(
+            to bottom right,
+            #223a5a,
+            #1b2f4a
+    );
+}
+
+/* ================= TEXT ================= */
+
+.data-row Label {
+    -fx-text-fill: #eaf3ff;
+}
+
+/* ================= INPUT ================= */
+
+.text-area {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+}
+
+.text-area .content {
+    -fx-background-color: #1b2b42;
+    -fx-background-radius: 16;
+    -fx-padding: 12;
+
+    -fx-text-fill: #ffffff;
+    -fx-highlight-fill: #3a8de0;
+    -fx-highlight-text-fill: white;
+}
+
+.text-area:focused .content {
+    -fx-background-color: #223a5a;
+}
+
+/* ================= BUTTON ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(
+            to right,
+            #3aa0ff,
+            #2f7dd1
+    );
+    -fx-text-fill: white;
+    -fx-background-radius: 16;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.primary-btn:hover {
+    -fx-background-color: linear-gradient(
+            to right,
+            #4db0ff,
+            #3a8de0
+    );
+}
+
+/* ================= SCROLL ================= */
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+/* ===== MESSAGE INPUT (NO ANIMATION) ===== */
+
+.data-row {
+    -fx-background-color: #1c2f4a;
+    -fx-background-radius: 14;
+    -fx-padding: 12 14;
+    -fx-border-color: #2a3f5f;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+
+.data-row:hover {
+    -fx-background-color: #203755;
+    -fx-border-color: #3a5c86;
+}
+
+.data-row:focused {
+    -fx-background-color: #223a5a;
+    -fx-border-color: #4fa6dc;
+}
+
+.primary-btn {
+    -fx-background-color: linear-gradient(to right, #3aa0ff, #2f7dd1);
+    -fx-text-fill: white;
+    -fx-background-radius: 18;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.primary-btn:hover {
+    -fx-background-color: linear-gradient(to right, #4db0ff, #3a8de0);
+}
+
+.primary-btn:pressed {
+    -fx-background-color: linear-gradient(to right, #2f7dd1, #2564a8);
+}

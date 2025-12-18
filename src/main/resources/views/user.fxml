@@ -32,11 +32,15 @@
                 onAction="#openMessageWindow"
                 styleClass="primary-btn"/>
 
+        <Button fx:id="StatusButton"
+                text="Status"
+                onAction="#openStatusWindow"
+                styleClass="primary-btn"/>
+
         <ToggleButton fx:id="themeToggle"
                       text="Theme"
+                      onAction="#toggleTheme"
                       styleClass="theme-toggle"/>
-<!--                      onAction="#toggleTheme"-->
-<!--                      styleClass="theme-toggle"/>-->
 
         <!-- SPACER -->
         <Region HBox.hgrow="ALWAYS"/>

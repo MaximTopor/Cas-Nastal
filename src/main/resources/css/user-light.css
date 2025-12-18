@@ -1,0 +1,111 @@
+/* ================= ROOT ================= */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #f1f5f9,
+            #ffffff
+    );
+}
+
+/* ================= TOP BAR ================= */
+
+.top-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.92;
+}
+
+.danger-btn {
+    -fx-background-color: linear-gradient(to bottom, #ef4444, #dc2626);
+    -fx-text-fill: white;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}
+
+.theme-toggle {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-background-color: #f1f5f9;
+    -fx-border-color: #cbd5e1;
+    -fx-text-fill: #1e293b;
+}
+
+/* ================= ID CARD ================= */
+
+.id-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 22;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0.25, 0, 6);
+}
+
+/* ================= PHOTO ================= */
+
+.id-photo {
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 2;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+}
+
+/* ================= TEXT ================= */
+
+.id-surname {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+}
+
+.id-name {
+    -fx-text-fill: #1e293b;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.id-subtitle {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 12;
+}
+
+/* ================= DATA ROW ================= */
+
+.id-row {
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 14;
+    -fx-padding: 12 16;
+    -fx-spacing: 12;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+
+.id-row:hover {
+    -fx-background-color: #eef2ff;
+}
+
+.id-key {
+    -fx-text-fill: #64748b;
+    -fx-pref-width: 140;
+    -fx-font-size: 12;
+}
+
+.id-value {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+}
