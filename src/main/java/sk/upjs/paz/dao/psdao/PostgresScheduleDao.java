@@ -13,15 +13,6 @@ public class PostgresScheduleDao implements ScheduleDao {
         this.jdbc = jdbc;
     }
 
-    private org.springframework.jdbc.core.RowMapper<Schedule> scheduleRowMapper() {
-        return (rs, rowNum) -> new Schedule(
-                rs.getLong("id_schedule"),
-                rs.getString("status_of_application"),
-                rs.getLong("id_user"),
-                rs.getLong("id_terms")
-        );
-    }
-
     @Override
     public List<Schedule> getAll() {
         return List.of();
@@ -34,46 +25,17 @@ public class PostgresScheduleDao implements ScheduleDao {
 
     @Override
     public List<Schedule> getByUser(long userId) {
-
-        String sql = """
-            SELECT *
-            FROM cn.schedule
-            WHERE id_user = ?
-        """;
-
-        return jdbc.query(sql, scheduleRowMapper(), userId);
+        return List.of();
     }
 
     @Override
     public List<Schedule> getByTerm(long termId) {
-
-        String sql = """
-        SELECT
-            id_schedule,
-            status_of_application,
-            id_user,
-            id_terms
-        FROM cn.schedule
-        WHERE id_terms = ?
-    """;
-
-        return jdbc.query(sql, scheduleRowMapper(), termId);
+        return List.of();
     }
 
-
+    @Override
     public void update(Schedule schedule) {
 
-        String sql = """
-        UPDATE schedule
-        SET status_of_application = ?
-        WHERE id_schedule = ?
-    """;
-
-        jdbc.update(
-                sql,
-                schedule.getStatusOfApplication(),
-                schedule.getIdSchedule()
-        );
     }
 
     @Override
@@ -116,16 +78,14 @@ public class PostgresScheduleDao implements ScheduleDao {
     }
 
     @Override
-    public void cancelTerm(long termId) {
+    public void deleteTerm(long termId) {
 
         String sql = """
-        UPDATE cn.terms
-        SET status = 'canceled'
+        DELETE FROM cn.terms
         WHERE id_terms = ?
     """;
 
         jdbc.update(sql, termId);
     }
-
 
 }

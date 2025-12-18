@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sk.upjs.paz.controller.StatusController"
+            prefHeight="400"
+            prefWidth="600"
+            styleClass="root-pane">
+
+    <BorderPane AnchorPane.topAnchor="0"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0">
+
+        <!-- ================= CENTER CONTENT ================= -->
+        <right>
+            <VBox spacing="15" alignment="TOP_LEFT">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <Label text="Status používateľa"
+                       styleClass="passport-name"/>
+
+                <!-- тут буде контент статусу -->
+                <Label text="Vyberte používateľa zo zoznamu"
+                       styleClass="passport-sub"/>
+
+                <HBox spacing="10">
+                    <Button text="Ďalej"
+                            styleClass="primary-btn"
+                            onAction="#goNext"/>
+
+                    <Button text="Späť"
+                            styleClass="primary-btn"
+                            onAction="#goBack"/>
+                </HBox>
+            </VBox>
+        </right>
+
+        <!-- ================= RIGHT: USER LIST ================= -->
+        <left>
+            <VBox spacing="10" prefWidth="220">
+                <padding>
+                    <Insets top="20" right="15" bottom="20" left="10"/>
+                </padding>
+
+                <Label text="Používatelia"
+                       styleClass="passport-name"/>
+
+                <ListView fx:id="userListView"
+                          VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </left>
+
+    </BorderPane>
+
+</AnchorPane>

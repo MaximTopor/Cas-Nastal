@@ -68,16 +68,6 @@ public class MessageController {
     }
 
 
-
-
-    @FXML
-    private void close(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource())
-                .getScene()
-                .getWindow();
-        stage.close();
-    }
-
     @FXML
     private void sendMessage() {
 

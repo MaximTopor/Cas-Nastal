@@ -1,7 +1,6 @@
 package sk.upjs.paz.dao.psdao;
 
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.RowMapper;
 import sk.upjs.paz.dao.TermDao;
 import sk.upjs.paz.model.Term;
 
@@ -15,19 +14,6 @@ public class PostgresTermDao implements TermDao {
         this.jdbc = jdbc;
     }
 
-    private RowMapper<Term> termRowMapper() {
-        return (rs, rowNum) -> new Term(
-                rs.getLong("id_terms"),
-                rs.getString("type"),
-                rs.getDate("date").toLocalDate(),
-                rs.getTime("start_time").toLocalTime(),
-                rs.getTime("end_time").toLocalTime(),
-                rs.getString("address"),
-                rs.getInt("capacity"),
-                rs.getLong("okres")
-        );
-    }
-
     @Override
     public List<Term> getAll() {
         System.out.println(">>> PostgresTermDao.getAll()");
@@ -36,7 +22,18 @@ public class PostgresTermDao implements TermDao {
         FROM cn.terms
         ORDER BY date, start_time
     """;
-        var list = jdbc.query(sql, termRowMapper());
+        var list = jdbc.query(sql, (rs, rowNum) ->
+                new Term(
+                        rs.getLong("id_terms"),
+                        rs.getString("type"),
+                        rs.getObject("date", java.time.LocalDate.class),
+                        rs.getObject("start_time", java.time.LocalTime.class),
+                        rs.getObject("end_time", java.time.LocalTime.class),
+                        rs.getString("address"),
+                        rs.getInt("capacity"),
+                        rs.getLong("okres")
+                )
+        );
         System.out.println(">>> DAO terms count = " + list.size());
         return list;
     }
@@ -49,61 +46,14 @@ public class PostgresTermDao implements TermDao {
     }
 
     @Override
-    public void create(Term term) {
+    public void insert(Term term) {
 
-        String sql = """
-            INSERT INTO cn.terms (
-                type,
-                date,
-                start_time,
-                end_time,
-                address,
-                capacity,
-                okres
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """;
-
-        jdbc.update(
-                sql,
-                term.getType(),
-                term.getDate(),
-                term.getStartTime(),
-                term.getEndTime(),
-                term.getAddress(),
-                term.getCapacity(),
-                term.getDistrictId()
-        );
     }
 
     @Override
     public void update(Term term) {
 
-        String sql = """
-        UPDATE cn.terms
-        SET type = ?,
-            date = ?,
-            start_time = ?,
-            end_time = ?,
-            address = ?,
-            capacity = ?,
-            okres = ?
-        WHERE id_terms = ?
-    """;
-
-        jdbc.update(
-                sql,
-                term.getType(),
-                term.getDate(),
-                term.getStartTime(),
-                term.getEndTime(),
-                term.getAddress(),
-                term.getCapacity(),
-                term.getDistrictId(),
-                term.getIdTerms()
-        );
     }
-
 
     @Override
     public void delete(long id) {
@@ -112,63 +62,11 @@ public class PostgresTermDao implements TermDao {
 
     @Override
     public List<Term> getByDistrict(long districtId) {
-
-        String sql = """
-        SELECT
-            t.id_terms, t.type, t.date, t.start_time, t.end_time,
-            t.address, t.capacity, t.okres
-        FROM cn.terms t
-        WHERE t.okres = ?
-          AND t.status <> 'canceled'
-        ORDER BY t.date, t.start_time
-    """;
-
-        return jdbc.query(sql, termRowMapper(), districtId);
+        return List.of();
     }
-
 
     @Override
     public List<Term> getByDate(LocalDate date) {
         return List.of();
     }
-
-    @Override
-    public List<Term> findVisibleForUser(long userId, long districtId, LocalDate today) {
-
-        String sql = """
-        SELECT
-               t.id_terms,
-               t.type,
-               t.date,
-               t.start_time,
-               t.end_time,
-               t.address,
-               t.capacity,
-               t.okres
-        FROM cn.terms t
-        WHERE t.okres = ?
-          AND (
-                t.date >= ?
-                OR EXISTS (
-                    SELECT 1
-                    FROM cn.schedule s
-                    WHERE s.id_terms = t.id_terms
-                      AND s.id_user = ?
-                      AND s.status_of_application <> 'cancelled'
-                )
-              )
-        ORDER BY t.date, t.start_time
-    """;
-
-        return jdbc.query(
-                sql,
-                termRowMapper(),
-                districtId,
-                today,
-                userId
-        );
-    }
-
-
-
 }

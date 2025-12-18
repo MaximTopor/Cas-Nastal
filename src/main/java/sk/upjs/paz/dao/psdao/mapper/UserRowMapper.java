@@ -25,7 +25,7 @@ public class UserRowMapper implements RowMapper<User> {
                 rs.getString("adresa"),
 
                 rs.getInt("role_id"),
-                rs.getLong("district_id"),
+                rs.getLong("distrikt_id"),
 
                 rs.getObject("created_at", LocalDateTime.class),
                 rs.getObject("update_at", LocalDateTime.class)
