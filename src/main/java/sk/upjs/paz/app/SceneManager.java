@@ -5,12 +5,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sk.upjs.paz.controller.CreateTermController;
 import sk.upjs.paz.controller.UserController;
+import sk.upjs.paz.model.Term;
 import sk.upjs.paz.model.User;
 
 import java.net.URL;
 
 public class SceneManager {
+
+    private static Stage primaryStage;
+    private static User currentUser;
+    private static boolean darkTheme = true;
 
     /* ================= THEME ================= */
 
@@ -43,7 +49,6 @@ public class SceneManager {
     /* ================= STATE ================= */
 
     private static Stage activeStage;
-    private static User currentUser;
 
     public static void setStage(Stage stage) {
         activeStage = stage;
@@ -62,22 +67,24 @@ public class SceneManager {
         }
     }
 
+
+
     /* ================= SCENES ================= */
 
     public static void openLoginScene() {
-        switchTo("/views/login.fxml", "Login", "/window/Login.css");
+        switchTo("/views/login.fxml", "Cas nastal+", "/window/Login.css");
     }
 
     public static void openRegistrationWindow() {
-        switchTo("/views/Registration.fxml", "Registration", null);
+        switchTo("/views/registration.fxml", "Cas nastal+", null);
     }
 
     public static void openCreateTerm() {
-        switchTo("/views/CreateTerm.fxml", "Create Term", null);
+        switchTo("/views/createTerm.fxml", "Cas nastal+", null);
     }
 
     public static void openScheduleWindow() {
-        switchTo("/views/schedule.fxml", "Schedule", null);
+        switchTo("/views/schedule.fxml", "Cas nastal+", null);
     }
 
     public static void openUserScene(User user) {
@@ -98,7 +105,7 @@ public class SceneManager {
             applyStyles(scene, null);
 
             activeStage.setScene(scene);
-            activeStage.setTitle("User panel");
+            activeStage.setTitle("Cas nastal+");
             activeStage.setResizable(false);
             activeStage.centerOnScreen();
             activeStage.show();
@@ -111,7 +118,7 @@ public class SceneManager {
     public static void openMessageWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/Message.fxml")
+                    SceneManager.class.getResource("/views/message.fxml")
             );
             Parent root = loader.load();
 
@@ -177,4 +184,54 @@ public class SceneManager {
             scene.getStylesheets().add(windowUrl.toExternalForm());
         }
     }
+
+
+    public static void openEditTermWindow(Term term) {
+        openCreateEditTermWindow(term);
+    }
+
+    private static void openCreateEditTermWindow(Term term) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/views/createTerm.fxml")
+            );
+            Parent root = loader.load();
+
+            CreateTermController controller = loader.getController();
+            if (term != null) {
+                controller.setTermToEdit(term);
+            }
+
+            Scene scene = new Scene(root);
+            applyTheme(scene);
+
+            Stage stage = new Stage();
+            stage.setTitle(term == null ? "Create term" : "Edit term");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initOwner(primaryStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.centerOnScreen();
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot open create/edit term window", e);
+        }
+    }
+
+    private static void applyTheme(Scene scene) {
+        scene.getStylesheets().clear();
+
+        String css = darkTheme
+                ? "/css/theme-dark.css"
+                : "/css/theme-light.css";
+
+        var url = SceneManager.class.getResource(css);
+        if (url == null) {
+            throw new IllegalStateException("CSS not found: " + css);
+        }
+
+        scene.getStylesheets().add(url.toExternalForm());
+    }
+
 }

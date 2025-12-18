@@ -51,7 +51,9 @@ public class ScheduleController {
         createTermButton.setManaged(canManageTerms);
 
         // Load data ONCE
-        allTerms = scheduleService.getAllTerms();
+        allTerms = scheduleService.getVisibleTermsForUser(
+                SceneManager.getCurrentUser()
+        );
 
         // Filters
         myRegistrationsCheckBox.selectedProperty()
@@ -66,21 +68,7 @@ public class ScheduleController {
     private void applyFilters() {
         termsContainer.getChildren().clear();
 
-        long currentUserId = SceneManager.getCurrentUser().getIdUser();
-        LocalDate today = LocalDate.now();
-
         for (Term term : allTerms) {
-
-            if (myRegistrationsCheckBox.isSelected()
-                    && !scheduleService.isUserRegistered(currentUserId, term.getIdTerms())) {
-                continue;
-            }
-
-            if (activeRegistrationsCheckBox.isSelected()
-                    && term.getDate().isBefore(today)) {
-                continue;
-            }
-
             termsContainer.getChildren().add(createTermCard(term));
         }
     }
@@ -107,30 +95,63 @@ public class ScheduleController {
         );
 
         Label address = new Label(term.getAddress());
-        Label capacity = new Label("Kapacita: " + term.getCapacity());
+        Label capacity = new Label(
+                "Prihlásení: " + scheduleService.getRegisteredCount(term.getIdTerms()) + " / " + term.getCapacity()
+        );
+
+
+
+        Button registerButton = new Button();
+        if (isTermFull(term)) {
+            registerButton.setDisable(true);
+        } else if (!isTermFull(term) && registerButton.isDisable()) {
+            registerButton.setDisable(false);
+        }
+        registerButton.setUserData(term);
+        registerButton.setOnAction(this::toggleRegistration);
 
         long userId = SceneManager.getCurrentUser().getIdUser();
         boolean registered =
                 scheduleService.isUserRegistered(userId, term.getIdTerms());
 
-        Button registerButton = new Button(
-                registered ? "Odhlásiť sa" : "Zapísať sa"
-        );
-        registerButton.setUserData(term);
-        registerButton.setOnAction(this::toggleRegistration);
+        registerButton.setText(registered ? "Odhlásiť sa" : "Zapísať sa");
 
         VBox info = new VBox(5, date, address, capacity);
-        HBox content = new HBox(20, info, registerButton);
 
-        // 🗑 DELETE BUTTON (ADMIN / WORKER only)
+        /* ===== ACTION BUTTONS ===== */
+
+        HBox actions = new HBox(10);
+        actions.getChildren().add(registerButton);
+
         if (canManageTerms) {
+
+            /* ✏️ EDIT */
+            Button editButton = new Button("✏");
+            editButton.setOnAction(e -> {
+
+                // 🔒 UI-level zákaz editácie minulých termínov
+                if (term.getDate().isBefore(LocalDate.now())) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Upozornenie");
+                    alert.setHeaderText("Úprava nie je možná");
+                    alert.setContentText(
+                            "Tento termín je v minulosti a nie je možné ho upravovať."
+                    );
+                    alert.showAndWait();
+                    return;
+                }
+
+                SceneManager.openEditTermWindow(term);
+            });
+
+            /* 🗑 DELETE */
             Button deleteButton = new Button("🗑");
-            deleteButton.setStyle(
-                    "-fx-background-color: transparent; -fx-font-size: 14;"
-            );
             deleteButton.setOnAction(e -> deleteTerm(term));
-            content.getChildren().add(deleteButton);
+
+            actions.getChildren().addAll(editButton, deleteButton);
         }
+
+        HBox content = new HBox(20, info, actions);
 
         VBox card = new VBox(10, title, content);
         card.setStyle("-fx-border-color: black; -fx-border-width: 2;");
@@ -138,6 +159,7 @@ public class ScheduleController {
 
         return card;
     }
+
 
     @FXML
     private void toggleRegistration(ActionEvent event) {
@@ -156,6 +178,9 @@ public class ScheduleController {
             button.setText("Zapísať sa");
         }
 
+        allTerms = scheduleService.getVisibleTermsForUser(
+                SceneManager.getCurrentUser()
+        );
         applyFilters();
     }
 
@@ -169,11 +194,14 @@ public class ScheduleController {
         );
 
         if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-            scheduleService.deleteTerm(term.getIdTerms());
+            scheduleService.cancelTerm(term.getIdTerms());
             allTerms = scheduleService.getAllTerms();
             applyFilters();
         }
     }
 
+    public boolean isTermFull(Term term) {
+        return scheduleService.getRegisteredCount(term.getIdTerms()) >= term.getCapacity();
+    }
 
 }

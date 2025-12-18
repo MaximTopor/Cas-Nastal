@@ -16,13 +16,50 @@ public class PostgresDistrictDao implements DistrictDao {
 
     @Override
     public List<District> getAll() {
-        return List.of();
+
+        String sql = """
+            SELECT *
+            FROM cn.districts
+            ORDER BY name
+        """;
+
+        return jdbc.query(sql, (rs, rowNum) ->
+                new District(
+                        rs.getLong("id_district"),
+                        rs.getString("name"),
+                        rs.getString("address_of_center"),
+                        rs.getString("kontakt"),
+                        rs.getInt("psc"),
+                        rs.getObject("created_at", java.time.LocalDateTime.class),
+                        rs.getString("region")
+                )
+        );
     }
 
     @Override
     public District getById(long id) {
-        return null;
+
+        String sql = """
+        SELECT *
+        FROM cn.districts
+        WHERE id_district = ?
+    """;
+
+        return jdbc.queryForObject(
+                sql,
+                (rs, rowNum) -> new District(
+                        rs.getLong("id_district"),
+                        rs.getString("name"),
+                        rs.getString("address_of_center"),
+                        rs.getString("kontakt"),
+                        rs.getInt("psc"),
+                        rs.getObject("created_at", java.time.LocalDateTime.class),
+                        rs.getString("region")
+                ),
+                id
+        );
     }
+
 
     @Override
     public void insert(District district) {
