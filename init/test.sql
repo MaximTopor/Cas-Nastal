@@ -153,8 +153,8 @@ INSERT INTO cn.terms (
 ('Psychologické vyšetrenie', '2025-04-02', '08:30', '11:00', 'Psychologické centrum Košice, Južná trieda 15', 15, 1),
 ('Krvné testy', '2025-04-05', '07:00', '09:30', 'Laboratórium MedLab, Trieda SNP 12', 25, 1),
 ('Zdravotná administratíva', '2025-04-10', '13:00', '16:00', 'Úrad verejného zdravotníctva Košice', 20, 2),
-('Kurz prvej pomoci', '2025-05-03', '09:00', '15:00', 'Červený kríž Košice, Moyzesova 20', 30, 3),
-('Bezpečnostné školenie', '2025-05-15', '10:00', '14:00', 'Civilná ochrana Košice, Magnezitárska 5', 40, 1),
+('Kurz prvej pomoci', '2026-05-03', '09:00', '15:00', 'Červený kríž Košice, Moyzesova 20', 30, 3),
+('Bezpečnostné školenie', '2026-05-15', '10:00', '14:00', 'Civilná ochrana Košice, Magnezitárska 5', 40, 1),
 ('Opakovaná lekárska prehliadka', '2025-06-01', '08:00', '10:00', 'Poliklinika Košice, Trieda SNP 1', 30, 1);
 INSERT INTO cn.schedule (
     id_terms,
