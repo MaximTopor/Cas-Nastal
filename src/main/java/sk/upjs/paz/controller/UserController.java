@@ -1,8 +1,6 @@
 package sk.upjs.paz.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -22,10 +20,9 @@ public class UserController {
     @FXML private Label personalNumberLabel;
     @FXML private ImageView mainPhoto;
     @FXML private ToggleButton themeToggle;
-    private static User currentUser = SceneManager.getCurrentUser();
+    @FXML private Button StatusButton;
 
-    @FXML
-    private Button StatusButton;
+    private static User currentUser = SceneManager.getCurrentUser();
 
     @FXML
     private void toggleTheme() {
@@ -39,26 +36,11 @@ public class UserController {
     @FXML
     private void initialize() {
         themeToggle.setText(
-                SceneManager.isDarkTheme()
-                        ? "☀ Light"
-                        : "🌙 Dark"
+                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
         );
         applyRolePermissions();
     }
 
-    private void applyRolePermissions() {
-        int role = currentUser.getRoleId();
-
-        if (role == 3 || role == 2) {
-            StatusButton.setDisable(true);
-        }
-    }
-
-    @FXML
-    private void openStatusWindow()
-    {
-        SceneManager.openStatusWindow();
-    }
 
     @FXML
     private void openScheduleWindow() {

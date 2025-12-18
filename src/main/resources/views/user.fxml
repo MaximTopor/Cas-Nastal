@@ -11,9 +11,9 @@
             fx:controller="sk.upjs.paz.controller.UserController"
             styleClass="root-pane">
 
-    <!-- ================= TOP BAR ================= -->
-    <HBox spacing="16"
-          alignment="CENTER_LEFT"
+    <!-- TOP BAR -->
+    <HBox alignment="CENTER"
+          spacing="16"
           AnchorPane.topAnchor="0"
           AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0"
@@ -37,78 +37,70 @@
                 onAction="#openStatusWindow"
                 styleClass="primary-btn"/>
 
-        <Region HBox.hgrow="ALWAYS"/>
-
-        <!-- RIGHT -->
         <ToggleButton fx:id="themeToggle"
                       text="Theme"
                       onAction="#toggleTheme"
                       styleClass="theme-toggle"/>
 
+        <!-- SPACER -->
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <!-- RIGHT (поки пусто або профіль) -->
         <Button text="Logout"
                 onAction="#Logout"
-                styleClass="danger-btn"/>
+                styleClass="primary-btn"/>
+
     </HBox>
 
-    <!-- ================= CONTENT WRAPPER ================= -->
-    <VBox alignment="CENTER"
-          AnchorPane.topAnchor="90"
+    <!-- PASSPORT CARD -->
+    <VBox AnchorPane.topAnchor="120"
           AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0"
-          AnchorPane.bottomAnchor="0">
+          alignment="CENTER">
 
-        <!-- DIGITAL ID CARD -->
         <VBox prefWidth="420"
               spacing="18"
-              styleClass="id-card">
-
-            <padding>
-                <Insets top="24" right="24" bottom="24" left="24"/>
-            </padding>
+              styleClass="passport-card">
 
             <!-- HEADER -->
-            <HBox spacing="16" alignment="CENTER_LEFT">
-
+            <HBox spacing="14" alignment="CENTER_LEFT">
                 <ImageView fx:id="mainPhoto"
-                           fitWidth="96"
-                           fitHeight="120"
+                           fitWidth="110"
+                           fitHeight="140"
                            preserveRatio="true"
-                           styleClass="id-photo"/>
+                           styleClass="passport-photo"/>
 
-                <VBox spacing="4">
+                <VBox spacing="6">
                     <Label fx:id="nameLabel"
-                           styleClass="id-name"/>
+                           styleClass="passport-name"/>
                     <Label fx:id="surnameLabel"
-                           styleClass="id-surname"/>
+                           styleClass="passport-surname"/>
                 </VBox>
             </HBox>
 
-            <Separator styleClass="id-separator"/>
+            <Separator/>
 
             <!-- DATA -->
             <VBox spacing="12">
 
-                <HBox spacing="10" styleClass="id-row">
-                    <Label text="Date of birth: " styleClass="id-key"/>
-                    <Label fx:id="birthDateLabel" styleClass="id-value"/>
+                <HBox styleClass="data-row">
+                    <Label text="Date of birth: "/>
+                    <Label fx:id="birthDateLabel"/>
                 </HBox>
 
-                <HBox spacing="10" styleClass="id-row">
-                    <Label text="Phone: " styleClass="id-key"/>
-                    <Label fx:id="phoneLabel" styleClass="id-value"/>
+                <HBox styleClass="data-row">
+                    <Label text="Phone: "/>
+                    <Label fx:id="phoneLabel"/>
                 </HBox>
 
-                <HBox spacing="10" styleClass="id-row">
-                    <Label text="Address: " styleClass="id-key"/>
-                    <Label fx:id="addressLabel"
-                           wrapText="true"
-                           styleClass="id-value"/>
+                <HBox styleClass="data-row">
+                    <Label text="Address: "/>
+                    <Label fx:id="addressLabel" wrapText="true"/>
                 </HBox>
 
-                <HBox spacing="10" styleClass="id-row">
-                    <Label text="Personal No.: " styleClass="id-key"/>
-                    <Label fx:id="personalNumberLabel"
-                           styleClass="id-value"/>
+                <HBox styleClass="data-row">
+                    <Label text="Personal No.: "/>
+                    <Label fx:id="personalNumberLabel"/>
                 </HBox>
 
             </VBox>

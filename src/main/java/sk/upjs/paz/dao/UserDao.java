@@ -16,6 +16,7 @@ public interface UserDao {
 
     String getRoleName(long userId);
 
+    boolean hasRole(long userId, String role);
 
     boolean existsByEmail(String email);
 }
