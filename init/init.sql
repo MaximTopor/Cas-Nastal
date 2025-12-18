@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS status_history (
                                               changed_by BIGINT NOT NULL,
                                               changet_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                               reason TEXT NOT NULL,
-                                                is_current BOOLEAN NOT NULL,
+                                              is_current BOOLEAN NOT NULL,
 
                                               CONSTRAINT fk_history_status
                                               FOREIGN KEY (status_id)

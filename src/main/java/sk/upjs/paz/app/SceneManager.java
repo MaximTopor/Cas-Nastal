@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sk.upjs.paz.controller.EditUserController;
 import sk.upjs.paz.controller.UserController;
 import sk.upjs.paz.model.User;
 
@@ -134,8 +135,35 @@ public class SceneManager {
     }
 
     public static void openStatusWindow() {
-        switchTo("/views/status.fxml", "Status", null);
+        switchTo("/views/Status.fxml", "Status", null);
     }
+
+//    public static void openUserEditWindow(User user) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(
+//                    SceneManager.class.getResource("/views/EditUser.fxml")
+//            );
+//
+//            Parent root = loader.load();
+//
+//            EditUserController controller = loader.getController();
+//            controller.setUser(user); // ← ключовий момент
+//
+//            Scene scene = new Scene(root);
+//            applyTheme(scene);
+//
+//            Stage stage = new Stage();
+//            stage.setTitle("Edit user");
+//            stage.setScene(scene);
+//            stage.initOwner(acStage);
+//            stage.initModality(Modality.WINDOW_MODAL);
+//            stage.showAndWait();
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
 
     public static void openRegistrationWindow() {
         switchTo("/views/Registration.fxml", "Registration", null);

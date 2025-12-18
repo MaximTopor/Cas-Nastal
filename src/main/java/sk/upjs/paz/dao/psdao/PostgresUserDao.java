@@ -120,6 +120,7 @@ public class PostgresUserDao implements UserDao {
         String sql = """
         SELECT *
         FROM cn.users
+        WHERE distrikt_id = 2 AND role_id = 3
         ORDER BY surname, name
     """;
 
