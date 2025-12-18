@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sk.upjs.paz.controller.CreateTermController;
+import sk.upjs.paz.controller.EditUserController;
 import sk.upjs.paz.controller.UserController;
 import sk.upjs.paz.model.Term;
 import sk.upjs.paz.model.User;
@@ -13,6 +14,10 @@ import sk.upjs.paz.model.User;
 import java.net.URL;
 
 public class SceneManager {
+
+    private static Stage primaryStage;
+    private static User currentUser;
+    private static boolean darkTheme = true;
 
     /* ================= THEME ================= */
 
@@ -106,7 +111,6 @@ public class SceneManager {
     /* ================= STATE ================= */
 
     private static Stage activeStage;
-    private static User currentUser;
 
     public static void setStage(Stage stage) {
         activeStage = stage;
@@ -139,32 +143,31 @@ public class SceneManager {
         switchTo("/views/status.fxml", "Status", null);
     }
 
-//    public static void openUserEditWindow(User user) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(
-//                    SceneManager.class.getResource("/views/EditUser.fxml")
-//            );
-//
-//            Parent root = loader.load();
-//
-//            EditUserController controller = loader.getController();
-//            controller.setUser(user); // ← ключовий момент
-//
-//            Scene scene = new Scene(root);
-//            applyTheme(scene);
-//
-//            Stage stage = new Stage();
-//            stage.setTitle("Edit user");
-//            stage.setScene(scene);
-//            stage.initOwner(acStage);
-//            stage.initModality(Modality.WINDOW_MODAL);
-//            stage.showAndWait();
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public static void openUserEditWindow(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/views/EditUser.fxml")
+            );
 
+            Parent root = loader.load();
+
+            EditUserController controller = loader.getController();
+            controller.setUser(user); // ← ключовий момент
+
+            Scene scene = new Scene(root);
+            applyTheme(scene);
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit user");
+            stage.setScene(scene);
+          //  stage.initOwner(acStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void openRegistrationWindow() {
         switchTo("/views/Registration.fxml", "Registration", null);
@@ -196,7 +199,7 @@ public class SceneManager {
             applyStyles(scene, null);
 
             activeStage.setScene(scene);
-            activeStage.setTitle("User panel");
+            activeStage.setTitle("Cas nastal+");
             activeStage.setResizable(false);
             activeStage.centerOnScreen();
             activeStage.show();
@@ -209,7 +212,7 @@ public class SceneManager {
     public static void openMessageWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/Message.fxml")
+                    SceneManager.class.getResource("/views/message.fxml")
             );
             Parent root = loader.load();
 
@@ -288,7 +291,7 @@ public class SceneManager {
     }
 
     private static void openCreateEditTermWindow(Term term) {
-        /*try {
+        try {
             FXMLLoader loader = new FXMLLoader(
                     SceneManager.class.getResource("/views/createTerm.fxml")
             );
@@ -313,11 +316,11 @@ public class SceneManager {
 
         } catch (Exception e) {
             throw new RuntimeException("Cannot open create/edit term window", e);
-        }*/
+        }
     }
 
     private static void applyTheme(Scene scene) {
-        /*scene.getStylesheets().clear();
+        scene.getStylesheets().clear();
 
         String css = darkTheme
                 ? "/css/theme-dark.css"
@@ -328,6 +331,7 @@ public class SceneManager {
             throw new IllegalStateException("CSS not found: " + css);
         }
 
-        scene.getStylesheets().add(url.toExternalForm());*/
+        scene.getStylesheets().add(url.toExternalForm());
     }
+
 }

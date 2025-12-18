@@ -114,37 +114,17 @@ public class ScheduleController {
         boolean registered =
                 scheduleService.isUserRegistered(userId, term.getIdTerms());
 
-        registerButton.setText(registered ? "Odhlásiť sa" : "Zapísať sa");
+        Button registerButton = new Button(
+                registered ? "Odhlásiť sa" : "Zapísať sa"
+        );
+        registerButton.setUserData(term);
+        registerButton.setOnAction(this::toggleRegistration);
 
         VBox info = new VBox(5, date, address, capacity);
+        HBox content = new HBox(20, info, registerButton);
 
-        /* ===== ACTION BUTTONS ===== */
-
-        HBox actions = new HBox(10);
-        actions.getChildren().add(registerButton);
-
+        // 🗑 DELETE BUTTON (ADMIN / WORKER only)
         if (canManageTerms) {
-
-            /* ✏️ EDIT */
-            Button editButton = new Button("✏");
-            editButton.setOnAction(e -> {
-
-                // 🔒 UI-level zákaz editácie minulých termínov
-                if (term.getDate().isBefore(LocalDate.now())) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Upozornenie");
-                    alert.setHeaderText("Úprava nie je možná");
-                    alert.setContentText(
-                            "Tento termín je v minulosti a nie je možné ho upravovať."
-                    );
-                    alert.showAndWait();
-                    return;
-                }
-
-                SceneManager.openEditTermWindow(term);
-            });
-
-            /* 🗑 DELETE */
             Button deleteButton = new Button("🗑");
             deleteButton.setOnAction(e -> deleteTerm(term));
 
