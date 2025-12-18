@@ -22,6 +22,29 @@ public class PostgresUserDao implements UserDao {
     @Override
     public void insert(User user) {
 
+        String sql = """
+        INSERT INTO cn.users
+        (name, surname, email, phone_number,
+         password_hash, personal_number, date_of_birth,
+         address, role_id, district_id, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """;
+
+        jdbc.update(
+                sql,
+                user.getName(),
+                user.getSurname(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getPasswordHash(),
+                user.getPersonalNumber(),
+                user.getDateOfBirth(),
+                user.getAddress(),
+                user.getRoleId(),
+                user.getDistrictId(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()
+        );
     }
 
     @Override
@@ -53,7 +76,15 @@ public class PostgresUserDao implements UserDao {
 
     @Override
     public boolean existsByEmail(String email) {
-        return false;
+
+        String sql = """
+        SELECT COUNT(*)
+        FROM cn.users
+        WHERE email = ?
+    """;
+
+        Integer count = jdbc.queryForObject(sql, Integer.class, email);
+        return count != null && count > 0;
     }
 
     @Override

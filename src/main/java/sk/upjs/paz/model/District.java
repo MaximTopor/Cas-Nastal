@@ -1,5 +1,8 @@
 package sk.upjs.paz.model;
 
+import lombok.Getter;
+
+@Getter
 public class District {
     private long idDistrict;
     private String name;
