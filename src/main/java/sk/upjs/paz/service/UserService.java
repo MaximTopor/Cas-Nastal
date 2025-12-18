@@ -4,6 +4,8 @@ import sk.upjs.paz.dao.Factory;
 import sk.upjs.paz.dao.UserDao;
 import sk.upjs.paz.model.User;
 
+import java.util.List;
+
 public class UserService {
 
     private final UserDao userDao;
@@ -51,6 +53,10 @@ public class UserService {
     public boolean canManageTerms(long userId) {
         String role = getRoleName(userId);
         return "ADMIN".equals(role) || "WORKER".equals(role);
+    }
+
+    public List<User> getAllUsers() {
+        return userDao.getAll();
     }
 
     public User getUserById(long userId) {

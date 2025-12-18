@@ -16,10 +16,12 @@ public class CreateTermController {
 
     /* ================= MODE ================= */
 
-    private enum Mode {
-        CREATE,
-        EDIT
-    }
+public class CreateTermController
+{
+   public void BackToTerm()
+   {
+         SceneManager.openScheduleWindow();
+   }
 
     private Mode mode = Mode.CREATE;
     private Term editedTerm;

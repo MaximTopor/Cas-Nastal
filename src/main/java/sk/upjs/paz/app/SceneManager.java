@@ -106,7 +106,6 @@ public class SceneManager {
     /* ================= STATE ================= */
 
     private static Stage activeStage;
-    private static User currentUser;
 
     public static void setStage(Stage stage) {
         activeStage = stage;
@@ -139,43 +138,16 @@ public class SceneManager {
         switchTo("/views/status.fxml", "Status", null);
     }
 
-//    public static void openUserEditWindow(User user) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(
-//                    SceneManager.class.getResource("/views/EditUser.fxml")
-//            );
-//
-//            Parent root = loader.load();
-//
-//            EditUserController controller = loader.getController();
-//            controller.setUser(user); // ← ключовий момент
-//
-//            Scene scene = new Scene(root);
-//            applyTheme(scene);
-//
-//            Stage stage = new Stage();
-//            stage.setTitle("Edit user");
-//            stage.setScene(scene);
-//            stage.initOwner(acStage);
-//            stage.initModality(Modality.WINDOW_MODAL);
-//            stage.showAndWait();
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-
     public static void openRegistrationWindow() {
-        switchTo("/views/Registration.fxml", "Registration", null);
+        switchTo("/views/registration.fxml", "Cas nastal+", null);
     }
 
     public static void openCreateTerm() {
-        switchTo("/views/CreateTerm.fxml", "Create Term", null);
+        switchTo("/views/createTerm.fxml", "Cas nastal+", null);
     }
 
     public static void openScheduleWindow() {
-        switchTo("/views/schedule.fxml", "Schedule", null);
+        switchTo("/views/schedule.fxml", "Cas nastal+", null);
     }
 
     public static void openUserScene(User user) {
@@ -196,7 +168,7 @@ public class SceneManager {
             applyStyles(scene, null);
 
             activeStage.setScene(scene);
-            activeStage.setTitle("User panel");
+            activeStage.setTitle("Cas nastal+");
             activeStage.setResizable(false);
             activeStage.centerOnScreen();
             activeStage.show();
@@ -209,7 +181,7 @@ public class SceneManager {
     public static void openMessageWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/Message.fxml")
+                    SceneManager.class.getResource("/views/message.fxml")
             );
             Parent root = loader.load();
 
@@ -235,8 +207,6 @@ public class SceneManager {
             throw new RuntimeException("Cannot open message window", e);
         }
     }
-
-
 
     /* ================= CORE ================= */
 

@@ -48,7 +48,6 @@ public class StatusController
             return;
         }
 
-        //SceneManager.openUserEditWindow(selectedUser);
 
     }
 
