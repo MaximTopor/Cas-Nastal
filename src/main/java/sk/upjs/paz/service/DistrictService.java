@@ -8,8 +8,7 @@ import java.util.List;
 
 public class DistrictService {
 
-    private final DistrictDao districtDao =
-            Factory.INSTANCE.getDistrictDao();
+    private final DistrictDao districtDao = Factory.INSTANCE.getDistrictDao();
 
     public List<District> getAllDistricts() {
         return districtDao.getAll();

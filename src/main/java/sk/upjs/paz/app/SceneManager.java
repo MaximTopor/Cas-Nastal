@@ -67,8 +67,6 @@ public class SceneManager {
         }
     }
 
-
-
     /* ================= SCENES ================= */
 
     public static void openLoginScene() {
