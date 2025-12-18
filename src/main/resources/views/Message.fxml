@@ -45,19 +45,6 @@
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
 
-                <!-- ===== PRÍKLAD SPRÁVY (runtime sa generuje z Controlleru) ===== -->
-                <VBox spacing="6"
-                      styleClass="data-row">
-
-                    <Label text="20.03.2025"
-                           styleClass="passport-sub"/>
-
-                    <Label text="Prosíme všetkých používateľov, aby si skontrolovali svoje termíny a prišli aspoň 10 minút vopred."
-                           wrapText="true"
-                           styleClass="passport-name"/>
-                </VBox>
-                <!-- ============================================================ -->
-
             </VBox>
         </content>
     </ScrollPane>

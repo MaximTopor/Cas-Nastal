@@ -86,7 +86,13 @@ public class PostgresUserDao implements UserDao {
 
     @Override
     public List<User> getAll() {
-        return List.of();
+        String sql = """
+        SELECT *
+        FROM cn.users
+        ORDER BY surname, name
+    """;
+
+        return jdbc.query(sql, userRowMapper);
     }
 
     @Override

@@ -55,7 +55,7 @@
 
             <Button text="Back"
                     prefWidth="160"
-                    onAction="#BackToPtofile"/>
+                    onAction="#BackToTerm"/>
         </VBox>
     </bottom>
 

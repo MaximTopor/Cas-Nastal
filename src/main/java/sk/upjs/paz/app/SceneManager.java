@@ -18,13 +18,74 @@ public class SceneManager {
         LIGHT, DARK
     }
 
-    private static Theme currentTheme = Theme.LIGHT;
+    private static Theme currentTheme = detectSystemTheme();
 
     private static String themeCss() {
         return currentTheme == Theme.DARK
-                ? "/css/theme-dark.css"
-                : "/css/theme-light.css";
+                ? "/css/user-dark.css"
+                : "/css/user-light.css";
     }
+
+    private static Theme detectSystemTheme() {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        try {
+            // ===== WINDOWS =====
+            if (os.contains("win")) {
+                Process process = new ProcessBuilder(
+                        "reg",
+                        "query",
+                        "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+                        "/v",
+                        "AppsUseLightTheme"
+                ).start();
+
+                try (var reader = new java.io.BufferedReader(
+                        new java.io.InputStreamReader(process.getInputStream())
+                )) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        if (line.contains("AppsUseLightTheme")) {
+                            return line.trim().endsWith("0x0")
+                                    ? Theme.DARK
+                                    : Theme.LIGHT;
+                        }
+                    }
+                }
+            }
+
+            // ===== macOS =====
+            if (os.contains("mac")) {
+                Process process = new ProcessBuilder(
+                        "defaults",
+                        "read",
+                        "-g",
+                        "AppleInterfaceStyle"
+                ).start();
+
+                try (var reader = new java.io.BufferedReader(
+                        new java.io.InputStreamReader(process.getInputStream())
+                )) {
+                    String result = reader.readLine();
+                    if (result != null && result.equalsIgnoreCase("Dark")) {
+                        return Theme.DARK;
+                    }
+                }
+            }
+
+        } catch (Exception ignored) {
+            // fallback нижче
+        }
+
+        // ===== FALLBACK =====
+        return Theme.LIGHT;
+    }
+
+
+    public static boolean isDarkTheme() {
+        return currentTheme == Theme.DARK;
+    }
+
 
     public static void toggleTheme(Scene scene) {
         currentTheme = (currentTheme == Theme.DARK)
@@ -65,7 +126,15 @@ public class SceneManager {
     /* ================= SCENES ================= */
 
     public static void openLoginScene() {
-        switchTo("/views/login.fxml", "Login", "/window/Login.css");
+        String css = isDarkTheme()
+                ? "/css/login-dark.css"
+                : "/css/login-light.css";
+
+        switchTo("/views/login.fxml", "Login", css);
+    }
+
+    public static void openStatusWindow() {
+        switchTo("/views/status.fxml", "Status", null);
     }
 
     public static void openRegistrationWindow() {
@@ -115,10 +184,15 @@ public class SceneManager {
             );
             Parent root = loader.load();
 
-            Scene scene = new Scene(root);
-            scene.getRoot().getProperties().put("windowCss", null);
+            // 🔥 вибір теми
+            String messageCss = isDarkTheme()
+                    ? "/css/message-dark.css"
+                    : "/css/message-light.css";
 
-            applyStyles(scene, null);
+            Scene scene = new Scene(root);
+            scene.getRoot().getProperties().put("windowCss", messageCss);
+
+            applyStyles(scene, messageCss);
 
             Stage stage = new Stage();
             stage.setTitle("Messages");
@@ -132,6 +206,8 @@ public class SceneManager {
             throw new RuntimeException("Cannot open message window", e);
         }
     }
+
+
 
     /* ================= CORE ================= */
 

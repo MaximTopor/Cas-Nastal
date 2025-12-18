@@ -4,7 +4,7 @@ import sk.upjs.paz.app.SceneManager;
 
 public class CreateTermController
 {
-   public void BackToPtofile()
+   public void BackToTerm()
    {
          SceneManager.openScheduleWindow();
    }
