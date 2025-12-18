@@ -180,4 +180,5 @@ public class CreateTermController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

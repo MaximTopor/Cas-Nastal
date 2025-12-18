@@ -36,38 +36,11 @@ public class UserController {
     @FXML
     private void initialize() {
         themeToggle.setText(
-                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
-        );
-        applyRolePermissions();
-    }
-
-        themeToggle.setText(
-                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
-        );
-    }
-
-    @FXML
-    private void initialize() {
-        themeToggle.setText(
                 SceneManager.isDarkTheme()
                         ? "☀ Light"
                         : "🌙 Dark"
         );
         applyRolePermissions();
-    }
-
-    private void applyRolePermissions() {
-        int role = currentUser.getRoleId();
-
-        if (role == 3 || role == 2) {
-            StatusButton.setDisable(true);
-        }
-    }
-
-    @FXML
-    private void openStatusWindow()
-    {
-        SceneManager.openStatusWindow();
     }
 
     @FXML

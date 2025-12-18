@@ -62,7 +62,8 @@
             </padding>
 
             <Button text="Create"
-                    prefWidth="160"/>
+                    prefWidth="160"
+                    onAction="#createAccount"/>
 
             <Button text="Back to login"
                     prefWidth="160"

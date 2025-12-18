@@ -8,13 +8,13 @@ SET search_path TO cn;
 CREATE TABLE IF NOT EXISTS districts (
                                          id_district BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                                          name VARCHAR(50) NOT NULL,
-    adres_of_centr VARCHAR(150) NOT NULL,
+    address_of_center VARCHAR(150) NOT NULL,
     kontakt VARCHAR(100) NOT NULL,
     psc INTEGER NOT NULL,
     created_at TIMESTAMP NOT NULL,
     region VARCHAR(100) NOT NULL,
     CONSTRAINT districts_name_unique UNIQUE(name),
-    CONSTRAINT districts_adres_unique UNIQUE(adres_of_centr),
+    CONSTRAINT districts_adres_unique UNIQUE(address_of_center),
     CONSTRAINT districts_psc_unique UNIQUE(psc)
     );
 
@@ -43,13 +43,13 @@ CREATE TABLE IF NOT EXISTS users (
     rodne_cislo VARCHAR(12) NOT NULL,
     date_of_birth DATE NOT NULL,
     adresa VARCHAR(100) NOT NULL,
-    distrikt_id BIGINT NOT NULL,
+    district_id BIGINT NOT NULL,
     created_at TIMESTAMP NOT NULL,
     update_at TIMESTAMP,
     CONSTRAINT users_email_unique UNIQUE(email),
     CONSTRAINT users_rc_unique UNIQUE(rodne_cislo),
     CONSTRAINT fk_user_district
-    FOREIGN KEY (distrikt_id)
+    FOREIGN KEY (district_id)
     REFERENCES districts (id_district)
     ON DELETE CASCADE,
     CONSTRAINT fk_user_role
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS users (
     REFERENCES roles (id_roles)
     );
 
-CREATE INDEX idx_user_district ON users(distrikt_id);
+CREATE INDEX idx_user_district ON users(district_id);
 CREATE INDEX idx_user_role ON users(role_id);
 
 -----------------------------------------------------

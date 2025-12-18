@@ -16,5 +16,6 @@ public interface ScheduleDao {
     void delete(long userId, long termId);
     boolean exists(long userId, long termId);
 
-    void deleteTerm(long termId);
+    void cancelTerm(long termId);
+
 }

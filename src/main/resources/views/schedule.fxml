@@ -87,8 +87,8 @@
                         </VBox>
 
                         <Button fx:id="registerButton"
-                                 text="Zapísať sa"
-                                 onAction="#toggleRegistration"/>
+                                text="Zapísať sa"
+                                onAction="#toggleRegistration"/>
                     </HBox>
                 </VBox>
 

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sk.upjs.paz.controller.CreateTermController;
+import sk.upjs.paz.controller.EditUserController;
 import sk.upjs.paz.controller.UserController;
 import sk.upjs.paz.model.Term;
 import sk.upjs.paz.model.User;
@@ -110,7 +111,6 @@ public class SceneManager {
     /* ================= STATE ================= */
 
     private static Stage activeStage;
-    private static User currentUser;
 
     public static void setStage(Stage stage) {
         activeStage = stage;
@@ -143,32 +143,31 @@ public class SceneManager {
         switchTo("/views/status.fxml", "Status", null);
     }
 
-//    public static void openUserEditWindow(User user) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(
-//                    SceneManager.class.getResource("/views/EditUser.fxml")
-//            );
-//
-//            Parent root = loader.load();
-//
-//            EditUserController controller = loader.getController();
-//            controller.setUser(user); // ← ключовий момент
-//
-//            Scene scene = new Scene(root);
-//            applyTheme(scene);
-//
-//            Stage stage = new Stage();
-//            stage.setTitle("Edit user");
-//            stage.setScene(scene);
-//            stage.initOwner(acStage);
-//            stage.initModality(Modality.WINDOW_MODAL);
-//            stage.showAndWait();
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public static void openUserEditWindow(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/views/EditUser.fxml")
+            );
 
+            Parent root = loader.load();
+
+            EditUserController controller = loader.getController();
+            controller.setUser(user); // ← ключовий момент
+
+            Scene scene = new Scene(root);
+            applyTheme(scene);
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit user");
+            stage.setScene(scene);
+          //  stage.initOwner(acStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void openRegistrationWindow() {
         switchTo("/views/Registration.fxml", "Registration", null);
