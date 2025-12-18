@@ -75,6 +75,27 @@ public class PostgresUserDao implements UserDao {
     }
 
     @Override
+    public boolean hasRole(long userId, String role) {
+
+        String sql = """
+        SELECT COUNT(*)
+        FROM cn.users u
+        JOIN cn.roles r ON r.id_roles = u.role_id
+        WHERE u.id_user = ?
+          AND r.name_of_role = ?
+    """;
+
+        Integer count = jdbc.queryForObject(
+                sql,
+                Integer.class,
+                userId,
+                role
+        );
+
+        return count != null && count > 0;
+    }
+
+    @Override
     public boolean existsByEmail(String email) {
 
         String sql = """
@@ -120,7 +141,7 @@ public class PostgresUserDao implements UserDao {
         String sql = """
         SELECT *
         FROM cn.users
-        WHERE distrikt_id = 2 AND role_id = 3
+        WHERE district_id = 2 AND role_id = 3
         ORDER BY surname, name
     """;
 

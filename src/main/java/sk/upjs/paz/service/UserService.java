@@ -62,4 +62,8 @@ public class UserService {
     public User getUserById(long userId) {
         return userDao.getById(userId);
     }
+
+    public java.util.List<User> getAllUsers() {
+        return userDao.getAll();
+    }
 }

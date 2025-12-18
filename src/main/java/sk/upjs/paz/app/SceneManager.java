@@ -5,13 +5,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sk.upjs.paz.controller.EditUserController;
+import sk.upjs.paz.controller.CreateTermController;
 import sk.upjs.paz.controller.UserController;
+import sk.upjs.paz.model.Term;
 import sk.upjs.paz.model.User;
 
 import java.net.URL;
 
 public class SceneManager {
+
+    private static Stage primaryStage;
+    private static User currentUser;
+    private static boolean darkTheme = true;
 
     /* ================= THEME ================= */
 
@@ -135,7 +140,7 @@ public class SceneManager {
     }
 
     public static void openStatusWindow() {
-        switchTo("/views/Status.fxml", "Status", null);
+        switchTo("/views/status.fxml", "Status", null);
     }
 
 //    public static void openUserEditWindow(User user) {
@@ -195,7 +200,7 @@ public class SceneManager {
             applyStyles(scene, null);
 
             activeStage.setScene(scene);
-            activeStage.setTitle("User panel");
+            activeStage.setTitle("Cas nastal+");
             activeStage.setResizable(false);
             activeStage.centerOnScreen();
             activeStage.show();
@@ -208,7 +213,7 @@ public class SceneManager {
     public static void openMessageWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/Message.fxml")
+                    SceneManager.class.getResource("/views/message.fxml")
             );
             Parent root = loader.load();
 
@@ -234,8 +239,6 @@ public class SceneManager {
             throw new RuntimeException("Cannot open message window", e);
         }
     }
-
-
 
     /* ================= CORE ================= */
 
@@ -281,4 +284,54 @@ public class SceneManager {
             scene.getStylesheets().add(windowUrl.toExternalForm());
         }
     }
+
+
+    public static void openEditTermWindow(Term term) {
+        openCreateEditTermWindow(term);
+    }
+
+    private static void openCreateEditTermWindow(Term term) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/views/createTerm.fxml")
+            );
+            Parent root = loader.load();
+
+            CreateTermController controller = loader.getController();
+            if (term != null) {
+                controller.setTermToEdit(term);
+            }
+
+            Scene scene = new Scene(root);
+            applyTheme(scene);
+
+            Stage stage = new Stage();
+            stage.setTitle(term == null ? "Create term" : "Edit term");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initOwner(primaryStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.centerOnScreen();
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot open create/edit term window", e);
+        }
+    }
+
+    private static void applyTheme(Scene scene) {
+        scene.getStylesheets().clear();
+
+        String css = darkTheme
+                ? "/css/theme-dark.css"
+                : "/css/theme-light.css";
+
+        var url = SceneManager.class.getResource(css);
+        if (url == null) {
+            throw new IllegalStateException("CSS not found: " + css);
+        }
+
+        scene.getStylesheets().add(url.toExternalForm());
+    }
+
 }

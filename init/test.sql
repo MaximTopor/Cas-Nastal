@@ -22,7 +22,7 @@ INSERT INTO cn.roles (
 -- =========================
 INSERT INTO cn.districts (
     name,
-    adres_of_centr,
+    address_of_center,
     kontakt,
     psc,
     created_at,
@@ -46,7 +46,7 @@ INSERT INTO cn.users (
     rodne_cislo,
     date_of_birth,
     adresa,
-    distrikt_id,
+    district_id,
     created_at,
     update_at
 ) VALUES
@@ -117,7 +117,7 @@ INSERT INTO cn.terms (
     capacity,
     okres
 ) VALUES ('Lekárska prehliadka',
-          '2025-03-20',
+          '2025-12-11',
           '08:00',
           '10:00',
           'Poliklinika Košice, Trieda SNP 1',
@@ -131,7 +131,7 @@ INSERT INTO cn.terms (
           '12:00',
           'Zdravotné stredisko Terasa, Košice',
           50,
-          2),
+          1),
 
 -- 3
          ('Administratívne vybavenie',
@@ -149,6 +149,21 @@ INSERT INTO cn.terms (
           '14:00',
           'Kultúrne centrum Nad jazerom',
           40,
-          3);
+          1),
+('Psychologické vyšetrenie', '2025-04-02', '08:30', '11:00', 'Psychologické centrum Košice, Južná trieda 15', 15, 1),
+('Krvné testy', '2025-04-05', '07:00', '09:30', 'Laboratórium MedLab, Trieda SNP 12', 25, 1),
+('Zdravotná administratíva', '2025-04-10', '13:00', '16:00', 'Úrad verejného zdravotníctva Košice', 20, 2),
+('Kurz prvej pomoci', '2026-05-03', '09:00', '15:00', 'Červený kríž Košice, Moyzesova 20', 30, 3),
+('Bezpečnostné školenie', '2026-05-15', '10:00', '14:00', 'Civilná ochrana Košice, Magnezitárska 5', 40, 1),
+('Opakovaná lekárska prehliadka', '2025-06-01', '08:00', '10:00', 'Poliklinika Košice, Trieda SNP 1', 30, 1);
+INSERT INTO cn.schedule (
+    id_terms,
+    id_user,
+    status_of_application
+) VALUES
+      (1, 2, 'pending'),
+      (2, 2, 'end'),
+      (4, 3, 'pending'),
+      (3, 2, 'cancelled');
 
 COMMIT;

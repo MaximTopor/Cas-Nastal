@@ -44,6 +44,8 @@
                       text="Theme"
                       onAction="#toggleTheme"
                       styleClass="theme-toggle"/>
+<!--                      onAction="#toggleTheme"-->
+<!--                      styleClass="theme-toggle"/>-->
 
         <Button text="Logout"
                 onAction="#Logout"
