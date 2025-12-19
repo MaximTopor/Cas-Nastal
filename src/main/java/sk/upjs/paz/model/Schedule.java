@@ -10,8 +10,4 @@ public class Schedule {
     private String statusOfApplication; // ENUM
     private long userId;
     private long termsId;
-
-
-
-
 }
