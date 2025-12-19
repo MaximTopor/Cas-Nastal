@@ -36,12 +36,11 @@ public class UserController {
     @FXML
     private void initialize() {
         themeToggle.setText(
-                SceneManager.isDarkTheme()
-                        ? "☀ Light"
-                        : "🌙 Dark"
+                SceneManager.isDarkTheme() ? "☀ Light" : "🌙 Dark"
         );
         applyRolePermissions();
     }
+
 
     @FXML
     private void openScheduleWindow() {

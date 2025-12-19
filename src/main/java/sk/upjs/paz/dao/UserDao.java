@@ -19,4 +19,7 @@ public interface UserDao {
     boolean hasRole(long userId, String role);
 
     boolean existsByEmail(String email);
+
+    boolean existsByPersonalNumber(String personalNumber);
+
 }

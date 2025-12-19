@@ -18,4 +18,9 @@ public class RegisterService {
     public String hashPassword(String password) {
         return password; // тимчасово
     }
+
+    public boolean personalNumberExists(String rc) {return userDao.existsByPersonalNumber(rc);
+    }
+
+
 }

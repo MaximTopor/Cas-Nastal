@@ -10,8 +10,6 @@ import sk.upjs.paz.service.RegisterService;
 
 public class RegisterController {
 
-    private static final int DEFAULT_ROLE_ID = 2; // USER
-
     private final RegisterService registerService = new RegisterService();
     private final DistrictService districtService = new DistrictService();
 
@@ -30,9 +28,23 @@ public class RegisterController {
 
     @FXML
     private void initialize() {
+
         regionComboBox.getItems().setAll(
                 districtService.getAllDistricts()
         );
+
+        birthDatePicker.setEditable(false);
+
+        birthDatePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(java.time.LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+                if (empty || date.isAfter(java.time.LocalDate.now())) {
+                    setDisable(true);
+                }
+            }
+        });
     }
 
     @FXML
@@ -41,6 +53,9 @@ public class RegisterController {
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirm = confirmPasswordField.getText();
+        String name = nameField.getText();
+        String surname = surnameField.getText();
+        String phone = phoneField.getText();
 
         if (email.isBlank() || password.isBlank()) {
             showAlert("Email and password are required");
@@ -49,6 +64,26 @@ public class RegisterController {
 
         if (!password.equals(confirm)) {
             showAlert("Passwords do not match");
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            showAlert("Email format is not valid");
+            return;
+        }
+
+        if (containsDigit(name) || containsDigit(surname)) {
+            showAlert("Name and surname must not contain digits");
+            return;
+        }
+
+        if (birthDatePicker.getValue() == null) {
+            showAlert("Please select date of birth");
+            return;
+        }
+
+        if (!isValidPhone(phone)) {
+            showAlert("Phone number must contain exactly 10 digits");
             return;
         }
 
@@ -63,26 +98,57 @@ public class RegisterController {
             return;
         }
 
+        String rc = personalNumberField.getText();
+
+        if (registerService.personalNumberExists(rc)) {
+            showAlert("User with this personal number already exists");
+            return;
+        }
+
+        rc = personalNumberField.getText();
+
+        if (!isValidPersonalNumber(rc)) {
+            showAlert("Personal number is not valid");
+            return;
+        }
+
+        // 8️⃣ створення користувача
         User user = new User(
-                nameField.getText(),
-                surnameField.getText(),
+                name,
+                surname,
                 email,
                 registerService.hashPassword(password),
                 birthDatePicker.getValue(),
                 selectedDistrict.getIdDistrict(),
                 addressField.getText(),
-                phoneField.getText(),
+                phone,
                 personalNumberField.getText()
-
         );
 
         registerService.register(user);
         SceneManager.openLoginScene();
     }
 
+
     @FXML
     private void StepBackToLogin() {
         SceneManager.openLoginScene();
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    }
+
+    private boolean containsDigit(String text) {
+        return text.matches(".*\\d.*");
+    }
+
+    private boolean isValidPhone(String phone) {
+        return phone.matches("\\d{10}");
+    }
+
+    private boolean isValidPersonalNumber(String rc) {
+        return rc != null && rc.matches("^\\d{6}/\\d{3,4}$");
     }
 
     private void showAlert(String msg) {
