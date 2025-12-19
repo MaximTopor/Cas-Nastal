@@ -16,10 +16,7 @@ public class ScheduleService {
     private final ScheduleDao scheduleDao = Factory.INSTANCE.getScheduleDao();
     private final UserDao userDao = Factory.INSTANCE.getUserDao();
 
-    public List<Term> getAllTerms() {
-        System.out.println(">>> ScheduleService.getAllTerms()");
-        return termDao.getAll();
-    }
+    /* ================= BASIC OPERATIONS ================= */
 
     public void register(long userId, long termId) {
         scheduleDao.insert(userId, termId);
@@ -33,33 +30,62 @@ public class ScheduleService {
         return scheduleDao.exists(userId, termId);
     }
 
-    public void cancelTerm(long termId) {
-        scheduleDao.cancelTerm(termId);
-    }
-
-    public List<Term> getVisibleTermsForUser(User user) {
-
-    long districtId = user.getDistrictId();
-    LocalDate today = LocalDate.now();
-
-    // ADMIN / OFFICER
-
-    if (userDao.hasRole(user.getIdUser(),"OFFICER")) {
-        return termDao.getByDistrict(districtId);
-    }
-    if (userDao.hasRole(user.getIdUser(),"ADMIN")){
-        return termDao.getAll();
-    }
-
-    // BEŽNÝ USER
-    return termDao.findVisibleForUser(
-            user.getIdUser(),
-            districtId,
-            today
-    );
-}
     public int getRegisteredCount(long termId) {
         return scheduleDao.getByTerm(termId).size();
     }
 
+    public boolean hasRole(long userId, String role) {
+        return userDao.hasRole(userId, role);
+    }
+
+    public boolean isTermFull(Term term) {
+        return getRegisteredCount(term.getIdTerms()) >= term.getCapacity();
+    }
+
+    public void cancelTerm(long termId) {
+        scheduleDao.cancelTerm(termId);
+    }
+
+    public List<Term> getAllTerms(){
+        return termDao.getAll();
+    }
+
+    /* ================= VISIBILITY ================= */
+
+    public List<Term> getVisibleTermsForUser(User user) {
+
+        long districtId = user.getDistrictId();
+        LocalDate today = LocalDate.now();
+
+        if (userDao.hasRole(user.getIdUser(), "ADMIN")) {
+            return termDao.getAll();
+        }
+
+        if (userDao.hasRole(user.getIdUser(), "OFFICER")) {
+            return termDao.getByDistrict(districtId);
+        }
+
+        return termDao.findVisibleForUser(
+                user.getIdUser(),
+                districtId,
+                today
+        );
+    }
+
+    /* ================= FILTERING ================= */
+
+    public List<Term> filterTerms(
+            User user,
+            boolean onlyMy,
+            boolean onlyActive
+    ) {
+        List<Term> terms = getVisibleTermsForUser(user);
+        LocalDate today = LocalDate.now();
+        long userId = user.getIdUser();
+
+        return terms.stream()
+                .filter(t -> !onlyActive || !t.getDate().isBefore(today))
+                .filter(t -> !onlyMy || isUserRegistered(userId, t.getIdTerms()))
+                .toList();
+    }
 }

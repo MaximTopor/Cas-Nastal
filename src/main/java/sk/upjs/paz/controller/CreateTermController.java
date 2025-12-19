@@ -49,6 +49,8 @@ public class CreateTermController {
                 districtService.getAllDistricts()
         );
 
+        datePicker.setEditable(false);
+
         titleLabel.setText("Create term");
         createButton.setText("Create");
     }
@@ -116,6 +118,7 @@ public class CreateTermController {
 
     @FXML
     private void backToSchedule() {
+        closeWindow();
         SceneManager.openScheduleWindow();
     }
 

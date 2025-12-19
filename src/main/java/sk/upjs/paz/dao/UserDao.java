@@ -14,12 +14,10 @@ public interface UserDao {
     void update(User user);
     void delete(long id);
 
-    String getRoleName(long userId);
-
-    boolean hasRole(long userId, String role);
-
-    boolean existsByEmail(String email);
-
     boolean existsByPersonalNumber(String personalNumber);
 
+    String getRoleName(long userId);
+    User getByPersonalNumber(String personalNumber);
+    boolean hasRole(long userId, String role);
+    boolean existsByEmail(String email);
 }

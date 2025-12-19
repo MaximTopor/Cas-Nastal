@@ -34,7 +34,7 @@ public class PostgresTermDao implements TermDao {
         String sql = """
         SELECT *
         FROM cn.terms
-        ORDER BY date, start_time
+        ORDER BY date DESC, start_time
     """;
         var list = jdbc.query(sql, termRowMapper());
         System.out.println(">>> DAO terms count = " + list.size());
@@ -120,7 +120,7 @@ public class PostgresTermDao implements TermDao {
         FROM cn.terms t
         WHERE t.okres = ?
           AND t.status <> 'canceled'
-        ORDER BY t.date, t.start_time
+        ORDER BY t.date DESC, t.start_time
     """;
 
         return jdbc.query(sql, termRowMapper(), districtId);
@@ -157,10 +157,8 @@ public class PostgresTermDao implements TermDao {
                       AND s.status_of_application <> 'cancelled'
                 )
               )
-        ORDER BY t.date, t.start_time
-    """;
-
-        return jdbc.query(
+        ORDER BY t.date DESC, t.start_time
+    """;        return jdbc.query(
                 sql,
                 termRowMapper(),
                 districtId,
