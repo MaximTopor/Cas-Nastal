@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sk.upjs.paz.controller.EditDistrictController"
+            prefWidth="450" prefHeight="350"
+            styleClass="root-pane">
+
+    <VBox spacing="14"
+          alignment="CENTER"
+          maxWidth="360"
+          AnchorPane.topAnchor="0"
+          AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0">
+
+        <Label text="Úprava okresu"
+               styleClass="title-label"/>
+
+        <TextField fx:id="nameField"
+                   promptText="Názov okresu"/>
+
+        <TextField fx:id="addressField"
+                   promptText="Adresa centra"/>
+
+        <TextField fx:id="contactField"
+                   promptText="Kontakt"/>
+
+        <TextField fx:id="postalCodeField"
+                   promptText="PSČ"/>
+
+        <TextField fx:id="regionField"
+                   promptText="Región"/>
+
+        <HBox spacing="16" alignment="CENTER">
+            <Button text="Uložiť"
+                    styleClass="primary-btn"
+                    onAction="#save"/>
+            <Button text="Späť"
+                    styleClass="secondary-btn"
+                    onAction="#back"/>
+        </HBox>
+
+    </VBox>
+</AnchorPane>

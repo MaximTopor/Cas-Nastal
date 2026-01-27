@@ -1,0 +1,107 @@
+/* =====================================================
+   ROOT
+   ===================================================== */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #0c1624,
+            #121f33
+    );
+}
+
+/* =====================================================
+   TITLE
+   ===================================================== */
+
+.title-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* =====================================================
+   COMBO BOX (collapsed)
+   ===================================================== */
+
+.combo-box {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 4 8;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+/* arrow */
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #9bb8da;
+}
+
+/* =====================================================
+   COMBO BOX POPUP (dropdown list)
+   ===================================================== */
+
+.combo-box-popup .list-view {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 10;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #16263d;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 8 12;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #223a5a;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #2f7fc4;
+    -fx-text-fill: white;
+}
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #4fa6dc,
+            #2f7fc4
+    );
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 14;
+    -fx-padding: 8 22;
+    -fx-cursor: hand;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.9;
+}
+
+.secondary-btn {
+    -fx-background-color: #1b2f4a;
+    -fx-text-fill: #eaf3ff;
+    -fx-background-radius: 14;
+    -fx-padding: 8 22;
+    -fx-cursor: hand;
+}
+
+.secondary-btn:hover {
+    -fx-background-color: #223a5a;
+}

@@ -5,8 +5,6 @@ import sk.upjs.paz.model.Schedule;
 import java.util.List;
 
 public interface ScheduleDao {
-    List<Schedule> getAll();
-    Schedule getById(long id);
 
     List<Schedule> getByUser(long userId);
     List<Schedule> getByTerm(long termId);

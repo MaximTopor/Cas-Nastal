@@ -4,6 +4,8 @@ import sk.upjs.paz.dao.Factory;
 import sk.upjs.paz.dao.UserDao;
 import sk.upjs.paz.model.User;
 
+import java.util.List;
+
 public class UserService {
 
     private final UserDao userDao;
@@ -48,6 +50,18 @@ public class UserService {
         return userDao.getRoleName(userId);
     }
 
+    public void update(User user) {
+        if (user == null) {
+            return;
+        }
+
+        userDao.update(user);
+    }
+
+    public List<User> getAllUsers() {
+        return userDao.getAll();
+    }
+
     public boolean canManageTerms(long userId) {
         String role = getRoleName(userId);
         return "ADMIN".equals(role) || "WORKER".equals(role);
@@ -57,7 +71,24 @@ public class UserService {
         return userDao.getById(userId);
     }
 
-    public java.util.List<User> getAllUsers() {
-        return userDao.getAll();
+    public List<User> getUsersByDistrict(long districtId) {
+        return userDao.getByDistrict(districtId);
+    }
+
+
+    public User getUserByPersonalNumber(String personalNumber) {
+        if (personalNumber == null || personalNumber.isBlank()) {
+            return null;
+        }
+        return userDao.getByPersonalNumber(personalNumber);
+    }
+    public boolean phoneExistsForOtherUser(String phone, long userId) {
+        User existing = userDao.getByPhone(phone);
+        return existing != null && existing.getIdUser() != userId;
+    }
+
+    public boolean emailExistsForOtherUser(String email, long userId) {
+        User existing = userDao.getByEmail(email);
+        return existing != null && existing.getIdUser() != userId;
     }
 }

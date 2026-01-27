@@ -5,21 +5,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sk.upjs.paz.controller.CreateTermController;
-import sk.upjs.paz.controller.EditUserController;
-import sk.upjs.paz.controller.UserController;
+import sk.upjs.paz.controller.*;
+import sk.upjs.paz.model.District;
+import sk.upjs.paz.model.Status;
 import sk.upjs.paz.model.Term;
 import sk.upjs.paz.model.User;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class SceneManager {
 
-    private static Stage primaryStage;
     private static User currentUser;
-    private static boolean darkTheme = true;
-
-    /* ================= THEME ================= */
 
     public enum Theme {
         LIGHT, DARK
@@ -37,7 +34,6 @@ public class SceneManager {
         String os = System.getProperty("os.name").toLowerCase();
 
         try {
-            // ===== WINDOWS =====
             if (os.contains("win")) {
                 Process process = new ProcessBuilder(
                         "reg",
@@ -53,15 +49,19 @@ public class SceneManager {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         if (line.contains("AppsUseLightTheme")) {
-                            return line.trim().endsWith("0x0")
-                                    ? Theme.DARK
-                                    : Theme.LIGHT;
+                            String value = line.trim();
+
+                            if (value.endsWith("0x0")) {
+                                return Theme.DARK;
+                            }
+
+                            return Theme.LIGHT;
                         }
                     }
                 }
             }
 
-            // ===== macOS =====
+
             if (os.contains("mac")) {
                 Process process = new ProcessBuilder(
                         "defaults",
@@ -81,18 +81,14 @@ public class SceneManager {
             }
 
         } catch (Exception ignored) {
-            // fallback нижче
-        }
 
-        // ===== FALLBACK =====
+        }
         return Theme.LIGHT;
     }
-
 
     public static boolean isDarkTheme() {
         return currentTheme == Theme.DARK;
     }
-
 
     public static void toggleTheme(Scene scene) {
         currentTheme = (currentTheme == Theme.DARK)
@@ -108,7 +104,25 @@ public class SceneManager {
         }
     }
 
-    /* ================= STATE ================= */
+    private static void applyStyles(Scene scene, String windowCss) {
+        scene.getStylesheets().clear();
+
+
+        URL themeUrl = SceneManager.class.getResource(themeCss());
+        if (themeUrl == null) {
+            throw new IllegalStateException("Theme CSS not found: " + themeCss());
+        }
+        scene.getStylesheets().add(themeUrl.toExternalForm());
+
+
+        if (windowCss != null) {
+            URL windowUrl = SceneManager.class.getResource(windowCss);
+            if (windowUrl == null) {
+                throw new IllegalStateException("Window CSS not found: " + windowCss);
+            }
+            scene.getStylesheets().add(windowUrl.toExternalForm());
+        }
+    }
 
     private static Stage activeStage;
 
@@ -123,62 +137,20 @@ public class SceneManager {
         return currentUser;
     }
 
-    public static void backToProfile() {
-        if (currentUser != null) {
-            openUserScene(currentUser);
-        }
-    }
-
-    /* ================= SCENES ================= */
-
     public static void openLoginScene() {
         String css = isDarkTheme()
                 ? "/css/login-dark.css"
                 : "/css/login-light.css";
 
-        switchTo("/views/login.fxml", "Login", css);
-    }
-
-    public static void openStatusWindow() {
-        switchTo("/views/status.fxml", "Status", null);
-    }
-
-    public static void openUserEditWindow(User user) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/EditUser.fxml")
-            );
-
-            Parent root = loader.load();
-
-            EditUserController controller = loader.getController();
-            controller.setUser(user); // ← ключовий момент
-
-            Scene scene = new Scene(root);
-            applyTheme(scene);
-
-            Stage stage = new Stage();
-            stage.setTitle("Edit user");
-            stage.setScene(scene);
-          //  stage.initOwner(acStage);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.showAndWait();
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        switchTo("/views/login.fxml", "Cas nastal+", css);
     }
 
     public static void openRegistrationWindow() {
-        switchTo("/views/Registration.fxml", "Registration", null);
-    }
+        String css = isDarkTheme()
+                ? "/css/registration-dark.css"
+                : "/css/registration-light.css";
 
-    public static void openCreateTerm() {
-        switchTo("/views/CreateTerm.fxml", "Create Term", null);
-    }
-
-    public static void openScheduleWindow() {
-        switchTo("/views/schedule.fxml", "Schedule", null);
+        switchTo("/views/registration.fxml", "Cas nastal+", css);
     }
 
     public static void openUserScene(User user) {
@@ -210,38 +182,77 @@ public class SceneManager {
     }
 
     public static void openMessageWindow() {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/message.fxml")
-            );
-            Parent root = loader.load();
-
-            // 🔥 вибір теми
             String messageCss = isDarkTheme()
                     ? "/css/message-dark.css"
                     : "/css/message-light.css";
 
+            switchTo("/views/Message.fxml", "Cas nastal+", messageCss);
+    }
+
+    public static void openUserManagerWindow() {
+        String css = isDarkTheme()
+                ? "/css/user-manager-dark.css"
+                : "/css/user-manager-light.css";
+
+        switchTo("/views/UserManager.fxml", "Cas nastal+", css);
+    }
+
+    public static void openChangeDistrictWindow(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/views/ChangeDistrict.fxml")
+            );
+
+            Parent root = loader.load();
+
+            ChangeDistrictController controller = loader.getController();
+            controller.setUser(user);
+
             Scene scene = new Scene(root);
-            scene.getRoot().getProperties().put("windowCss", messageCss);
 
-            applyStyles(scene, messageCss);
 
-            Stage stage = new Stage();
-            stage.setTitle("Messages");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.initOwner(activeStage);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.showAndWait();
+            scene.getStylesheets().clear();
+
+            if (isDarkTheme()) {
+                scene.getStylesheets().add(
+                        SceneManager.class
+                                .getResource("/css/change-district-dark.css")
+                                .toExternalForm()
+                );
+            } else {
+                scene.getStylesheets().add(
+                        SceneManager.class
+                                .getResource("/css/change-district-light.css")
+                                .toExternalForm()
+                );
+            }
+
+            activeStage.setScene(scene);
+            activeStage.setTitle("Cas nastal+");
+            activeStage.centerOnScreen();
+            activeStage.show();
 
         } catch (Exception e) {
-            throw new RuntimeException("Cannot open message window", e);
+            throw new RuntimeException("Cannot open ChangeDistrict view", e);
         }
     }
 
+    public static void openCreateTerm() {
+        String css = isDarkTheme()
+                ? "/css/create-term-dark.css"
+                : "/css/create-term-light.css";
 
+        switchTo("/views/CreateTerm.fxml", "Cas nastal+", css);
+    }
 
-    /* ================= CORE ================= */
+    public static void openScheduleWindow() {
+        String css = isDarkTheme()
+                ? "/css/schedule-dark.css"
+                : "/css/schedule-light.css";
+
+        switchTo("/views/schedule.fxml", "Cas nastal+", css);
+    }
+
 
     private static void switchTo(String fxml, String title, String windowCss) {
         try {
@@ -266,35 +277,12 @@ public class SceneManager {
         }
     }
 
-    private static void applyStyles(Scene scene, String windowCss) {
-        scene.getStylesheets().clear();
-
-        // theme
-        URL themeUrl = SceneManager.class.getResource(themeCss());
-        if (themeUrl == null) {
-            throw new IllegalStateException("Theme CSS not found: " + themeCss());
-        }
-        scene.getStylesheets().add(themeUrl.toExternalForm());
-
-        // window css (optional)
-        if (windowCss != null) {
-            URL windowUrl = SceneManager.class.getResource(windowCss);
-            if (windowUrl == null) {
-                throw new IllegalStateException("Window CSS not found: " + windowCss);
-            }
-            scene.getStylesheets().add(windowUrl.toExternalForm());
-        }
-    }
-
-    public static void openEditTermWindow(Term term) {
-        openCreateEditTermWindow(term);
-    }
-
-    private static void openCreateEditTermWindow(Term term) {
+    public static void openCreateEditTermWindow(Term term) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     SceneManager.class.getResource("/views/createTerm.fxml")
             );
+
             Parent root = loader.load();
 
             CreateTermController controller = loader.getController();
@@ -303,35 +291,142 @@ public class SceneManager {
             }
 
             Scene scene = new Scene(root);
-            applyTheme(scene);
 
             Stage stage = new Stage();
-            stage.setTitle(term == null ? "Create term" : "Edit term");
+            stage.setTitle(term == null ? "Cas nastal+" : "Cas nastal+");
             stage.setScene(scene);
             stage.setResizable(false);
-            stage.initOwner(primaryStage);
+            stage.initOwner(activeStage);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.centerOnScreen();
             stage.showAndWait();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException("Cannot open create/edit term window", e);
         }
     }
 
-    private static void applyTheme(Scene scene) {
-        scene.getStylesheets().clear();
+    public static void openEditDistrictWindow(District district) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/views/EditDistrict.fxml")
+            );
 
-        String css = darkTheme
-                ? "/css/theme-dark.css"
-                : "/css/theme-light.css";
+            Parent root = loader.load();
 
-        var url = SceneManager.class.getResource(css);
-        if (url == null) {
-            throw new IllegalStateException("CSS not found: " + css);
+            EditDistrictController controller = loader.getController();
+            controller.setDistrict(district);
+
+            Scene scene = new Scene(root);
+
+
+            scene.getStylesheets().clear();
+
+            if (isDarkTheme()) {
+                scene.getStylesheets().add(
+                        SceneManager.class
+                                .getResource("/css/edit-district-dark.css")
+                                .toExternalForm()
+                );
+            } else {
+                scene.getStylesheets().add(
+                        SceneManager.class
+                                .getResource("/css/edit-district-light.css")
+                                .toExternalForm()
+                );
+            }
+
+
+            activeStage.setScene(scene);
+            activeStage.setTitle("Cas nastal+");
+            activeStage.centerOnScreen();
+            activeStage.show();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot open EditDistrict view", e);
         }
+    }
 
-        scene.getStylesheets().add(url.toExternalForm());
+    public static void openUserEditWindow(User user){
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/views/EditUser.fxml")
+            );
+
+            Parent root = loader.load();
+
+            EditUserController controller = loader.getController();
+            controller.setUser(user);
+
+            Scene scene = new Scene(root);
+
+            scene.getStylesheets().clear();
+
+            if (isDarkTheme()) {
+                scene.getStylesheets().add(
+                        SceneManager.class
+                                .getResource("/css/user-edit-dark.css")
+                                .toExternalForm()
+                );
+            } else {
+                scene.getStylesheets().add(
+                        SceneManager.class
+                                .getResource("/css/user-edit-light.css")
+                                .toExternalForm()
+                );
+            }
+
+            activeStage.setScene(scene);
+            activeStage.setTitle("Cas nastal+");
+            activeStage.setResizable(false);
+            activeStage.centerOnScreen();
+            activeStage.show();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot open EditUser view", e);
+        }
+    }
+
+    public static void closeModal() {
+        if (activeStage != null) {
+            activeStage.close();
+        }
+    }
+
+    public static void openChangeStatusWindow(User user, Status oldStatus, Status newStatus) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/views/statusManagement.fxml")
+            );
+
+            Parent root = loader.load();
+
+            StatusManagementController controller =
+                    loader.getController();
+
+            controller.init(
+                    user,
+                    oldStatus,
+                    newStatus,
+                    getCurrentUser().getIdUser()
+            );
+
+            Scene scene = new Scene(root);
+            scene.getRoot().getProperties().put("windowCss", null);
+
+            applyStyles(scene, null);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Change status");
+            stage.initOwner(activeStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setResizable(false);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot open ChangeStatus window", e);
+        }
     }
 
 }

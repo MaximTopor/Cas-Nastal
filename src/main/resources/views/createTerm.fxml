@@ -7,16 +7,18 @@
 <BorderPane prefWidth="900" prefHeight="650"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sk.upjs.paz.controller.CreateTermController">
+            fx:controller="sk.upjs.paz.controller.CreateTermController"
+            styleClass="root-pane">
 
     <!-- ================= TOP ================= -->
     <top>
-        <HBox alignment="CENTER" prefHeight="70">
-            <Label
-                    fx:id="titleLabel"
-                    text="Create term"
-                    style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+        <HBox alignment="CENTER"
+              prefHeight="70"
+              styleClass="top-bar">
 
+            <Label fx:id="titleLabel"
+                   text="Vytvorenie termínu"
+                   styleClass="title-label"/>
         </HBox>
     </top>
 
@@ -26,40 +28,46 @@
 
             <Region prefWidth="150"/>
 
-            <!-- FORM -->
-            <VBox spacing="12" prefWidth="350">
-                <TextField fx:id="typeField" promptText="Type"/>
-                <DatePicker fx:id="datePicker" promptText="Date"/>
+            <!-- FORM CARD -->
+            <VBox spacing="12"
+                  prefWidth="360"
+                  alignment="CENTER"
+                  styleClass="form-card">
 
-                <TextField fx:id="startTimeField" promptText="Start Time"/>
-                <TextField fx:id="endTimeField" promptText="End Time"/>
+                <TextField fx:id="typeField" promptText="Typ"/>
+                <DatePicker fx:id="datePicker" promptText="Dátum"/>
 
-                <TextField fx:id="addressField" promptText="Address"/>
-                <TextField fx:id="capacityField" promptText="Capacity"/>
+                <TextField fx:id="startTimeField" promptText="Čas začiatku"/>
+                <TextField fx:id="endTimeField" promptText="Čas ukončenia"/>
+
+                <TextField fx:id="addressField" promptText="Adresa"/>
+                <TextField fx:id="capacityField" promptText="Kapacita"/>
+
                 <ComboBox fx:id="regionComboBox"
-                          promptText="Region"
-                          prefWidth="350"/>
+                          promptText="Región"
+                          prefWidth="360"
+                          styleClass="form-combo"/>
+
             </VBox>
 
-            <Region prefWidth="150"/>
+            <Region prefWidth="200"/>
 
         </HBox>
     </center>
 
     <!-- ================= BOTTOM ================= -->
     <bottom>
-        <VBox alignment="CENTER" spacing="10">
-            <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
-            </padding>
+        <VBox alignment="CENTER" spacing="12"
+              styleClass="bottom-bar">
 
-            <Button
-                    fx:id="createButton"
-                    text="Create"
+            <Button fx:id="createButton"
+                    text="Vytvoriť"
+                    styleClass="primary-btn"
                     onAction="#onCreate"/>
 
-            <Button text="Back"
+            <Button text="Späť"
                     prefWidth="160"
+                    styleClass="secondary-btn"
                     onAction="#backToSchedule"/>
         </VBox>
     </bottom>

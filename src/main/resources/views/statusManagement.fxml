@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="sk.upjs.paz.controller.StatusManagementController"
+      spacing="18"
+      styleClass="passport-card"
+      prefWidth="420"
+      prefHeight="320">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <!-- ===== TITLE ===== -->
+    <Label text="Керування статусом"
+           styleClass="passport-name"/>
+
+    <!-- ===== USER INFO ===== -->
+    <VBox spacing="6">
+        <Label fx:id="userLabel"
+               text="Користувач: —"/>
+
+        <Label fx:id="statusLabel"
+               text="Статус: — → —"/>
+    </VBox>
+
+    <!-- ===== REASON ===== -->
+    <VBox spacing="6">
+        <Label text="Reason:"/>
+        <TextArea fx:id="reasonField"
+                  promptText="Change reason"
+                  wrapText="true"
+                  prefRowCount="4"/>
+    </VBox>
+
+
+    <HBox spacing="12"
+          alignment="CENTER_RIGHT">
+
+        <Button text="Cancel"
+                onAction="#cancel"/>
+
+        <Button text="confirm"
+                onAction="#confirm"
+                styleClass="primary-btn"
+                prefWidth="130"/>
+    </HBox>
+
+</VBox>

@@ -112,7 +112,6 @@ public class RegisterController {
             return;
         }
 
-        // 8️⃣ створення користувача
         User user = new User(
                 name,
                 surname,

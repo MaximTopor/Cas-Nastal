@@ -23,16 +23,6 @@ public class PostgresScheduleDao implements ScheduleDao {
     }
 
     @Override
-    public List<Schedule> getAll() {
-        return List.of();
-    }
-
-    @Override
-    public Schedule getById(long id) {
-        return null;
-    }
-
-    @Override
     public List<Schedule> getByUser(long userId) {
 
         String sql = """
@@ -64,7 +54,7 @@ public class PostgresScheduleDao implements ScheduleDao {
     public void update(Schedule schedule) {
 
         String sql = """
-        UPDATE schedule
+        UPDATE cn.schedule
         SET status_of_application = ?
         WHERE id_schedule = ?
     """;
@@ -120,7 +110,7 @@ public class PostgresScheduleDao implements ScheduleDao {
 
         String sql = """
         UPDATE cn.terms
-        SET status = 'canceled'
+        SET type = 'canceled'
         WHERE id_terms = ?
     """;
 

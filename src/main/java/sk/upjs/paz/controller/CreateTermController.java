@@ -1,6 +1,7 @@
 package sk.upjs.paz.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sk.upjs.paz.model.District;
@@ -14,17 +15,14 @@ import java.time.LocalTime;
 
 public class CreateTermController {
 
-    /* ================= MODE ================= */
+
 
     private enum Mode {
         CREATE,
         EDIT
     }
-
     private Mode mode = Mode.CREATE;
     private Term editedTerm;
-
-    /* ================= FXML ================= */
 
     @FXML private Label titleLabel;
     @FXML private TextField typeField;
@@ -36,12 +34,8 @@ public class CreateTermController {
     @FXML private ComboBox<District> regionComboBox;
     @FXML private Button createButton;
 
-    /* ================= SERVICES ================= */
-
     private final CreateTermService termService = new CreateTermService();
     private final DistrictService districtService = new DistrictService();
-
-    /* ================= INIT ================= */
 
     @FXML
     private void initialize() {
@@ -53,13 +47,38 @@ public class CreateTermController {
 
         titleLabel.setText("Create term");
         createButton.setText("Create");
+
+
+
+        Scene scene = titleLabel.getScene();
+        if (scene != null) {
+            scene.getStylesheets().setAll(
+                    getClass().getResource(
+                            SceneManager.isDarkTheme()
+                                    ? "/css/create-term-dark.css"
+                                    : "/css/create-term-light.css"
+                    ).toExternalForm()
+            );
+        } else {
+            titleLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
+                if (newScene != null) {
+                    newScene.getStylesheets().setAll(
+                            getClass().getResource(
+                                    SceneManager.isDarkTheme()
+                                            ? "/css/create-term-dark.css"
+                                            : "/css/create-term-light.css"
+                            ).toExternalForm()
+                    );
+                }
+            });
+        }
+
     }
 
-    /* ================= PUBLIC API ================= */
+
 
     public void setTermToEdit(Term term) {
 
-        // 🔒 úplná blokácia minulých termínov
         if (term.getDate().isBefore(LocalDate.now())) {
             showError(
                     "Tento termín je v minulosti a nie je možné ho upravovať."
@@ -76,8 +95,6 @@ public class CreateTermController {
 
         fillForm(term);
     }
-
-    /* ================= ACTIONS ================= */
 
     @FXML
     private void onCreate() {
@@ -121,8 +138,6 @@ public class CreateTermController {
         closeWindow();
         SceneManager.openScheduleWindow();
     }
-
-    /* ================= HELPERS ================= */
 
     private void closeWindow() {
         Stage stage = (Stage) createButton.getScene().getWindow();

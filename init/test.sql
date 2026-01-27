@@ -28,9 +28,9 @@ INSERT INTO cn.districts (
     created_at,
     region
 ) VALUES
-      ( 'Košice I', 'Main Street 1', 'kosice1@cn.sk', 40101, NOW(), 'Košice'),
-      ( 'Košice II', 'Hlavná 10', 'kosice2@cn.sk', 40102, NOW(), 'Košice'),
-      ( 'Košice III', 'Letná 5', 'kosice3@cn.sk', 40103, NOW(), 'Košice')
+      ( 'Bratislavský kraj', 'Main Street 1', 'kosice1@cn.sk', 40101, NOW(), 'Košice'),
+      ( 'Košický kraj', 'Hlavná 10', 'kosice2@cn.sk', 40102, NOW(), 'Košice'),
+      ( 'Prešovský kraj', 'Letná 5', 'kosice3@cn.sk', 40103, NOW(), 'Košice')
     ON CONFLICT (id_district) DO NOTHING;
 
 -- =========================
@@ -94,19 +94,33 @@ INSERT INTO cn.users (
       ),
       (
           '1',
-          '1',
-          '1',
-          '1',
+          'Adam',
+          'adam@a.xx',
+          '0987762343',
           '1',
           1,
           '1',
           DATE '1999-01-01',
-          '1',
+          'Nikdy',
           3,
           NOW(),
           NOW()
-      )
-    ON CONFLICT (id_user) DO NOTHING;
+      ),
+      ('Ján','Kováč','jan.kovac@test.sk','0901000001','x',3,'850101/0001','1985-01-01','Hlavná 1',1,NOW(),NOW()),
+      ('Martin','Novák','martin.novak@test.sk','0901000002','x',3,'860202/0002','1986-02-02','Hlavná 2',1,NOW(),NOW()),
+      ('Peter','Horváth','peter.horvath@test.sk','0901000003','x',3,'870303/0003','1987-03-03','Hlavná 3',1,NOW(),NOW()),
+      ('Tomáš','Szabó','tomas.szabo@test.sk','0901000004','x',3,'880404/0004','1988-04-04','Hlavná 4',1,NOW(),NOW()),
+      ('Marek','Varga','marek.varga@test.sk','0901000005','x',3,'890505/0005','1989-05-05','Hlavná 5',1,NOW(),NOW()),
+      ('Lukáš','Baláž','lukas.balaz@test.sk','0901000006','x',3,'900606/0006','1990-06-06','Hlavná 6',3,NOW(),NOW()),
+      ('Andrej','Molnár','andrej.molnar@test.sk','0901000007','x',3,'910707/0007','1991-07-07','Hlavná 7',3,NOW(),NOW()),
+      ('Michal','Urban','michal.urban@test.sk','0901000008','x',3,'920808/0008','1992-08-08','Hlavná 8',3,NOW(),NOW()),
+      ('Filip','Král','filip.kral@test.sk','0901000009','x',3,'930909/0009','1993-09-09','Hlavná 9',3,NOW(),NOW()),
+      ('Róbert','Hudec','robert.hudec@test.sk','0901000010','x',3,'941010/0010','1994-10-10','Hlavná 10',3,NOW(),NOW()),
+      ('Ivan','Bartoš','ivan.bartos@test.sk','0901000011','x',3,'951111/0011','1995-11-11','Hlavná 11',2,NOW(),NOW()),
+      ('Pavol','Mikuš','pavol.mikus@test.sk','0901000012','x',3,'961212/0012','1996-12-12','Hlavná 12',2,NOW(),NOW()),
+      ('Juraj','Benko','juraj.benko@test.sk','0901000013','x',3,'970101/0013','1997-01-01','Hlavná 13',2,NOW(),NOW()),
+      ('Samuel','Polák','samuel.polak@test.sk','0901000014','x',3,'980202/0014','1998-02-02','Hlavná 14',2,NOW(),NOW()),
+      ('Adam','Tóth','adam.toth@test.sk','0901000015','x',3,'990303/0015','1999-03-03','Hlavná 15',2,NOW(),NOW());
 
 INSERT INTO cn.terms (
     type,
@@ -165,5 +179,38 @@ INSERT INTO cn.schedule (
       (2, 2, 'end'),
       (4, 3, 'pending'),
       (3, 2, 'cancelled');
+
+INSERT INTO cn.status (
+    name,
+    description,
+    created_at
+) VALUES
+      ('FREE', 'Can be mobilizeted, but now no', NOW()),
+      ('NOT HEALTHY', 'Can not be mobiblizated because of healthy ', NOW()),
+      ('PREPARING', 'He/She is receiving training on poligon', NOW()),
+      ('MOBILIZED', 'User has been mobilized', NOW());
+
+INSERT INTO cn.status_history (
+    user_id,
+    status_id,
+    changed_by,
+    reason,
+    is_current
+)
+SELECT
+    u.id_user,
+    s.id_status,
+    1,
+    'Initial status: FREE',
+    true
+FROM cn.users u
+         JOIN cn.status s
+              ON s.name = 'FREE'
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM cn.status_history sh
+    WHERE sh.user_id = u.id_user
+);
+
 
 COMMIT;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sk.upjs.paz.controller.ChangeDistrictController"
+            prefWidth="400" prefHeight="250" styleClass="root-pane">
+
+    <VBox spacing="16"
+          alignment="CENTER"
+          maxWidth="360"
+          AnchorPane.topAnchor="0"
+          AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0">
+
+        <Label text="Zmena okresu"
+               styleClass="title-label"/>
+
+        <ComboBox fx:id="districtBox"
+                  prefWidth="300"/>
+
+        <HBox spacing="12" alignment="CENTER">
+            <Button text="Zmeniť"
+                    styleClass="primary-btn"
+                    onAction="#Zmenit"/>
+
+            <Button text="Späť"
+                    styleClass="secondary-btn"
+                    onAction="#back"/>
+        </HBox>
+
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,219 @@
+/* =====================================================
+   ROOT
+   ===================================================== */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #0c1624,
+            #121f33
+    );
+}
+
+/* =====================================================
+   TITLES & TEXT
+   ===================================================== */
+
+.passport-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.passport-sub {
+    -fx-text-fill: #9bb8da;
+    -fx-font-size: 12px;
+}
+
+/* =====================================================
+   RIGHT PANEL (TEXT + BUTTONS)
+   ===================================================== */
+
+VBox {
+    -fx-spacing: 15;
+}
+
+HBox {
+    -fx-spacing: 10;
+}
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #4fa6dc,
+            #2f7fc4
+    );
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+    -fx-cursor: hand;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.9;
+}
+
+.primary-btn:pressed {
+    -fx-opacity: 0.8;
+}
+
+/* =====================================================
+   CENTER SEARCH FIELD
+   ===================================================== */
+
+.text-field {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8 12;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused {
+    -fx-border-color: #4fa6dc;
+}
+
+/* placeholder text */
+.text-field .prompt-text {
+    -fx-fill: #9bb8da;
+}
+
+/* =====================================================
+   LEFT PANEL (USERS)
+   ===================================================== */
+
+.combo-box {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+/* arrow */
+.combo-box .arrow {
+    -fx-background-color: #9bb8da;
+}
+
+/* =====================================================
+   COMBOBOX POPUP (DROPDOWN)
+   ===================================================== */
+
+.combo-box-popup .list-view {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #16263d;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #223a5a;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #2f7fc4;
+    -fx-text-fill: white;
+}
+
+.list-view {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #eaf3ff;
+    -fx-font-size: 13px;
+    -fx-padding: 10 14;
+}
+
+.list-cell:hover {
+    -fx-background-color: #1b2f4a;
+}
+
+.list-cell:selected {
+    -fx-background-color: #223a5a;
+    -fx-text-fill: #ffffff;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #2f4d73;
+    -fx-background-radius: 10;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+}
+
+
+.list-view {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-padding: 10 14;
+}
+
+
+.list-cell:hover {
+    -fx-background-color: #1b2f4a;
+}
+
+
+.list-cell:selected {
+    -fx-background-color: #223a5a;
+    -fx-text-fill: #ffffff;
+}
+
+.list-cell:selected:focused {
+    -fx-background-color: #223a5a;
+    -fx-text-fill: #ffffff;
+}
+
+.user-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.user-status-combo {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.user-status-combo .list-cell {
+    -fx-text-fill: #ffffff;
+}
+

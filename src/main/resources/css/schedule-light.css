@@ -1,0 +1,115 @@
+/* ================= ROOT ================= */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #f1f5f9,
+            #ffffff
+    );
+}
+
+/* ================= TOP BAR ================= */
+
+.top-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #3b82f6,
+            #2563eb
+    );
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-padding: 10 24;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.92;
+}
+
+.secondary-btn {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #1e293b;
+    -fx-background-radius: 16;
+    -fx-padding: 10 24;
+}
+
+.secondary-btn:hover {
+    -fx-background-color: #d1d5db;
+}
+
+/* ================= CHECKBOX ================= */
+
+.filter-check {
+    -fx-text-fill: #1e293b;
+    -fx-font-size: 13px;
+}
+
+/* ================= TERM CARD ================= */
+
+.term-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20;
+    -fx-padding: 16;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+}
+
+.term-card:hover {
+    -fx-background-color: #f8fafc;
+}
+
+/* ================= TERM TEXT ================= */
+
+.term-title {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.term-info {
+    -fx-text-fill: #475569;
+    -fx-font-size: 13px;
+}
+
+/* ================= SCROLLPANE ================= */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.filter-check {
+    -fx-text-fill: #1e293b;
+    -fx-font-size: 13px;
+}
+
+.filter-check .box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 4;
+}
+
+.filter-check:selected .box {
+    -fx-background-color: #3b82f6;
+    -fx-border-color: #3b82f6;
+}
+
+.filter-check:selected .mark {
+    -fx-background-color: white;
+}
+
+.filter-check:hover .box {
+    -fx-border-color: #2563eb;
+}

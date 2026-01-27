@@ -11,7 +11,7 @@
             fx:controller="sk.upjs.paz.controller.UserController"
             styleClass="root-pane">
 
-    <!-- ================= TOP BAR ================= -->
+    <!-- ================= HORNÁ LIŠTA ================= -->
     <HBox spacing="16"
           alignment="CENTER_LEFT"
           AnchorPane.topAnchor="0"
@@ -23,43 +23,46 @@
             <Insets top="14" right="24" bottom="14" left="24"/>
         </padding>
 
-        <!-- LEFT -->
-        <Button text="Term"
+        <!-- ĽAVÁ STRANA -->
+        <Button text="Termíny"
                 onAction="#openScheduleWindow"
                 styleClass="primary-btn"/>
 
-        <Button text="Message"
+        <Button text="Správy"
                 onAction="#openMessageWindow"
                 styleClass="primary-btn"/>
 
-        <Button fx:id="StatusButton"
-                text="Status"
+        <Button fx:id="UserManagerButton"
+                text="Správa používateľov"
                 onAction="#openStatusWindow"
+                styleClass="primary-btn"/>
+
+        <Button fx:id="ChangeDistrictButton"
+                text="Zmena okresu"
+                onAction="#openChageDistrict"
                 styleClass="primary-btn"/>
 
         <Region HBox.hgrow="ALWAYS"/>
 
-        <!-- RIGHT -->
+        <!-- PRAVÁ STRANA -->
         <ToggleButton fx:id="themeToggle"
-                      text="Theme"
+                      text="Téma"
                       onAction="#toggleTheme"
                       styleClass="theme-toggle"/>
-<!--                      onAction="#toggleTheme"-->
-<!--                      styleClass="theme-toggle"/>-->
 
-        <Button text="Logout"
+        <Button text="Odhlásiť sa"
                 onAction="#Logout"
                 styleClass="danger-btn"/>
     </HBox>
 
-    <!-- ================= CONTENT WRAPPER ================= -->
+    <!-- ================= OBSAH ================= -->
     <VBox alignment="CENTER"
           AnchorPane.topAnchor="90"
           AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0"
           AnchorPane.bottomAnchor="0">
 
-        <!-- DIGITAL ID CARD -->
+        <!-- DIGITÁLNY PREUKAZ -->
         <VBox prefWidth="420"
               spacing="18"
               styleClass="id-card">
@@ -68,7 +71,7 @@
                 <Insets top="24" right="24" bottom="24" left="24"/>
             </padding>
 
-            <!-- HEADER -->
+            <!-- HLAVIČKA -->
             <HBox spacing="16" alignment="CENTER_LEFT">
 
                 <ImageView fx:id="mainPhoto"
@@ -87,35 +90,49 @@
 
             <Separator styleClass="id-separator"/>
 
-            <!-- DATA -->
+            <!-- ÚDAJE -->
             <VBox spacing="12">
 
                 <HBox spacing="10" styleClass="id-row">
-                    <Label text="Date of birth: " styleClass="id-key"/>
-                    <Label fx:id="birthDateLabel" styleClass="id-value"/>
+                    <Label text="Dátum narodenia:"
+                           styleClass="id-key"/>
+                    <Label fx:id="birthDateLabel"
+                           styleClass="id-value"/>
                 </HBox>
 
                 <HBox spacing="10" styleClass="id-row">
-                    <Label text="Phone: " styleClass="id-key"/>
-                    <Label fx:id="phoneLabel" styleClass="id-value"/>
+                    <Label text="Telefón:"
+                           styleClass="id-key"/>
+                    <Label fx:id="phoneLabel"
+                           styleClass="id-value"/>
                 </HBox>
 
                 <HBox spacing="10" styleClass="id-row">
-                    <Label text="Address: " styleClass="id-key"/>
+                    <Label text="Adresa:"
+                           styleClass="id-key"/>
                     <Label fx:id="addressLabel"
                            wrapText="true"
                            styleClass="id-value"/>
                 </HBox>
 
                 <HBox spacing="10" styleClass="id-row">
-                    <Label text="Personal No.: " styleClass="id-key"/>
+                    <Label text="Rodné číslo:"
+                           styleClass="id-key"/>
                     <Label fx:id="personalNumberLabel"
+                           styleClass="id-value"/>
+                </HBox>
+
+                <HBox spacing="10" styleClass="id-row">
+                    <Label text="Status:"
+                           styleClass="id-key"/>
+                    <Label fx:id="StatusLabel"
                            styleClass="id-value"/>
                 </HBox>
 
             </VBox>
 
         </VBox>
+
     </VBox>
 
 </AnchorPane>

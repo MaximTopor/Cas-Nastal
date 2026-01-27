@@ -2,11 +2,13 @@ package sk.upjs.paz.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class User {
     private long idUser;
@@ -24,10 +26,10 @@ public class User {
     private LocalDateTime updatedAt;
 
     public User(
-            String email,
-            String passwordHash,
             String name,
             String surname,
+            String email,
+            String passwordHash,
             LocalDate dateOfBirth,
             long districtId,
             String address,
@@ -47,4 +49,6 @@ public class User {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+
+    public User() {}
 }

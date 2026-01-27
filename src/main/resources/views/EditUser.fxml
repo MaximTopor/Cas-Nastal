@@ -11,7 +11,6 @@
             prefWidth="700"
             prefHeight="600">
 
-    <!-- ===== TOP BAR ===== -->
     <HBox prefHeight="70"
           alignment="CENTER_LEFT"
           spacing="15"
@@ -24,15 +23,14 @@
             <Insets top="10" left="20" right="20" bottom="10"/>
         </padding>
 
-        <Button text="← Back"
+        <Button text="← Späť"
                 onAction="#back"
                 styleClass="primary-btn"/>
 
-        <Label text="Edit user"
-               styleClass="passport-name"/>
+        <Label text="Úprava používateľa"
+               styleClass="passport-name" />
     </HBox>
 
-    <!-- ===== MAIN CARD ===== -->
     <VBox spacing="18"
           styleClass="passport-card"
           AnchorPane.topAnchor="90"
@@ -44,51 +42,51 @@
             <Insets top="30" left="30" right="30" bottom="30"/>
         </padding>
 
-        <!-- Name -->
+        <!-- Meno -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Name:" prefWidth="120"/>
+            <Label text="Meno:" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="nameField"/>
         </HBox>
 
-        <!-- Surname -->
+        <!-- Priezvisko -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Surname:" prefWidth="120"/>
+            <Label text="Priezvisko:" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="surnameField"/>
         </HBox>
 
-        <!-- Email -->
+        <!-- E-mail -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Email:" prefWidth="120"/>
+            <Label text="E-mail:" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="emailField"/>
         </HBox>
 
-        <!-- Phone -->
+        <!-- Telefón -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Phone:" prefWidth="120"/>
+            <Label text="Telefón:" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="phoneField"/>
         </HBox>
 
-        <!-- Address -->
+        <!-- Adresa -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Address:" prefWidth="120"/>
+            <Label text="Adresa:" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="addressField"/>
         </HBox>
 
-        <!-- District -->
+        <!-- Okres -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="District:" prefWidth="120"/>
-            <ComboBox fx:id="districtBox"/>
+            <Label text="Okres:" prefWidth="120" styleClass="form-label"/>
+            <ComboBox fx:id="districtBox" styleClass="form-combo"/>
         </HBox>
 
-        <!-- Role -->
+        <!-- Rola -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Role:" prefWidth="120"/>
-            <ComboBox fx:id="roleBox"/>
+            <Label text="Rola:" prefWidth="120" styleClass="form-label"/>
+            <ComboBox fx:id="roleBox" styleClass="form-combo"/>
         </HBox>
 
-        <!-- Save -->
+        <!-- Uloženie -->
         <HBox alignment="CENTER">
-            <Button text="Save changes"
+            <Button text="Uložiť zmeny"
                     onAction="#save"
                     styleClass="primary-btn"
                     prefWidth="200"/>

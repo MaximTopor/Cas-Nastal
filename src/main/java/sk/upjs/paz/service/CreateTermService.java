@@ -11,8 +11,6 @@ public class CreateTermService {
 
     private final TermDao termDao = Factory.INSTANCE.getTermDao();
 
-    /* ================= CREATE ================= */
-
     public void createTerm(
             String type,
             LocalDate date,
@@ -39,8 +37,6 @@ public class CreateTermService {
         termDao.create(term);
     }
 
-    /* ================= EDIT ================= */
-
     public void updateTerm(
             long termId,
             String type,
@@ -66,8 +62,6 @@ public class CreateTermService {
 
         termDao.update(term);
     }
-
-    /* ================= VALIDATION ================= */
 
     private void validate(
             String type,

@@ -7,10 +7,9 @@ import java.util.List;
 public interface DistrictDao {
     List<District> getAll();
     District getById(long id);
-
-    void insert(District district);
     void update(District district);
-    void delete(long id);
 
-    List<District> findByRegion(String region);
+    boolean existsByName(String name, long excludeId);
+    boolean existsByAddress(String address, long excludeId);
+    boolean existsByPostalCode(int psc, long excludeId);
 }

@@ -1,0 +1,92 @@
+/* ================= ROOT ================= */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(to bottom, #f1f5f9, #ffffff);
+}
+
+/* ================= TEXT ================= */
+
+.passport-name {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.passport-sub {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 12;
+}
+
+/* ================= TEXT FIELD ================= */
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8 12;
+    -fx-text-fill: #0f172a;
+}
+
+.text-field:focused {
+    -fx-border-color: #3b82f6;
+}
+
+/* ================= COMBO BOX ================= */
+
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #0f172a;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+}
+
+/* ================= LIST VIEW ================= */
+
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #0f172a;
+    -fx-padding: 10 14;
+}
+
+.list-cell:selected {
+    -fx-background-color: #e0e7ff;
+    -fx-text-fill: #1e3a8a;
+}
+
+.list-cell:hover {
+    -fx-background-color: #f1f5ff;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}
+
+.secondary-btn {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #1e293b;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}

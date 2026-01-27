@@ -7,17 +7,18 @@
 <BorderPane prefWidth="700" prefHeight="650"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sk.upjs.paz.controller.RegisterController">
+            fx:controller="sk.upjs.paz.controller.RegisterController"
+            styleClass="root-pane">
 
-    <!-- ================= TOP ================= -->
+    <!-- ================= HORNÁ ČASŤ ================= -->
     <top>
         <HBox alignment="CENTER" prefHeight="70">
-            <Label text="Registration"
+            <Label text="Registrácia"
                    style="-fx-font-size: 22; -fx-font-weight: bold;"/>
         </HBox>
     </top>
 
-    <!-- ================= CENTER (SCROLL) ================= -->
+    <!-- ================= STRED (SCROLL) ================= -->
     <center>
         <HBox alignment="CENTER">
 
@@ -25,26 +26,25 @@
 
             <ScrollPane fitToWidth="true"
                         prefViewportHeight="400"
-                        hbarPolicy="NEVER">
+                        hbarPolicy="NEVER"
+                        styleClass="form-card">
 
-                <VBox spacing="12" prefWidth="350">
+                <VBox spacing="12" prefWidth="350" styleClass="form-card">
                     <padding>
                         <Insets top="20" right="20" bottom="20" left="20"/>
                     </padding>
 
-                    <TextField fx:id="emailField" promptText="Email"/>
-                    <PasswordField fx:id="passwordField" promptText="Password"/>
-                    <PasswordField fx:id="confirmPasswordField" promptText="Confirm password"/>
-                    <TextField fx:id="nameField" promptText="Name"/>
-                    <TextField fx:id="surnameField" promptText="Surname"/>
-                    <DatePicker fx:id="birthDatePicker" promptText="Birth date"/>
-                    <TextField fx:id="personalNumberField" promptText="Personal number"/>
-                    <ComboBox fx:id="regionComboBox"
-                              promptText="Region"
-                              prefWidth="350"/>
-                    <TextField fx:id="localityField" promptText="Locality"/>
-                    <TextField fx:id="addressField" promptText="Address"/>
-                    <TextField fx:id="phoneField" promptText="Phone"/>
+                    <TextField fx:id="emailField" promptText="E-mail"/>
+                    <PasswordField fx:id="passwordField" promptText="Heslo"/>
+                    <PasswordField fx:id="confirmPasswordField" promptText="Potvrdenie hesla"/>
+                    <TextField fx:id="nameField" promptText="Meno"/>
+                    <TextField fx:id="surnameField" promptText="Priezvisko"/>
+                    <DatePicker fx:id="birthDatePicker" promptText="Dátum narodenia"/>
+                    <TextField fx:id="personalNumberField" promptText="Rodné číslo"/>
+                    <ComboBox fx:id="regionComboBox" promptText="Región" prefWidth="350"/>
+                    <TextField fx:id="localityField" promptText="Mesto / obec"/>
+                    <TextField fx:id="addressField" promptText="Adresa"/>
+                    <TextField fx:id="phoneField" promptText="Telefón"/>
 
                 </VBox>
             </ScrollPane>
@@ -54,18 +54,18 @@
         </HBox>
     </center>
 
-    <!-- ================= BOTTOM ================= -->
+    <!-- ================= SPODNÁ ČASŤ ================= -->
     <bottom>
         <VBox alignment="CENTER" spacing="10">
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <Button text="Create"
+            <Button text="Vytvoriť účet"
                     prefWidth="160"
                     onAction="#createAccount"/>
 
-            <Button text="Back to login"
+            <Button text="Späť na prihlásenie"
                     prefWidth="160"
                     onAction="#StepBackToLogin"/>
         </VBox>

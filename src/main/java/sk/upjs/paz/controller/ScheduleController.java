@@ -2,6 +2,7 @@ package sk.upjs.paz.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -64,7 +65,7 @@ public class ScheduleController {
 
     @FXML
     private void backToProfile() {
-        SceneManager.backToProfile();
+        SceneManager.openUserScene(currentUser);
     }
 
     @FXML
@@ -72,81 +73,65 @@ public class ScheduleController {
         SceneManager.openCreateTerm();
     }
 
-    @FXML
     private VBox createTermCard(Term term) {
 
-    Label title = new Label(term.getType());
-    title.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
+        Label title = new Label(term.getType());
+        title.getStyleClass().add("term-title");
 
-    Label date = new Label(
-            term.getDate() + " " +
-                    term.getStartTime() + " – " +
-                    term.getEndTime()
-    );
+        Label date = new Label(
+                term.getDate() + " " +
+                        term.getStartTime() + " – " +
+                        term.getEndTime()
+        );
+        date.getStyleClass().add("term-info");
 
-    Label address = new Label(term.getAddress());
-    Label capacity = new Label(
-            "Prihlásení: " + scheduleService.getRegisteredCount(term.getIdTerms()) + " / " + term.getCapacity()
-    );
-    Button registerButton = new Button();
-    if (isTermFull(term)) {
-        registerButton.setDisable(true);
-    } else if (!isTermFull(term) && registerButton.isDisable()) {
-        registerButton.setDisable(false);
-    }
-    registerButton.setUserData(term);
-    registerButton.setOnAction(this::toggleRegistration);
+        Label address = new Label(term.getAddress());
+        address.getStyleClass().add("term-info");
 
-    long userId = SceneManager.getCurrentUser().getIdUser();
-    boolean registered =
-            scheduleService.isUserRegistered(userId, term.getIdTerms());
+        Label capacity = new Label(
+                "Prihlásení: " +
+                        scheduleService.getRegisteredCount(term.getIdTerms()) +
+                        " / " + term.getCapacity()
+        );
+        capacity.getStyleClass().add("term-info");
 
-    registerButton.setText(registered ? "Odhlásiť sa" : "Zapísať sa");
+        Button registerButton = new Button();
+        registerButton.getStyleClass().add("primary-btn");
+        registerButton.setUserData(term);
+        registerButton.setOnAction(this::toggleRegistration);
 
-    VBox info = new VBox(5, date, address, capacity);
+        long userId = SceneManager.getCurrentUser().getIdUser();
+        boolean registered =
+                scheduleService.isUserRegistered(userId, term.getIdTerms());
 
-    /* ===== ACTION BUTTONS ===== */
+        registerButton.setText(registered ? "Odhlásiť sa" : "Zapísať sa");
 
-    HBox actions = new HBox(10);
-    actions.getChildren().add(registerButton);
+        VBox info = new VBox(5, date, address, capacity);
 
-    if (canManageTerms) {
+        HBox actions = new HBox(10, registerButton);
 
-        /* ✏️ EDIT */
-        Button editButton = new Button("✏");
-        editButton.setOnAction(e -> {
+        if (canManageTerms) {
 
-            if (term.getDate().isBefore(LocalDate.now())) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Upozornenie");
-                alert.setHeaderText("Úprava nie je možná");
-                alert.setContentText(
-                        "Tento termín je v minulosti a nie je možné ho upravovať."
-                );
-                alert.showAndWait();
-                return;
-            }
+            Button editButton = new Button("✏");
+            editButton.getStyleClass().add("secondary-btn");
+            editButton.setOnAction(e -> SceneManager.openCreateEditTermWindow(term));
 
-            SceneManager.openCreateEditTermWindow(term);
-        });
+            Button deleteButton = new Button("🗑");
+            deleteButton.getStyleClass().add("secondary-btn");
+            deleteButton.setOnAction(e -> deleteTerm(term));
 
+            actions.getChildren().addAll(editButton, deleteButton);
+        }
 
-        /* 🗑 DELETE */
-        Button deleteButton = new Button("🗑");
-        deleteButton.setOnAction(e -> deleteTerm(term));
+        HBox content = new HBox(20, info, actions);
 
-        actions.getChildren().addAll(editButton, deleteButton);
+        VBox card = new VBox(10, title, content);
+        card.getStyleClass().add("term-card");
+        card.setPadding(new Insets(16));
+
+        return card;
     }
 
-    HBox content = new HBox(20, info, actions);
-
-    VBox card = new VBox(10, title, content);
-    card.setStyle("-fx-border-color: black; -fx-border-width: 2;");
-    card.setPadding(new javafx.geometry.Insets(10));
-
-    return card;
-
-    }
 
     @FXML
     private void toggleRegistration(ActionEvent event) {
