@@ -146,8 +146,13 @@ public class SceneManager {
     }
 
     public static void openRegistrationWindow() {
+        String css = isDarkTheme()
+                ? "/css/registration-dark.css"
+                : "/css/registration-light.css";
+
         switchTo("/views/registration.fxml", "Cas nastal+", css);
     }
+
 
     public static void openUserScene(User user) {
         currentUser = user;
