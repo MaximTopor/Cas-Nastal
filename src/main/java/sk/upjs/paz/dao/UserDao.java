@@ -9,13 +9,14 @@ public interface UserDao {
     User getById(long id);
     User getByEmail(String email);
     List<User> getByDistrict(long districtId);
-
+    User getByPhone(String phone);
     void insert(User user);
     void update(User user);
-    void delete(long id);
+
+    boolean existsByPersonalNumber(String personalNumber);
 
     String getRoleName(long userId);
-
+    User getByPersonalNumber(String personalNumber);
     boolean hasRole(long userId, String role);
     boolean existsByEmail(String email);
 }

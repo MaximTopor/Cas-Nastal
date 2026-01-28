@@ -34,22 +34,6 @@ public class PostgresMessageDao implements MessageDao {
         ));
     }
 
-
-    @Override
-    public Message getById(long id) {
-        return null;
-    }
-
-    @Override
-    public List<Message> getBySender(long senderId) {
-        return List.of();
-    }
-
-    @Override
-    public List<Message> getByRecipient(long recipientId) {
-        return List.of();
-    }
-
     @Override
     public void insert(Message message) {
 
@@ -66,16 +50,5 @@ public class PostgresMessageDao implements MessageDao {
                 Timestamp.valueOf(message.getDateSent()),
                 message.getLastAction()
         );
-    }
-
-
-    @Override
-    public void update(Message message) {
-
-    }
-
-    @Override
-    public void delete(long id) {
-
     }
 }

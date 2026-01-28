@@ -1,0 +1,67 @@
+/* ================= ROOT ================= */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #0c1624,
+            #121f33
+    );
+}
+
+/* ================= TITLE ================= */
+
+.title-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* ================= TEXT FIELD ================= */
+
+.text-field {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 8 12;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused {
+    -fx-border-color: #4fa6dc;
+}
+
+.text-field .prompt-text {
+    -fx-fill: #9bb8da;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #4fa6dc,
+            #2f7fc4
+    );
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-padding: 10 26;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.9;
+}
+
+.secondary-btn {
+    -fx-background-color: #1b2f4a;
+    -fx-text-fill: #eaf3ff;
+    -fx-background-radius: 16;
+    -fx-padding: 10 26;
+}
+
+.secondary-btn:hover {
+    -fx-background-color: #223a5a;
+}

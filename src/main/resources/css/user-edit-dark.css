@@ -1,0 +1,128 @@
+/* ================= ROOT ================= */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(to bottom, #0c1624, #121f33);
+}
+
+/* ================= HEADLINE ================= */
+
+.header-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+/* ================= LABELS ================= */
+
+.form-label {
+    -fx-text-fill: #9bb8da;
+    -fx-font-size: 13;
+}
+
+/* ================= TEXT FIELD ================= */
+
+.text-field {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8 12;
+    -fx-text-fill: #ffffff;
+}
+
+.text-field:focused {
+    -fx-border-color: #4fa6dc;
+}
+
+/* ================= COMBO BOX ================= */
+
+.combo-box {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #ffffff;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(to bottom, #4fa6dc, #2f7fc4);
+    -fx-text-fill: white;
+    -fx-background-radius: 14;
+    -fx-padding: 10 26;
+    -fx-font-weight: bold;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.9;
+}
+
+.secondary-btn {
+    -fx-background-color: #1b2f4a;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 12;
+    -fx-padding: 6 16;
+}
+
+.secondary-btn:hover {
+    -fx-background-color: #223a5a;
+}
+
+.form-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13;
+}
+
+.passport-name{
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20;
+}
+/* ================= COMBO BOX (collapsed) ================= */
+
+.form-combo {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.form-combo .list-cell {
+    -fx-text-fill: #ffffff;
+}
+
+/* šípka */
+.form-combo .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.form-combo .arrow {
+    -fx-background-color: #9bb8da;
+}
+
+/* ================= COMBO BOX POPUP ================= */
+
+/* popup ListView */
+.combo-box-popup .list-view {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+}
+
+/* jednotlivé položky */
+.combo-box-popup .list-cell {
+    -fx-background-color: #16263d;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #223a5a;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #2f7fc4;
+    -fx-text-fill: white;
+}

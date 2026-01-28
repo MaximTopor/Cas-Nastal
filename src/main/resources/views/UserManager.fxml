@@ -6,7 +6,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sk.upjs.paz.controller.StatusController"
+            fx:controller="sk.upjs.paz.controller.UserManagerController"
             prefHeight="400"
             prefWidth="600"
             styleClass="root-pane">
@@ -16,9 +16,8 @@
                 AnchorPane.leftAnchor="0"
                 AnchorPane.rightAnchor="0">
 
-        <!-- ================= CENTER CONTENT ================= -->
         <right>
-            <VBox spacing="15" alignment="TOP_LEFT">
+            <VBox spacing="15" >
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
@@ -26,9 +25,12 @@
                 <Label text="Status používateľa"
                        styleClass="passport-name"/>
 
-                <!-- тут буде контент статусу -->
                 <Label text="Vyberte používateľa zo zoznamu"
                        styleClass="passport-sub"/>
+
+                <TextField fx:id="personalNumberSearchField"
+                           promptText="Rodné číslo "
+                           onAction="#searchByPersonalNumber"/>
 
                 <HBox spacing="10">
                     <Button text="Ďalej"
@@ -42,7 +44,6 @@
             </VBox>
         </right>
 
-        <!-- ================= RIGHT: USER LIST ================= -->
         <left>
             <VBox spacing="10" prefWidth="220">
                 <padding>
@@ -51,6 +52,9 @@
 
                 <Label text="Používatelia"
                        styleClass="passport-name"/>
+
+                <ComboBox fx:id="districtFilterBox"
+                          prefWidth="200"/>
 
                 <ListView fx:id="userListView"
                           VBox.vgrow="ALWAYS"/>

@@ -1,0 +1,92 @@
+/* ================= ROOT ================= */
+
+.root-pane,
+.login-root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #f1f5f9,
+            #ffffff
+    );
+}
+
+/* ================= TITLE ================= */
+
+.label {
+    -fx-text-fill: #0f172a;
+}
+
+.login-title {
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+}
+
+/* ================= INPUTS ================= */
+
+.text-field,
+.password-field,
+.date-picker,
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-text-fill: #0f172a;
+    -fx-prompt-text-fill: #94a3b8;
+    -fx-padding: 10 14;
+}
+
+.text-field:focused,
+.password-field:focused,
+.date-picker:focused,
+.combo-box:focused {
+    -fx-border-color: #3b82f6;
+}
+
+/* DatePicker text */
+.date-picker .text-field {
+    -fx-background-color: transparent;
+}
+
+/* ================= COMBOBOX ================= */
+
+.combo-box-popup .list-view {
+    -fx-background-color: #ffffff;
+}
+
+.combo-box-popup .list-cell {
+    -fx-text-fill: #0f172a;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #eef2ff;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn,
+.button {
+    -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}
+
+.primary-btn:hover,
+.button:hover {
+    -fx-opacity: 0.92;
+}
+
+.secondary-btn {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #0f172a;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}
+
+/* ================= ERROR ================= */
+
+.error-label {
+    -fx-text-fill: #dc2626;
+}

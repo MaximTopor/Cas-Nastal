@@ -1,0 +1,107 @@
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #0c1624,
+            #121f33
+    );
+}
+
+/* TOP */
+.top-bar {
+    -fx-background-color: rgba(15,30,50,0.95);
+    -fx-border-color: #233b5a;
+    -fx-border-width: 0 0 1 0;
+}
+
+.title-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* FORM CARD */
+.form-card {
+    -fx-background-color: #16263d;
+    -fx-background-radius: 20;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 20;
+    -fx-padding: 20;
+}
+
+/* INPUTS */
+.text-field,
+.date-picker,
+.combo-box {
+    -fx-background-color: #1b2f4a;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: #ffffff;
+}
+
+.text-field .prompt-text {
+    -fx-fill: #9bb8da;
+}
+
+/* BUTTONS */
+.primary-btn {
+    -fx-background-color: linear-gradient(#4fa6dc, #2f7fc4);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-padding: 10 30;
+}
+
+.secondary-btn {
+    -fx-background-color: #1b2f4a;
+    -fx-text-fill: #eaf3ff;
+    -fx-background-radius: 16;
+    -fx-padding: 10 30;
+}
+
+/* BOTTOM */
+.bottom-bar {
+    -fx-padding: 20;
+}
+/* ================= COMBO BOX (collapsed) ================= */
+
+.form-combo {
+    -fx-background-color: #1b2f4a;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.form-combo .list-cell {
+    -fx-text-fill: #ffffff;
+}
+
+/* arrow */
+.form-combo .arrow-button {
+    -fx-background-color: transparent;
+}
+.form-combo .arrow {
+    -fx-background-color: #9bb8da;
+}
+
+/* ================= COMBO BOX POPUP (dropdown) ================= */
+
+.combo-box-popup .list-view {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #16263d;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #223a5a;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #2f7fc4;
+    -fx-text-fill: white;
+}

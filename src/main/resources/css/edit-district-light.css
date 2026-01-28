@@ -1,0 +1,63 @@
+/* ================= ROOT ================= */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #f1f5f9,
+            #ffffff
+    );
+}
+
+/* ================= TITLE ================= */
+
+.title-label {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* ================= TEXT FIELD ================= */
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 8 12;
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused {
+    -fx-border-color: #3b82f6;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #3b82f6,
+            #2563eb
+    );
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-padding: 10 26;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.92;
+}
+
+.secondary-btn {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #1e293b;
+    -fx-background-radius: 16;
+    -fx-padding: 10 26;
+}
+
+.secondary-btn:hover {
+    -fx-background-color: #d1d5db;
+}

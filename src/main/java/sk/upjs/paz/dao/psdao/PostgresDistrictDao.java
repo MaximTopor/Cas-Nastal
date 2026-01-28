@@ -60,24 +60,67 @@ public class PostgresDistrictDao implements DistrictDao {
         );
     }
 
-
-    @Override
-    public void insert(District district) {
-
-    }
-
     @Override
     public void update(District district) {
 
+        String sql = """
+        UPDATE cn.districts
+        SET name = ?,
+            address_of_center = ?,
+            kontakt = ?,
+            psc = ?,
+            region = ?
+        WHERE id_district = ?
+    """;
+
+        jdbc.update(
+                sql,
+                district.getName(),
+                district.getAddressOfCenter(),
+                district.getContact(),
+                district.getPostalCode(),
+                district.getRegion(),
+                district.getIdDistrict()
+        );
     }
 
     @Override
-    public void delete(long id) {
+    public boolean existsByName(String name, long excludeId) {
+        String sql = """
+        SELECT COUNT(*)
+        FROM cn.districts
+        WHERE name = ?
+          AND id_district <> ?
+    """;
 
+        Integer count = jdbc.queryForObject(sql, Integer.class, name, excludeId);
+        return count != null && count > 0;
     }
 
     @Override
-    public List<District> findByRegion(String region) {
-        return List.of();
+    public boolean existsByAddress(String address, long excludeId) {
+        String sql = """
+        SELECT COUNT(*)
+        FROM cn.districts
+        WHERE address_of_center = ?
+          AND id_district <> ?
+    """;
+
+        Integer count = jdbc.queryForObject(sql, Integer.class, address, excludeId);
+        return count != null && count > 0;
     }
+
+    @Override
+    public boolean existsByPostalCode(int psc, long excludeId) {
+        String sql = """
+        SELECT COUNT(*)
+        FROM cn.districts
+        WHERE psc = ?
+          AND id_district <> ?
+    """;
+
+        Integer count = jdbc.queryForObject(sql, Integer.class, psc, excludeId);
+        return count != null && count > 0;
+    }
+
 }

@@ -1,0 +1,159 @@
+/* =========================================================
+   ROOT
+   ========================================================= */
+
+.root-pane,
+.border-pane,
+.anchor-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #0b1422,
+            #0f1e33
+    );
+}
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.page-title {
+    -fx-text-fill: #eaf3ff;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+/* =========================================================
+   SCROLLPANE – REAL FIX (ALL LAYERS)
+   ========================================================= */
+
+.form-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+/* viewport */
+.form-scroll > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* content */
+.form-scroll .content {
+    -fx-background-color: transparent;
+}
+
+/* scrollbar track */
+.form-scroll .scroll-bar,
+.form-scroll .scroll-bar:vertical,
+.form-scroll .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+/* scrollbar corner (THIS was your white triangle) */
+.form-scroll .corner {
+    -fx-background-color: transparent;
+}
+
+/* arrows */
+.form-scroll .increment-button,
+.form-scroll .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* =========================================================
+   FORM CARD (CENTER PANEL)
+   ========================================================= */
+
+.form-card {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #16263d,
+            #132238
+    );
+    -fx-background-radius: 22;
+    -fx-padding: 28;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(0,0,0,0.7),
+            32,
+            0.45,
+            0,
+            10
+    );
+}
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.text-field,
+.password-field,
+.date-picker,
+.combo-box {
+    -fx-background-color: #1c2f4a;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #2f4d73;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #9bb8da;
+    -fx-padding: 12 16;
+}
+
+.text-field:focused,
+.password-field:focused,
+.date-picker:focused,
+.combo-box:focused {
+    -fx-background-color: #223a5a;
+    -fx-border-color: #4fa6dc;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #4fa6dc,
+            #2f7fc4
+    );
+    -fx-text-fill: white;
+    -fx-background-radius: 18;
+    -fx-padding: 12 26;
+    -fx-font-weight: bold;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.92;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn,
+.button {
+    -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}
+
+.primary-btn:hover,
+.button:hover {
+    -fx-opacity: 0.92;
+}
+
+.secondary-btn {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #0f172a;
+    -fx-background-radius: 14;
+    -fx-padding: 10 22;
+}
+
+
+

@@ -8,12 +8,14 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sk.upjs.paz.controller.ScheduleController"
             prefWidth="900"
-            prefHeight="600">
+            prefHeight="600"
+            styleClass="root-pane">
 
     <!-- ================= TOP BAR ================= -->
     <HBox prefHeight="70"
           spacing="15"
           alignment="CENTER_LEFT"
+          styleClass="top-bar"
           AnchorPane.topAnchor="0"
           AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0">
@@ -22,28 +24,29 @@
             <Insets top="10" right="15" bottom="10" left="15"/>
         </padding>
 
-        <!-- Profile button -->
-        <Button text="Profile"
+        <Button text="Profil"
                 prefWidth="140"
+                styleClass="secondary-btn"
                 onAction="#backToProfile"/>
 
         <Button fx:id="createTermButton"
-                text="Create Term"
+                text="Vytvoriť termín"
+                styleClass="primary-btn"
                 onAction="#onCreateTerm"/>
 
-        <!-- Spacer pushes next elements to the right -->
         <Region HBox.hgrow="ALWAYS"/>
 
-        <!-- Filters -->
         <CheckBox fx:id="myRegistrationsCheckBox"
-                  text="Moje zápisy"/>
+                  text="Moje prihlášky"
+                  styleClass="filter-check"/>
 
         <CheckBox fx:id="activeRegistrationsCheckBox"
-                  text="Aktuálne zápisy"/>
+                  text="Aktívne prihlášky"
+                  styleClass="filter-check"/>
 
     </HBox>
 
-    <!-- ================= SCROLLABLE CONTENT ================= -->
+    <!-- ================= CONTENT ================= -->
     <ScrollPane fitToWidth="true"
                 AnchorPane.topAnchor="70"
                 AnchorPane.bottomAnchor="0"
@@ -58,41 +61,22 @@
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
 
-                <!-- ================= TERM CARD (EXAMPLE) ================= -->
-
                 <VBox spacing="10"
-                      style="-fx-border-color: black; -fx-border-width: 2;">
+                      styleClass="term-card">
 
-                    <!-- Title -->
                     <Label text="Lekárska prehliadka"
-                           style="-fx-font-size: 16; -fx-font-weight: bold;">
+                           styleClass="term-title"/>
 
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
-                    </Label>
-
-                    <!-- Content -->
                     <HBox spacing="20"
                           alignment="CENTER_LEFT">
 
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
-
-                        <VBox spacing="5" HBox.hgrow="ALWAYS">
-                            <Label text=" 20.03.2025  08:00 – 10:00"/>
-                            <Label text=" Poliklinika Košice, Trieda SNP 1"/>
-                            <Label text=" Kapacita: 30"/>
-                        </VBox>
-
                         <Button fx:id="registerButton"
-                                text="Zapísať sa"
+                                text="Prihlásiť sa"
+                                styleClass="primary-btn"
                                 onAction="#toggleRegistration"/>
                     </HBox>
                 </VBox>
-
-                <!-- ====================================================== -->
+                <!-- ===================================================== -->
 
             </VBox>
         </content>

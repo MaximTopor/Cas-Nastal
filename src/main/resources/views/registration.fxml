@@ -35,13 +35,17 @@
                     <TextField fx:id="emailField" promptText="Email"/>
                     <PasswordField fx:id="passwordField" promptText="Password"/>
                     <PasswordField fx:id="confirmPasswordField" promptText="Confirm password"/>
+
                     <TextField fx:id="nameField" promptText="Name"/>
                     <TextField fx:id="surnameField" promptText="Surname"/>
+
+                    <!-- FIX: fx:id pridane, aby sa napojilo na birthDatePicker v kontroléri -->
                     <DatePicker fx:id="birthDatePicker" promptText="Birth date"/>
-                    <TextField fx:id="personalNumberField" promptText="Personal number"/>
+
                     <ComboBox fx:id="regionComboBox"
                               promptText="Region"
                               prefWidth="350"/>
+
                     <TextField fx:id="localityField" promptText="Locality"/>
                     <TextField fx:id="addressField" promptText="Address"/>
                     <TextField fx:id="phoneField" promptText="Phone"/>
@@ -62,10 +66,9 @@
             </padding>
 
             <Button text="Create"
-                    prefWidth="160"
-                    onAction="#createAccount"/>
+                    prefWidth="160"/>
 
-            <Button text="Back to login"
+            <Button text="Login"
                     prefWidth="160"
                     onAction="#StepBackToLogin"/>
         </VBox>

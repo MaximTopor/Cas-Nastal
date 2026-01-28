@@ -50,16 +50,45 @@ public class UserService {
         return userDao.getRoleName(userId);
     }
 
-    public boolean canManageTerms(long userId) {
-        String role = getRoleName(userId);
-        return "ADMIN".equals(role) || "WORKER".equals(role);
+    public void update(User user) {
+        if (user == null) {
+            return;
+        }
+
+        userDao.update(user);
     }
 
     public List<User> getAllUsers() {
         return userDao.getAll();
     }
 
+    public boolean canManageTerms(long userId) {
+        String role = getRoleName(userId);
+        return "ADMIN".equals(role) || "WORKER".equals(role);
+    }
+
     public User getUserById(long userId) {
         return userDao.getById(userId);
+    }
+
+    public List<User> getUsersByDistrict(long districtId) {
+        return userDao.getByDistrict(districtId);
+    }
+
+
+    public User getUserByPersonalNumber(String personalNumber) {
+        if (personalNumber == null || personalNumber.isBlank()) {
+            return null;
+        }
+        return userDao.getByPersonalNumber(personalNumber);
+    }
+    public boolean phoneExistsForOtherUser(String phone, long userId) {
+        User existing = userDao.getByPhone(phone);
+        return existing != null && existing.getIdUser() != userId;
+    }
+
+    public boolean emailExistsForOtherUser(String email, long userId) {
+        User existing = userDao.getByEmail(email);
+        return existing != null && existing.getIdUser() != userId;
     }
 }

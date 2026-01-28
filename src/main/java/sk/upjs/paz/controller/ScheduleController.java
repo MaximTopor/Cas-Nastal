@@ -2,80 +2,70 @@ package sk.upjs.paz.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sk.upjs.paz.app.SceneManager;
 import sk.upjs.paz.model.Term;
+import sk.upjs.paz.model.User;
 import sk.upjs.paz.service.ScheduleService;
-import sk.upjs.paz.service.UserService;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class ScheduleController {
-
-    @FXML
-    private VBox termsContainer;
-
     @FXML
     private CheckBox myRegistrationsCheckBox;
 
-    @FXML
-    private CheckBox activeRegistrationsCheckBox;
-
-    @FXML
-    private Button createTermButton;
-
     private final ScheduleService scheduleService = new ScheduleService();
-    private final UserService userService = new UserService();
 
     private List<Term> allTerms;
     private boolean canManageTerms;
 
+    @FXML private VBox termsContainer;
+    @FXML private CheckBox activeRegistrationsCheckBox;
+
+    private User currentUser;
+
+    /* ================= INIT ================= */
+
     @FXML
     private void initialize() {
-        System.out.println(">>> ScheduleController.initialize()");
+        currentUser = SceneManager.getCurrentUser();
 
-        long userId = SceneManager.getCurrentUser().getIdUser();
-
-        // ✅ ROLE CHECK THROUGH SERVICE
-        canManageTerms = userService.canManageTerms(userId);
-
-        // Create term button (role-based)
-        createTermButton.setVisible(canManageTerms);
-        createTermButton.setManaged(canManageTerms);
-
-        // Load data ONCE
-        allTerms = scheduleService.getVisibleTermsForUser(
-                SceneManager.getCurrentUser()
-        );
-
-        // Filters
-        myRegistrationsCheckBox.selectedProperty()
-                .addListener((obs, o, n) -> applyFilters());
-
-        activeRegistrationsCheckBox.selectedProperty()
-                .addListener((obs, o, n) -> applyFilters());
+        canManageTerms =
+                scheduleService.hasRole(currentUser.getIdUser(), "ADMIN")
+                        || scheduleService.hasRole(currentUser.getIdUser(), "OFFICER");
+        myRegistrationsCheckBox.setOnAction(e -> applyFilters());
+        activeRegistrationsCheckBox.setOnAction(e -> applyFilters());
 
         applyFilters();
     }
 
+
+    /* ================= FILTERING ================= */
+
     private void applyFilters() {
+
         termsContainer.getChildren().clear();
 
-        for (Term term : allTerms) {
+        List<Term> terms = scheduleService.filterTerms(
+                currentUser,
+                myRegistrationsCheckBox.isSelected(),
+                activeRegistrationsCheckBox.isSelected()
+        );
+
+        for (Term term : terms) {
             termsContainer.getChildren().add(createTermCard(term));
         }
     }
 
+    /* ================= UI ================= */
+
     @FXML
     private void backToProfile() {
-        SceneManager.backToProfile();
+        SceneManager.openUserScene(currentUser);
     }
 
     @FXML
@@ -86,27 +76,27 @@ public class ScheduleController {
     private VBox createTermCard(Term term) {
 
         Label title = new Label(term.getType());
-        title.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
+        title.getStyleClass().add("term-title");
 
         Label date = new Label(
                 term.getDate() + " " +
                         term.getStartTime() + " – " +
                         term.getEndTime()
         );
+        date.getStyleClass().add("term-info");
 
         Label address = new Label(term.getAddress());
+        address.getStyleClass().add("term-info");
+
         Label capacity = new Label(
-                "Prihlásení: " + scheduleService.getRegisteredCount(term.getIdTerms()) + " / " + term.getCapacity()
+                "Prihlásení: " +
+                        scheduleService.getRegisteredCount(term.getIdTerms()) +
+                        " / " + term.getCapacity()
         );
-
-
+        capacity.getStyleClass().add("term-info");
 
         Button registerButton = new Button();
-        if (isTermFull(term)) {
-            registerButton.setDisable(true);
-        } else if (!isTermFull(term) && registerButton.isDisable()) {
-            registerButton.setDisable(false);
-        }
+        registerButton.getStyleClass().add("primary-btn");
         registerButton.setUserData(term);
         registerButton.setOnAction(this::toggleRegistration);
 
@@ -118,33 +108,16 @@ public class ScheduleController {
 
         VBox info = new VBox(5, date, address, capacity);
 
-        /* ===== ACTION BUTTONS ===== */
-
-        HBox actions = new HBox(10);
-        actions.getChildren().add(registerButton);
+        HBox actions = new HBox(10, registerButton);
 
         if (canManageTerms) {
 
-            /* ✏️ EDIT */
-            Button editButton = new Button("✏️");
-            editButton.setOnAction(e -> {
-// 🔒 UI-level zákaz editácie minulých termínov
-                if (term.getDate().isBefore(LocalDate.now())) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Upozornenie");
-                    alert.setHeaderText("Úprava nie je možná");
-                    alert.setContentText(
-                            "Tento termín je v minulosti a nie je možné ho upravovať."
-                    );
-                    alert.showAndWait();
-                    return;
-                }
+            Button editButton = new Button("✏");
+            editButton.getStyleClass().add("secondary-btn");
+            editButton.setOnAction(e -> SceneManager.openCreateEditTermWindow(term));
 
-                SceneManager.openEditTermWindow(term);
-            });
-
-            /* 🗑 DELETE */
             Button deleteButton = new Button("🗑");
+            deleteButton.getStyleClass().add("secondary-btn");
             deleteButton.setOnAction(e -> deleteTerm(term));
 
             actions.getChildren().addAll(editButton, deleteButton);
@@ -153,8 +126,8 @@ public class ScheduleController {
         HBox content = new HBox(20, info, actions);
 
         VBox card = new VBox(10, title, content);
-        card.setStyle("-fx-border-color: black; -fx-border-width: 2;");
-        card.setPadding(new javafx.geometry.Insets(10));
+        card.getStyleClass().add("term-card");
+        card.setPadding(new Insets(16));
 
         return card;
     }
@@ -194,13 +167,11 @@ public class ScheduleController {
 
         if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             scheduleService.cancelTerm(term.getIdTerms());
-            allTerms = scheduleService.getAllTerms();
             applyFilters();
         }
     }
-
     public boolean isTermFull(Term term) {
         return scheduleService.getRegisteredCount(term.getIdTerms()) >= term.getCapacity();
     }
-
 }
+

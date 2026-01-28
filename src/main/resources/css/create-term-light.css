@@ -1,0 +1,103 @@
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #f1f5f9,
+            #ffffff
+    );
+}
+
+/* TOP */
+.top-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.title-label {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* FORM CARD */
+.form-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 20;
+    -fx-padding: 20;
+}
+
+/* INPUTS */
+.text-field,
+.date-picker,
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: #0f172a;
+}
+
+/* BUTTONS */
+.primary-btn {
+    -fx-background-color: linear-gradient(#3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-padding: 10 30;
+}
+
+.secondary-btn {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #1e293b;
+    -fx-background-radius: 16;
+    -fx-padding: 10 30;
+}
+
+/* BOTTOM */
+.bottom-bar {
+    -fx-padding: 20;
+}
+/* ================= COMBO BOX (collapsed) ================= */
+
+.form-combo {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.form-combo .list-cell {
+    -fx-text-fill: #0f172a;
+}
+
+/* arrow */
+.form-combo .arrow-button {
+    -fx-background-color: transparent;
+}
+.form-combo .arrow {
+    -fx-background-color: #64748b;
+}
+
+/* ================= COMBO BOX POPUP (dropdown) ================= */
+
+.combo-box-popup .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #0f172a;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #eef2ff;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}

@@ -11,7 +11,7 @@
             prefHeight="600"
             styleClass="root-pane">
 
-    <!-- ================= TOP BAR ================= -->
+    <!-- ================= HORNÁ LIŠTA ================= -->
     <HBox prefHeight="70"
           spacing="10"
           alignment="CENTER_LEFT"
@@ -28,7 +28,7 @@
                styleClass="passport-name"/>
     </HBox>
 
-    <!-- ================= SCROLLABLE CONTENT ================= -->
+    <!-- ================= ZOZNAM SPRÁV ================= -->
     <ScrollPane fitToWidth="true"
                 AnchorPane.topAnchor="70"
                 AnchorPane.bottomAnchor="120"
@@ -49,7 +49,7 @@
         </content>
     </ScrollPane>
 
-    <!-- ================= MESSAGE INPUT ================= -->
+    <!-- ================= VSTUP SPRÁVY ================= -->
     <HBox spacing="12"
           AnchorPane.leftAnchor="20"
           AnchorPane.rightAnchor="20"
@@ -58,7 +58,7 @@
         <TextArea fx:id="messageInput"
                   prefHeight="80"
                   wrapText="true"
-                  promptText="Napíšte správu..."
+                  promptText="Napíšte správu…"
                   styleClass="data-row"/>
 
         <Button fx:id="sendButton"

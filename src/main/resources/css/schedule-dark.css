@@ -1,0 +1,122 @@
+/* ================= ROOT ================= */
+
+.root-pane {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #0c1624,
+            #121f33
+    );
+}
+
+/* ================= TOP BAR ================= */
+
+.top-bar {
+    -fx-background-color: rgba(15,30,50,0.95);
+    -fx-border-color: #233b5a;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: linear-gradient(to bottom, #4fa6dc, #2f7fc4);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-padding: 10 24;
+}
+
+.primary-btn:hover {
+    -fx-opacity: 0.9;
+}
+
+.secondary-btn {
+    -fx-background-color: #1b2f4a;
+    -fx-text-fill: #eaf3ff;
+    -fx-background-radius: 16;
+    -fx-padding: 10 24;
+}
+
+.secondary-btn:hover {
+    -fx-background-color: #223a5a;
+}
+
+/* ================= CHECKBOX ================= */
+
+.filter-check {
+    -fx-text-fill: #eaf3ff;
+    -fx-font-size: 13px;
+}
+
+/* ================= TERM CARD ================= */
+
+.term-card {
+    -fx-background-color: #16263d;
+    -fx-background-radius: 20;
+    -fx-padding: 16;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+}
+
+.term-card:hover {
+    -fx-background-color: #1b2f4a;
+}
+
+/* ================= TERM TEXT ================= */
+
+.term-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.term-info {
+    -fx-text-fill: #9bb8da;
+    -fx-font-size: 13px;
+}
+
+/* ================= SCROLLPANE ================= */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+/* ===== CHECKBOX TEXT ===== */
+
+.filter-check {
+    -fx-text-fill: #eaf3ff;
+    -fx-font-size: 13px;
+}
+
+/* ===== CHECKBOX BOX ===== */
+
+.filter-check .box {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+/* ===== CHECKED STATE ===== */
+
+.filter-check:selected .box {
+    -fx-background-color: #2f7fc4;
+    -fx-border-color: #2f7fc4;
+}
+
+/* ===== CHECK MARK ===== */
+
+.filter-check:selected .mark {
+    -fx-background-color: white;
+}
+
+/* ===== HOVER ===== */
+
+.filter-check:hover .box {
+    -fx-border-color: #4fa6dc;
+}
