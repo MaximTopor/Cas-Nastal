@@ -170,7 +170,7 @@ public class SceneManager {
     }
 
     public static void openRegistrationWindow() {
-        switchTo("/views/Registration.fxml", "Registration", null);
+        switchTo("/views/registration.fxml", "Registration", null);
     }
 
     public static void openCreateTerm() {
