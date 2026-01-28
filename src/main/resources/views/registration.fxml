@@ -32,19 +32,20 @@
                         <Insets top="20" right="20" bottom="20" left="20"/>
                     </padding>
 
-                    <TextField fx:id="emailField" promptText="Email"/>
-                    <PasswordField fx:id="passwordField" promptText="Password"/>
-                    <PasswordField fx:id="confirmPasswordField" promptText="Confirm password"/>
-                    <TextField fx:id="nameField" promptText="Name"/>
-                    <TextField fx:id="surnameField" promptText="Surname"/>
-                    <DatePicker fx:id="birthDatePicker" promptText="Birth date"/>
-                    <TextField fx:id="personalNumberField" promptText="Personal number"/>
+                    <TextField promptText="Email"/>
+                    <PasswordField promptText="Password"/>
+                    <PasswordField promptText="Confirm password"/>
+
+                    <TextField promptText="Name"/>
+                    <TextField promptText="Surname"/>
+                    <DatePicker promptText="Birth date"/>
                     <ComboBox fx:id="regionComboBox"
                               promptText="Region"
                               prefWidth="350"/>
-                    <TextField fx:id="localityField" promptText="Locality"/>
-                    <TextField fx:id="addressField" promptText="Address"/>
-                    <TextField fx:id="phoneField" promptText="Phone"/>
+
+                    <TextField promptText="Locality"/>
+                    <TextField promptText="Address"/>
+                    <TextField promptText="Phone"/>
 
                 </VBox>
             </ScrollPane>
@@ -62,10 +63,9 @@
             </padding>
 
             <Button text="Create"
-                    prefWidth="160"
-                    onAction="#createAccount"/>
+                    prefWidth="160"/>
 
-            <Button text="Back to login"
+            <Button text="Login"
                     prefWidth="160"
                     onAction="#StepBackToLogin"/>
         </VBox>
