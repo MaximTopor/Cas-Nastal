@@ -32,20 +32,23 @@
                         <Insets top="20" right="20" bottom="20" left="20"/>
                     </padding>
 
-                    <TextField promptText="Email"/>
-                    <PasswordField promptText="Password"/>
-                    <PasswordField promptText="Confirm password"/>
+                    <TextField fx:id="emailField" promptText="Email"/>
+                    <PasswordField fx:id="passwordField" promptText="Password"/>
+                    <PasswordField fx:id="confirmPasswordField" promptText="Confirm password"/>
 
-                    <TextField promptText="Name"/>
-                    <TextField promptText="Surname"/>
-                    <DatePicker promptText="Birth date"/>
+                    <TextField fx:id="nameField" promptText="Name"/>
+                    <TextField fx:id="surnameField" promptText="Surname"/>
+
+                    <!-- FIX: fx:id pridane, aby sa napojilo na birthDatePicker v kontroléri -->
+                    <DatePicker fx:id="birthDatePicker" promptText="Birth date"/>
+
                     <ComboBox fx:id="regionComboBox"
                               promptText="Region"
                               prefWidth="350"/>
 
-                    <TextField promptText="Locality"/>
-                    <TextField promptText="Address"/>
-                    <TextField promptText="Phone"/>
+                    <TextField fx:id="localityField" promptText="Locality"/>
+                    <TextField fx:id="addressField" promptText="Address"/>
+                    <TextField fx:id="phoneField" promptText="Phone"/>
 
                 </VBox>
             </ScrollPane>
