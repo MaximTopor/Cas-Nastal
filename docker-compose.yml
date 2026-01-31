@@ -7,7 +7,17 @@ services:
       POSTGRES_USER: casnast
       POSTGRES_PASSWORD: casnast
       POSTGRES_DB: cn
+      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5433:5432"
     volumes:
+      - pgdata:/var/lib/postgresql/data
       - ./init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U casnast -d cn"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:

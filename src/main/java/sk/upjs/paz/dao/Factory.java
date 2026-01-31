@@ -3,11 +3,7 @@ package sk.upjs.paz.dao;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import sk.upjs.paz.dao.psdao.*;
-
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 public enum Factory {
     INSTANCE;
@@ -24,47 +20,29 @@ public enum Factory {
 
     private final Object lock = new Object();
 
-    Factory() {
-        this.jdbc = createJdbc();
-        runSql("init/init.sql");
-        runSql("init/test.sql");
-    }
-
     private JdbcOperations createJdbc() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName("org.postgresql.Driver");
-        ds.setUrl("jdbc:postgresql://localhost:5433/cn");
-        ds.setUsername("casnast");
-        ds.setPassword("casnast");
-
+        PGSimpleDataSource ds = new PGSimpleDataSource();
+        ds.setURL(System.getProperty(
+                "DB_JDBC",
+                "jdbc:postgresql://localhost:5433/cn"
+        ));
+        ds.setUser(System.getProperty("DB_USER", "casnast"));
+        ds.setPassword(System.getProperty("DB_PASSWORD", "casnast"));
         return new JdbcTemplate(ds);
     }
 
-    private void runSql(String path) {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream(path)) {
-            if (is == null) return;
-
-            String sql = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-            jdbc.execute(sql);
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to execute " + path, e);
-        }
-    }
-
     public JdbcOperations getJdbcOperations() {
-        if (jdbc == null) {
+        JdbcOperations local = jdbc;
+        if (local == null) {
             synchronized (lock) {
-                if (jdbc == null) {
-                    var ds = new PGSimpleDataSource();
-                    ds.setURL(System.getProperty("DB_JDBC", "jdbc:postgresql://localhost:5432/cn"));
-                    ds.setUser(System.getProperty("DB_USER", "postgres"));
-                    ds.setPassword(System.getProperty("DB_PASSWORD", "1234"));
-                    jdbc = new JdbcTemplate(ds);
+                local = jdbc;
+                if (local == null) {
+                    local = createJdbc();
+                    jdbc = local;
                 }
             }
         }
-        return jdbc;
+        return local;
     }
 
     public UserDao getUserDao() {
