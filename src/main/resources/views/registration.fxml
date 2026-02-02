@@ -9,15 +9,13 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sk.upjs.paz.controller.RegisterController">
 
-    <!-- ================= TOP ================= -->
     <top>
         <HBox alignment="CENTER" prefHeight="70">
-            <Label text="Registration"
+            <Label text="%register.title"
                    style="-fx-font-size: 22; -fx-font-weight: bold;"/>
         </HBox>
     </top>
 
-    <!-- ================= CENTER (SCROLL) ================= -->
     <center>
         <HBox alignment="CENTER">
 
@@ -32,23 +30,22 @@
                         <Insets top="20" right="20" bottom="20" left="20"/>
                     </padding>
 
-                    <TextField fx:id="emailField" promptText="Email"/>
-                    <PasswordField fx:id="passwordField" promptText="Password"/>
-                    <PasswordField fx:id="confirmPasswordField" promptText="Confirm password"/>
+                    <TextField fx:id="emailField" promptText="%register.email"/>
+                    <PasswordField fx:id="passwordField" promptText="%register.password"/>
+                    <PasswordField fx:id="confirmPasswordField" promptText="%register.confirm"/>
 
-                    <TextField fx:id="nameField" promptText="Name"/>
-                    <TextField fx:id="surnameField" promptText="Surname"/>
+                    <TextField fx:id="nameField" promptText="%register.name"/>
+                    <TextField fx:id="surnameField" promptText="%register.surname"/>
 
-                    <!-- FIX: fx:id pridane, aby sa napojilo na birthDatePicker v kontroléri -->
-                    <DatePicker fx:id="birthDatePicker" promptText="Birth date"/>
+                    <DatePicker fx:id="birthDatePicker" promptText="%register.birthdate"/>
 
                     <ComboBox fx:id="regionComboBox"
-                              promptText="Region"
+                              promptText="%register.region"
                               prefWidth="350"/>
 
-                    <TextField fx:id="localityField" promptText="Locality"/>
-                    <TextField fx:id="addressField" promptText="Address"/>
-                    <TextField fx:id="phoneField" promptText="Phone"/>
+                    <TextField fx:id="localityField" promptText="%register.locality"/>
+                    <TextField fx:id="addressField" promptText="%register.address"/>
+                    <TextField fx:id="phoneField" promptText="%register.phone"/>
 
                 </VBox>
             </ScrollPane>
@@ -58,17 +55,17 @@
         </HBox>
     </center>
 
-    <!-- ================= BOTTOM ================= -->
     <bottom>
         <VBox alignment="CENTER" spacing="10">
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <Button text="Create"
-                    prefWidth="160"/>
+            <Button text="%register.create"
+                    prefWidth="160"
+                    onAction="#createAccount"/>
 
-            <Button text="Login"
+            <Button text="%register.login"
                     prefWidth="160"
                     onAction="#StepBackToLogin"/>
         </VBox>

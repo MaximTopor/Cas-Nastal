@@ -10,41 +10,38 @@
             fx:controller="sk.upjs.paz.controller.CreateTermController"
             styleClass="root-pane">
 
-    <!-- ================= TOP ================= -->
     <top>
         <HBox alignment="CENTER"
               prefHeight="70"
               styleClass="top-bar">
 
             <Label fx:id="titleLabel"
-                   text="Vytvorenie termínu"
+                   text="%createTerm.title"
                    styleClass="title-label"/>
         </HBox>
     </top>
 
-    <!-- ================= CENTER ================= -->
     <center>
         <HBox spacing="40" alignment="CENTER">
 
             <Region prefWidth="150"/>
 
-            <!-- FORM CARD -->
             <VBox spacing="12"
                   prefWidth="360"
                   alignment="CENTER"
                   styleClass="form-card">
 
-                <TextField fx:id="typeField" promptText="Typ"/>
-                <DatePicker fx:id="datePicker" promptText="Dátum"/>
+                <TextField fx:id="typeField" promptText="%createTerm.type"/>
+                <DatePicker fx:id="datePicker" promptText="%createTerm.date"/>
 
-                <TextField fx:id="startTimeField" promptText="Čas začiatku"/>
-                <TextField fx:id="endTimeField" promptText="Čas ukončenia"/>
+                <TextField fx:id="startTimeField" promptText="%createTerm.startTime"/>
+                <TextField fx:id="endTimeField" promptText="%createTerm.endTime"/>
 
-                <TextField fx:id="addressField" promptText="Adresa"/>
-                <TextField fx:id="capacityField" promptText="Kapacita"/>
+                <TextField fx:id="addressField" promptText="%createTerm.address"/>
+                <TextField fx:id="capacityField" promptText="%createTerm.capacity"/>
 
                 <ComboBox fx:id="regionComboBox"
-                          promptText="Región"
+                          promptText="%createTerm.region"
                           prefWidth="360"
                           styleClass="form-combo"/>
 
@@ -55,17 +52,16 @@
         </HBox>
     </center>
 
-    <!-- ================= BOTTOM ================= -->
     <bottom>
         <VBox alignment="CENTER" spacing="12"
               styleClass="bottom-bar">
 
             <Button fx:id="createButton"
-                    text="Vytvoriť"
+                    text="%createTerm.create"
                     styleClass="primary-btn"
                     onAction="#onCreate"/>
 
-            <Button text="Späť"
+            <Button text="%common.back"
                     prefWidth="160"
                     styleClass="secondary-btn"
                     onAction="#backToSchedule"/>

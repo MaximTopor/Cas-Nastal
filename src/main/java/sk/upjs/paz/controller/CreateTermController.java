@@ -4,23 +4,23 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import sk.upjs.paz.app.I18n;
+import sk.upjs.paz.app.SceneManager;
 import sk.upjs.paz.model.District;
 import sk.upjs.paz.model.Term;
 import sk.upjs.paz.service.CreateTermService;
 import sk.upjs.paz.service.DistrictService;
-import sk.upjs.paz.app.SceneManager;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class CreateTermController {
 
-
-
     private enum Mode {
         CREATE,
         EDIT
     }
+
     private Mode mode = Mode.CREATE;
     private Term editedTerm;
 
@@ -39,50 +39,26 @@ public class CreateTermController {
 
     @FXML
     private void initialize() {
-        regionComboBox.getItems().setAll(
-                districtService.getAllDistricts()
-        );
-
+        regionComboBox.getItems().setAll(districtService.getAllDistricts());
         datePicker.setEditable(false);
 
-        titleLabel.setText("Create term");
-        createButton.setText("Create");
+        // i18n texts (НЕ перезаписуй FXML-ключі звичайним текстом)
+        applyModeTexts();
 
-
-
+        // Theme CSS (як у тебе було)
         Scene scene = titleLabel.getScene();
         if (scene != null) {
-            scene.getStylesheets().setAll(
-                    getClass().getResource(
-                            SceneManager.isDarkTheme()
-                                    ? "/css/create-term-dark.css"
-                                    : "/css/create-term-light.css"
-                    ).toExternalForm()
-            );
+            applyCreateTermCss(scene);
         } else {
             titleLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
-                if (newScene != null) {
-                    newScene.getStylesheets().setAll(
-                            getClass().getResource(
-                                    SceneManager.isDarkTheme()
-                                            ? "/css/create-term-dark.css"
-                                            : "/css/create-term-light.css"
-                            ).toExternalForm()
-                    );
-                }
+                if (newScene != null) applyCreateTermCss(newScene);
             });
         }
-
     }
 
-
-
     public void setTermToEdit(Term term) {
-
         if (term.getDate().isBefore(LocalDate.now())) {
-            showError(
-                    "Tento termín je v minulosti a nie je možné ho upravovať."
-            );
+            showError(I18n.bundle().getString("createTerm.err.pastTerm"));
             closeWindow();
             return;
         }
@@ -90,9 +66,7 @@ public class CreateTermController {
         this.mode = Mode.EDIT;
         this.editedTerm = term;
 
-        titleLabel.setText("Edit term");
-        createButton.setText("Save changes");
-
+        applyModeTexts();
         fillForm(term);
     }
 
@@ -108,10 +82,10 @@ public class CreateTermController {
                         parseTime(startTimeField.getText()),
                         parseTime(endTimeField.getText()),
                         addressField.getText().trim(),
-                        Integer.parseInt(capacityField.getText()),
+                        Integer.parseInt(capacityField.getText().trim()),
                         regionComboBox.getValue().getIdDistrict()
                 );
-                showInfo("Termín bol úspešne vytvorený.");
+                showInfo(I18n.bundle().getString("createTerm.successCreated"));
             } else {
                 termService.updateTerm(
                         editedTerm.getIdTerms(),
@@ -120,15 +94,16 @@ public class CreateTermController {
                         parseTime(startTimeField.getText()),
                         parseTime(endTimeField.getText()),
                         addressField.getText().trim(),
-                        Integer.parseInt(capacityField.getText()),
+                        Integer.parseInt(capacityField.getText().trim()),
                         regionComboBox.getValue().getIdDistrict()
                 );
-                showInfo("Termín bol úspešne upravený.");
+                showInfo(I18n.bundle().getString("createTerm.successUpdated"));
             }
 
             closeWindow();
 
         } catch (Exception e) {
+            // якщо це твоя помилка з validateForm/parseTime — там вже i18n-тексти
             showError(e.getMessage());
         }
     }
@@ -158,44 +133,70 @@ public class CreateTermController {
     }
 
     private void validateForm() {
-        if (typeField.getText().isBlank()) {
-            throw new IllegalArgumentException("Zadajte typ termínu");
+        if (typeField.getText() == null || typeField.getText().isBlank()) {
+            throw new IllegalArgumentException(I18n.bundle().getString("createTerm.err.type"));
         }
         if (datePicker.getValue() == null) {
-            throw new IllegalArgumentException("Vyberte dátum");
+            throw new IllegalArgumentException(I18n.bundle().getString("createTerm.err.date"));
         }
         if (regionComboBox.getValue() == null) {
-            throw new IllegalArgumentException("Vyberte okres");
+            throw new IllegalArgumentException(I18n.bundle().getString("createTerm.err.district"));
         }
-        if (addressField.getText().isBlank()) {
-            throw new IllegalArgumentException("Zadajte adresu");
+        if (addressField.getText() == null || addressField.getText().isBlank()) {
+            throw new IllegalArgumentException(I18n.bundle().getString("createTerm.err.address"));
         }
-        if (capacityField.getText().isBlank()) {
-            throw new IllegalArgumentException("Zadajte kapacitu");
+        if (capacityField.getText() == null || capacityField.getText().isBlank()) {
+            throw new IllegalArgumentException(I18n.bundle().getString("createTerm.err.capacity"));
+        }
+        // додатково: перевірка що capacity число
+        try {
+            Integer.parseInt(capacityField.getText().trim());
+        } catch (Exception e) {
+            throw new IllegalArgumentException(I18n.bundle().getString("createTerm.err.capacity"));
         }
     }
 
     private LocalTime parseTime(String value) {
         try {
-            return LocalTime.parse(value); // HH:mm
+            return LocalTime.parse(value.trim()); // HH:mm
         } catch (Exception e) {
-            throw new IllegalArgumentException("Čas musí byť vo formáte HH:mm");
+            throw new IllegalArgumentException(I18n.bundle().getString("createTerm.err.timeFormat"));
         }
     }
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Chyba");
-        alert.setHeaderText("Operácia zlyhala");
+        alert.setTitle(I18n.bundle().getString("common.error"));
+        alert.setHeaderText(I18n.bundle().getString("common.operationFailed"));
         alert.setContentText(message);
         alert.showAndWait();
     }
 
     private void showInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Hotovo");
+        alert.setTitle(I18n.bundle().getString("common.done"));
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void applyModeTexts() {
+        if (mode == Mode.EDIT) {
+            titleLabel.setText(I18n.bundle().getString("createTerm.editTitle"));
+            createButton.setText(I18n.bundle().getString("createTerm.saveChanges"));
+        } else {
+            titleLabel.setText(I18n.bundle().getString("createTerm.title"));
+            createButton.setText(I18n.bundle().getString("createTerm.create"));
+        }
+    }
+
+    private void applyCreateTermCss(Scene scene) {
+        scene.getStylesheets().setAll(
+                getClass().getResource(
+                        SceneManager.isDarkTheme()
+                                ? "/css/create-term-dark.css"
+                                : "/css/create-term-light.css"
+                ).toExternalForm()
+        );
     }
 }

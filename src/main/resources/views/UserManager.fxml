@@ -17,40 +17,40 @@
                 AnchorPane.rightAnchor="0">
 
         <right>
-            <VBox spacing="15" >
+            <VBox spacing="15">
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
 
-                <Label text="Status používateľa"
+                <Label text="%userManager.title"
                        styleClass="passport-name"/>
 
-                <Label text="Vyberte používateľa zo zoznamu"
+                <Label text="%userManager.subtitle"
                        styleClass="passport-sub"/>
 
                 <TextField fx:id="personalNumberSearchField"
-                           promptText="Rodné číslo "
+                           promptText="%userManager.searchPersonalNumber"
                            onAction="#searchByPersonalNumber"/>
 
                 <HBox spacing="10">
-                    <Button text="Ďalej"
+                    <Button text="%common.next"
                             styleClass="primary-btn"
                             onAction="#goNext"/>
 
-                    <Button text="Späť"
+                    <Button text="%common.back"
                             styleClass="primary-btn"
                             onAction="#goBack"/>
                 </HBox>
             </VBox>
         </right>
 
-        <left>
+        <center>
             <VBox spacing="10" prefWidth="220">
                 <padding>
                     <Insets top="20" right="15" bottom="20" left="10"/>
                 </padding>
 
-                <Label text="Používatelia"
+                <Label text="%userManager.users"
                        styleClass="passport-name"/>
 
                 <ComboBox fx:id="districtFilterBox"
@@ -59,7 +59,7 @@
                 <ListView fx:id="userListView"
                           VBox.vgrow="ALWAYS"/>
             </VBox>
-        </left>
+        </center>
 
     </BorderPane>
 

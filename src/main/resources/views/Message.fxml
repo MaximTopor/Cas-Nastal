@@ -11,7 +11,6 @@
             prefHeight="600"
             styleClass="root-pane">
 
-    <!-- ================= HORNÁ LIŠTA ================= -->
     <HBox prefHeight="70"
           spacing="10"
           alignment="CENTER_LEFT"
@@ -24,11 +23,18 @@
             <Insets top="10" right="20" bottom="10" left="20"/>
         </padding>
 
-        <Label text="Správy od administrácie"
+        <Label text="%message.title"
                styleClass="passport-name"/>
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button fx:id="backButton"
+                text="%common.back"
+                prefWidth="120"
+                styleClass="primary-btn"
+                onAction="#back"/>
     </HBox>
 
-    <!-- ================= ZOZNAM SPRÁV ================= -->
     <ScrollPane fitToWidth="true"
                 AnchorPane.topAnchor="70"
                 AnchorPane.bottomAnchor="120"
@@ -49,7 +55,6 @@
         </content>
     </ScrollPane>
 
-    <!-- ================= VSTUP SPRÁVY ================= -->
     <HBox spacing="12"
           AnchorPane.leftAnchor="20"
           AnchorPane.rightAnchor="20"
@@ -58,11 +63,11 @@
         <TextArea fx:id="messageInput"
                   prefHeight="80"
                   wrapText="true"
-                  promptText="Napíšte správu…"
+                  promptText="%message.prompt"
                   styleClass="data-row"/>
 
         <Button fx:id="sendButton"
-                text="Odoslať"
+                text="%message.send"
                 prefWidth="120"
                 styleClass="primary-btn"
                 onAction="#sendMessage"/>

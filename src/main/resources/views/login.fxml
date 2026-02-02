@@ -16,50 +16,45 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <!-- NADPIS -->
-    <Label text="Prihlásenie"
+    <Label text="%login.title"
            GridPane.rowIndex="0"
            GridPane.columnIndex="0"
            GridPane.columnSpan="2"
            GridPane.halignment="CENTER"
            styleClass="login-title"/>
 
-    <!-- E-MAIL -->
-    <Label text="E-mail:"
+    <Label text="%login.emailLabel"
            GridPane.rowIndex="1"
            GridPane.columnIndex="0"/>
 
     <TextField fx:id="emailField"
-               promptText="E-mail"
+               promptText="%login.emailPrompt"
                GridPane.rowIndex="1"
                GridPane.columnIndex="1"/>
 
-    <!-- HESLO -->
-    <Label text="Heslo:"
+    <Label text="%login.passwordLabel"
            GridPane.rowIndex="2"
            GridPane.columnIndex="0"/>
 
     <PasswordField fx:id="passwordField"
-                   promptText="Heslo"
+                   promptText="%login.passwordPrompt"
                    GridPane.rowIndex="2"
                    GridPane.columnIndex="1"/>
 
-    <!-- TLAČIDLÁ -->
     <HBox spacing="12"
           GridPane.rowIndex="3"
           GridPane.columnIndex="1">
 
-        <Button text="Prihlásiť sa"
+        <Button text="%login.loginBtn"
                 defaultButton="true"
                 onAction="#login"
                 styleClass="primary-btn"/>
 
-        <Button text="Registrácia"
+        <Button text="%login.registerBtn"
                 onAction="#Registration"
                 styleClass="secondary-btn"/>
     </HBox>
 
-    <!-- CHYBA -->
     <Label fx:id="errorLabel"
            GridPane.rowIndex="4"
            GridPane.columnIndex="1"

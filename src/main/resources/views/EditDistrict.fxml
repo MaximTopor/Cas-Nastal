@@ -17,29 +17,29 @@
           AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0">
 
-        <Label text="Úprava okresu"
+        <Label text="%editDistrict.title"
                styleClass="title-label"/>
 
         <TextField fx:id="nameField"
-                   promptText="Názov okresu"/>
+                   promptText="%editDistrict.name"/>
 
         <TextField fx:id="addressField"
-                   promptText="Adresa centra"/>
+                   promptText="%editDistrict.address"/>
 
         <TextField fx:id="contactField"
-                   promptText="Kontakt"/>
+                   promptText="%editDistrict.contact"/>
 
         <TextField fx:id="postalCodeField"
-                   promptText="PSČ"/>
+                   promptText="%editDistrict.postalCode"/>
 
         <TextField fx:id="regionField"
-                   promptText="Región"/>
+                   promptText="%editDistrict.region"/>
 
         <HBox spacing="16" alignment="CENTER">
-            <Button text="Uložiť"
+            <Button text="%common.save"
                     styleClass="primary-btn"
                     onAction="#save"/>
-            <Button text="Späť"
+            <Button text="%common.back"
                     styleClass="secondary-btn"
                     onAction="#back"/>
         </HBox>

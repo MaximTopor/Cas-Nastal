@@ -1,91 +1,75 @@
 /* =========================================================
-   ROOT
+   APP ROOT (works even without styleClass in FXML)
    ========================================================= */
 
+.root,
 .root-pane,
-.border-pane,
-.anchor-pane {
+.border-pane {
     -fx-font-family: "Segoe UI";
-    -fx-background-color: linear-gradient(
-            to bottom,
-            #0b1422,
-            #0f1e33
-    );
+    -fx-background-color: linear-gradient(to bottom, #0b1422, #0f1e33);
 }
 
-/* =========================================================
-   TITLE
-   ========================================================= */
-
-.page-title {
+/* TOP title */
+.label {
     -fx-text-fill: #eaf3ff;
-    -fx-font-size: 24;
-    -fx-font-weight: bold;
 }
 
 /* =========================================================
-   SCROLLPANE – REAL FIX (ALL LAYERS)
+   CENTER SCROLLPANE: remove gray/white layers
    ========================================================= */
 
-.form-scroll {
+.scroll-pane {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-border-width: 0;
+    -fx-border-color: transparent;
 }
 
-/* viewport */
-.form-scroll > .viewport {
+.scroll-pane > .viewport {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
-    -fx-padding: 0;
 }
 
-/* content */
-.form-scroll .content {
+.scroll-pane .content {
     -fx-background-color: transparent;
 }
 
 /* scrollbar track */
-.form-scroll .scroll-bar,
-.form-scroll .scroll-bar:vertical,
-.form-scroll .scroll-bar:horizontal {
+.scroll-bar,
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
     -fx-background-color: transparent;
 }
 
-/* scrollbar corner (THIS was your white triangle) */
-.form-scroll .corner {
+/* corner (white triangle) */
+.scroll-pane .corner {
     -fx-background-color: transparent;
 }
 
 /* arrows */
-.form-scroll .increment-button,
-.form-scroll .decrement-button {
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
     -fx-background-color: transparent;
     -fx-padding: 0;
 }
 
+/* thumb */
+.scroll-bar .thumb {
+    -fx-background-radius: 10;
+}
+
 /* =========================================================
-   FORM CARD (CENTER PANEL)
+   "FORM CARD" effect for the VBox inside ScrollPane
    ========================================================= */
 
-.form-card {
-    -fx-background-color: linear-gradient(
-            to bottom,
-            #16263d,
-            #132238
-    );
+/* This targets the VBox inside the ScrollPane content.
+   If you want perfect control, add styleClass="form-card" to that VBox. */
+.scroll-pane VBox {
+    -fx-background-color: linear-gradient(to bottom, #16263d, #132238);
     -fx-background-radius: 22;
     -fx-padding: 28;
 
-    -fx-effect: dropshadow(
-            gaussian,
-            rgba(0,0,0,0.7),
-            32,
-            0.45,
-            0,
-            10
-    );
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.65), 28, 0.35, 0, 10);
 }
 
 /* =========================================================
@@ -94,66 +78,85 @@
 
 .text-field,
 .password-field,
-.date-picker,
-.combo-box {
+.text-area,
+.combo-box,
+.date-picker {
     -fx-background-color: #1c2f4a;
     -fx-background-radius: 16;
     -fx-border-radius: 16;
     -fx-border-color: #2f4d73;
+
     -fx-text-fill: #ffffff;
     -fx-prompt-text-fill: #9bb8da;
+
     -fx-padding: 12 16;
 }
 
+/* focused */
 .text-field:focused,
 .password-field:focused,
-.date-picker:focused,
-.combo-box:focused {
+.text-area:focused,
+.combo-box:focused,
+.date-picker:focused {
     -fx-background-color: #223a5a;
     -fx-border-color: #4fa6dc;
+}
+
+/* ComboBox text */
+.combo-box .list-cell {
+    -fx-text-fill: #eaf3ff;
+}
+
+/* popup list */
+.combo-box-popup .list-view {
+    -fx-background-color: #132238;
+    -fx-border-color: #2f4d73;
+}
+.combo-box-popup .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #eaf3ff;
+}
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #254a75;
+}
+
+/* DatePicker internals */
+.date-picker .arrow-button {
+    -fx-background-color: #223a5a;
+    -fx-background-radius: 0 16 16 0;
+}
+.date-picker .text-field {
+    -fx-background-radius: 16 0 0 16;
 }
 
 /* =========================================================
    BUTTONS
    ========================================================= */
 
-.primary-btn {
-    -fx-background-color: linear-gradient(
-            to bottom,
-            #4fa6dc,
-            #2f7fc4
-    );
+/* default buttons (Create/Login) */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
     -fx-text-fill: white;
     -fx-background-radius: 18;
     -fx-padding: 12 26;
     -fx-font-weight: bold;
 }
 
-.primary-btn:hover {
-    -fx-opacity: 0.92;
-}
-
-/* ================= BUTTONS ================= */
-
-.primary-btn,
-.button {
-    -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
-    -fx-text-fill: white;
-    -fx-background-radius: 14;
-    -fx-padding: 10 22;
-}
-
-.primary-btn:hover,
 .button:hover {
     -fx-opacity: 0.92;
 }
 
-.secondary-btn {
-    -fx-background-color: #e5e7eb;
-    -fx-text-fill: #0f172a;
-    -fx-background-radius: 14;
-    -fx-padding: 10 22;
+/* =========================================================
+   Optional: make bottom area look less "white"
+   ========================================================= */
+
+BorderPane > .bottom {
+    -fx-background-color: transparent;
 }
 
-
-
+/* Optional: give top bar subtle separation */
+BorderPane > .top {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(79,166,220,0.25);
+    -fx-border-width: 0 0 1 0;
+}

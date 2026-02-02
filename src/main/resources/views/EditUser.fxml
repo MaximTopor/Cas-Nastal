@@ -23,11 +23,11 @@
             <Insets top="10" left="20" right="20" bottom="10"/>
         </padding>
 
-        <Button text="← Späť"
+        <Button text="%common.backArrow"
                 onAction="#back"
                 styleClass="primary-btn"/>
 
-        <Label text="Úprava používateľa"
+        <Label text="%editUser.title"
                styleClass="passport-name" />
     </HBox>
 
@@ -42,51 +42,43 @@
             <Insets top="30" left="30" right="30" bottom="30"/>
         </padding>
 
-        <!-- Meno -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Meno:" prefWidth="120" styleClass="form-label"/>
+            <Label text="%editUser.name" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="nameField"/>
         </HBox>
 
-        <!-- Priezvisko -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Priezvisko:" prefWidth="120" styleClass="form-label"/>
+            <Label text="%editUser.surname" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="surnameField"/>
         </HBox>
 
-        <!-- E-mail -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="E-mail:" prefWidth="120" styleClass="form-label"/>
+            <Label text="%editUser.email" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="emailField"/>
         </HBox>
 
-        <!-- Telefón -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Telefón:" prefWidth="120" styleClass="form-label"/>
+            <Label text="%editUser.phone" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="phoneField"/>
         </HBox>
 
-        <!-- Adresa -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Adresa:" prefWidth="120" styleClass="form-label"/>
+            <Label text="%editUser.address" prefWidth="120" styleClass="form-label"/>
             <TextField fx:id="addressField"/>
         </HBox>
 
-        <!-- Okres -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Okres:" prefWidth="120" styleClass="form-label"/>
+            <Label text="%editUser.district" prefWidth="120" styleClass="form-label"/>
             <ComboBox fx:id="districtBox" styleClass="form-combo"/>
         </HBox>
 
-        <!-- Rola -->
         <HBox spacing="15" styleClass="data-row">
-            <Label text="Rola:" prefWidth="120" styleClass="form-label"/>
+            <Label text="%editUser.role" prefWidth="120" styleClass="form-label"/>
             <ComboBox fx:id="roleBox" styleClass="form-combo"/>
         </HBox>
 
-        <!-- Uloženie -->
         <HBox alignment="CENTER">
-            <Button text="Uložiť zmeny"
+            <Button text="%editUser.save"
                     onAction="#save"
                     styleClass="primary-btn"
                     prefWidth="200"/>

@@ -24,24 +24,24 @@
             <Insets top="10" right="15" bottom="10" left="15"/>
         </padding>
 
-        <Button text="Profil"
+        <Button text="%schedule.top.profile"
                 prefWidth="140"
                 styleClass="secondary-btn"
                 onAction="#backToProfile"/>
 
         <Button fx:id="createTermButton"
-                text="Vytvoriť termín"
+                text="%schedule.top.createTerm"
                 styleClass="primary-btn"
                 onAction="#onCreateTerm"/>
 
         <Region HBox.hgrow="ALWAYS"/>
 
         <CheckBox fx:id="myRegistrationsCheckBox"
-                  text="Moje prihlášky"
+                  text="%schedule.filter.myRegistrations"
                   styleClass="filter-check"/>
 
         <CheckBox fx:id="activeRegistrationsCheckBox"
-                  text="Aktívne prihlášky"
+                  text="%schedule.filter.activeRegistrations"
                   styleClass="filter-check"/>
 
     </HBox>
@@ -61,22 +61,24 @@
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
 
+                <!-- ================= DEMO TERM CARD ================= -->
                 <VBox spacing="10"
                       styleClass="term-card">
 
-                    <Label text="Lekárska prehliadka"
+                    <Label text="%schedule.demo.termTitle"
                            styleClass="term-title"/>
 
                     <HBox spacing="20"
                           alignment="CENTER_LEFT">
 
                         <Button fx:id="registerButton"
-                                text="Prihlásiť sa"
+                                text="%schedule.term.register"
                                 styleClass="primary-btn"
                                 onAction="#toggleRegistration"/>
                     </HBox>
+
                 </VBox>
-                <!-- ===================================================== -->
+                <!-- ================================================== -->
 
             </VBox>
         </content>

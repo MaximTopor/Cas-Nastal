@@ -158,9 +158,7 @@ public class SceneManager {
         currentUser = user;
 
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/user.fxml")
-            );
+            FXMLLoader loader = I18n.loader("/views/user.fxml");
             Parent root = loader.load();
 
             UserController controller = loader.getController();
@@ -183,11 +181,11 @@ public class SceneManager {
     }
 
     public static void openMessageWindow() {
-            String messageCss = isDarkTheme()
-                    ? "/css/message-dark.css"
-                    : "/css/message-light.css";
+        String messageCss = isDarkTheme()
+                ? "/css/message-dark.css"
+                : "/css/message-light.css";
 
-            switchTo("/views/Message.fxml", "Cas nastal+", messageCss);
+        switchTo("/views/Message.fxml", "Cas nastal+", messageCss);
     }
 
     public static void openUserManagerWindow() {
@@ -200,10 +198,7 @@ public class SceneManager {
 
     public static void openChangeDistrictWindow(User user) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/ChangeDistrict.fxml")
-            );
-
+            FXMLLoader loader = I18n.loader("/views/ChangeDistrict.fxml");
             Parent root = loader.load();
 
             ChangeDistrictController controller = loader.getController();
@@ -238,13 +233,41 @@ public class SceneManager {
         }
     }
 
-    public static void openCreateTerm() {
-        String css = isDarkTheme()
-                ? "/css/create-term-dark.css"
-                : "/css/create-term-light.css";
+    public static void openCreateTermWindow(Term term) {
+        try {
+            FXMLLoader loader = I18n.loader("/views/createTerm.fxml"); // важливо: саме цей шлях
+            Parent root = loader.load();
 
-        switchTo("/views/CreateTerm.fxml", "Cas nastal+", css);
+            CreateTermController controller = loader.getController();
+            if (term != null) {
+                controller.setTermToEdit(term);
+            }
+
+            Scene scene = new Scene(root);
+
+            // CSS (за бажанням)
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(
+                    SceneManager.class.getResource(
+                            isDarkTheme() ? "/css/create-term-dark.css" : "/css/create-term-light.css"
+                    ).toExternalForm()
+            );
+
+            Stage stage = new Stage();
+            stage.setTitle("Cas nastal+");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initOwner(activeStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.centerOnScreen();
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot open create/edit term window", e);
+        }
     }
+
+
 
     public static void openScheduleWindow() {
         String css = isDarkTheme()
@@ -257,9 +280,11 @@ public class SceneManager {
 
     private static void switchTo(String fxml, String title, String windowCss) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource(fxml)
-            );
+            FXMLLoader loader = I18n.loader(fxml);
+            System.out.println("FXML = " + fxml);
+            System.out.println("LOCALE = " + I18n.getLocale());
+            System.out.println("register.title = " + I18n.bundle().getString("register.title"));
+
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
@@ -280,10 +305,7 @@ public class SceneManager {
 
     public static void openCreateEditTermWindow(Term term) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/createTerm.fxml")
-            );
-
+            FXMLLoader loader = I18n.loader("/views/createTerm.fxml"); // важливо: саме цей шлях
             Parent root = loader.load();
 
             CreateTermController controller = loader.getController();
@@ -309,10 +331,7 @@ public class SceneManager {
 
     public static void openEditDistrictWindow(District district) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/EditDistrict.fxml")
-            );
-
+            FXMLLoader loader = I18n.loader("/views/EditDistrict.fxml");
             Parent root = loader.load();
 
             EditDistrictController controller = loader.getController();
@@ -350,10 +369,7 @@ public class SceneManager {
 
     public static void openUserEditWindow(User user){
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/EditUser.fxml")
-            );
-
+            FXMLLoader loader = I18n.loader("/views/EditUser.fxml");
             Parent root = loader.load();
 
             EditUserController controller = loader.getController();
@@ -396,10 +412,7 @@ public class SceneManager {
 
     public static void openChangeStatusWindow(User user, Status oldStatus, Status newStatus) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/views/statusManagement.fxml")
-            );
-
+            FXMLLoader loader = I18n.loader("/views/statusManagement.fxml"); // важливо: саме цей шлях
             Parent root = loader.load();
 
             StatusManagementController controller =

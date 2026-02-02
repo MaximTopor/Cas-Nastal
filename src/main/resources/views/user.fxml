@@ -24,33 +24,38 @@
         </padding>
 
         <!-- ĽAVÁ STRANA -->
-        <Button text="Termíny"
+        <Button text="%user.top.terms"
                 onAction="#openScheduleWindow"
                 styleClass="primary-btn"/>
 
-        <Button text="Správy"
+        <Button text="%user.top.messages"
                 onAction="#openMessageWindow"
                 styleClass="primary-btn"/>
 
         <Button fx:id="UserManagerButton"
-                text="Správa používateľov"
+                text="%user.top.userManagement"
                 onAction="#openStatusWindow"
                 styleClass="primary-btn"/>
 
         <Button fx:id="ChangeDistrictButton"
-                text="Zmena okresu"
+                text="%user.top.changeDistrict"
                 onAction="#openChageDistrict"
                 styleClass="primary-btn"/>
 
         <Region HBox.hgrow="ALWAYS"/>
 
         <!-- PRAVÁ STRANA -->
+        <Label styleClass="id-key"/>
+
+        <ComboBox fx:id="languageBox"
+                  prefWidth="110"/>
+
         <ToggleButton fx:id="themeToggle"
-                      text="Téma"
+                      text="%user.top.theme"
                       onAction="#toggleTheme"
                       styleClass="theme-toggle"/>
 
-        <Button text="Odhlásiť sa"
+        <Button text="%user.top.logout"
                 onAction="#Logout"
                 styleClass="danger-btn"/>
     </HBox>
@@ -94,21 +99,21 @@
             <VBox spacing="12">
 
                 <HBox spacing="10" styleClass="id-row">
-                    <Label text="Dátum narodenia:"
+                    <Label text="%user.card.birthDate"
                            styleClass="id-key"/>
                     <Label fx:id="birthDateLabel"
                            styleClass="id-value"/>
                 </HBox>
 
                 <HBox spacing="10" styleClass="id-row">
-                    <Label text="Telefón:"
+                    <Label text="%user.card.phone"
                            styleClass="id-key"/>
                     <Label fx:id="phoneLabel"
                            styleClass="id-value"/>
                 </HBox>
 
                 <HBox spacing="10" styleClass="id-row">
-                    <Label text="Adresa:"
+                    <Label text="%user.card.address"
                            styleClass="id-key"/>
                     <Label fx:id="addressLabel"
                            wrapText="true"
@@ -116,14 +121,14 @@
                 </HBox>
 
                 <HBox spacing="10" styleClass="id-row">
-                    <Label text="Rodné číslo:"
+                    <Label text="%user.card.personalNumber"
                            styleClass="id-key"/>
                     <Label fx:id="personalNumberLabel"
                            styleClass="id-value"/>
                 </HBox>
 
                 <HBox spacing="10" styleClass="id-row">
-                    <Label text="Status:"
+                    <Label text="%user.card.status"
                            styleClass="id-key"/>
                     <Label fx:id="StatusLabel"
                            styleClass="id-value"/>

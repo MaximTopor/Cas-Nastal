@@ -16,18 +16,18 @@
           AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0">
 
-        <Label text="Zmena okresu"
+        <Label text="%changeDistrict.title"
                styleClass="title-label"/>
 
         <ComboBox fx:id="districtBox"
                   prefWidth="300"/>
 
         <HBox spacing="12" alignment="CENTER">
-            <Button text="Zmeniť"
+            <Button text="%changeDistrict.change"
                     styleClass="primary-btn"
                     onAction="#Zmenit"/>
 
-            <Button text="Späť"
+            <Button text="%changeDistrict.back"
                     styleClass="secondary-btn"
                     onAction="#back"/>
         </HBox>

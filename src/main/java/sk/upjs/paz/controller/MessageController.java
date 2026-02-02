@@ -10,22 +10,20 @@ import sk.upjs.paz.app.SceneManager;
 import sk.upjs.paz.model.Message;
 import sk.upjs.paz.model.User;
 import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
 
 import javafx.geometry.Insets;
 import sk.upjs.paz.service.MessageService;
 
 import java.time.LocalDate;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+
 
 
 public class MessageController {
 
     private static User currentUser = SceneManager.getCurrentUser();
     private final MessageService messageService = new MessageService();
-
-
-
 
     @FXML
     private VBox messagesContainer;
@@ -68,14 +66,9 @@ public class MessageController {
     }
 
 
-
-
     @FXML
-    private void close(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource())
-                .getScene()
-                .getWindow();
-        stage.close();
+    private void back(ActionEvent event) {
+        SceneManager.openUserScene(SceneManager.getCurrentUser());
     }
 
     @FXML

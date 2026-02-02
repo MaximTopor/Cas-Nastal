@@ -17,35 +17,35 @@
     </padding>
 
     <!-- ===== TITLE ===== -->
-    <Label text="Керування статусом"
+    <Label text="%status.title"
            styleClass="passport-name"/>
 
     <!-- ===== USER INFO ===== -->
     <VBox spacing="6">
+        <!-- базовий текст можна лишити порожнім, а в контролері заповнювати -->
         <Label fx:id="userLabel"
-               text="Користувач: —"/>
+               text="%status.user"/>
 
         <Label fx:id="statusLabel"
-               text="Статус: — → —"/>
+               text="%status.statusChange"/>
     </VBox>
 
     <!-- ===== REASON ===== -->
     <VBox spacing="6">
-        <Label text="Reason:"/>
+        <Label text="%status.reason"/>
         <TextArea fx:id="reasonField"
-                  promptText="Change reason"
+                  promptText="%status.reasonPrompt"
                   wrapText="true"
                   prefRowCount="4"/>
     </VBox>
 
-
     <HBox spacing="12"
           alignment="CENTER_RIGHT">
 
-        <Button text="Cancel"
+        <Button text="%common.cancel"
                 onAction="#cancel"/>
 
-        <Button text="confirm"
+        <Button text="%common.confirm"
                 onAction="#confirm"
                 styleClass="primary-btn"
                 prefWidth="130"/>

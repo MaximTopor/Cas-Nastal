@@ -95,7 +95,7 @@ INSERT INTO cn.users (
       (
           '1',
           'Adam',
-          'adam@a.xx',
+          '1',
           '0987762343',
           '1',
           1,
