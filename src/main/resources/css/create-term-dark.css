@@ -6,6 +6,17 @@
             #121f33
     );
 }
+.root-pane .label {
+    -fx-text-fill: white;
+}
+
+.root-pane .text-field,
+.root-pane .date-picker,
+.root-pane .combo-box,
+.root-pane .combo-box .list-cell {
+    -fx-text-fill: white;
+}
+
 
 /* TOP */
 .top-bar {

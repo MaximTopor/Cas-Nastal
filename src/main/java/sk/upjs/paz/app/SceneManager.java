@@ -169,9 +169,10 @@ public class SceneManager {
 
             applyStyles(scene, null);
 
+
             activeStage.setScene(scene);
             activeStage.setTitle("Cas nastal+");
-            activeStage.setResizable(false);
+            activeStage.setResizable(true);
             activeStage.centerOnScreen();
             activeStage.show();
 
@@ -226,48 +227,13 @@ public class SceneManager {
             activeStage.setScene(scene);
             activeStage.setTitle("Cas nastal+");
             activeStage.centerOnScreen();
+            activeStage.initOwner(activeStage);
             activeStage.show();
 
         } catch (Exception e) {
             throw new RuntimeException("Cannot open ChangeDistrict view", e);
         }
     }
-
-    public static void openCreateTermWindow(Term term) {
-        try {
-            FXMLLoader loader = I18n.loader("/views/createTerm.fxml"); // важливо: саме цей шлях
-            Parent root = loader.load();
-
-            CreateTermController controller = loader.getController();
-            if (term != null) {
-                controller.setTermToEdit(term);
-            }
-
-            Scene scene = new Scene(root);
-
-            // CSS (за бажанням)
-            scene.getStylesheets().clear();
-            scene.getStylesheets().add(
-                    SceneManager.class.getResource(
-                            isDarkTheme() ? "/css/create-term-dark.css" : "/css/create-term-light.css"
-                    ).toExternalForm()
-            );
-
-            Stage stage = new Stage();
-            stage.setTitle("Cas nastal+");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.initOwner(activeStage);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.centerOnScreen();
-            stage.showAndWait();
-
-        } catch (Exception e) {
-            throw new RuntimeException("Cannot open create/edit term window", e);
-        }
-    }
-
-
 
     public static void openScheduleWindow() {
         String css = isDarkTheme()
@@ -294,7 +260,7 @@ public class SceneManager {
 
             activeStage.setScene(scene);
             activeStage.setTitle(title);
-            activeStage.setResizable(false);
+            activeStage.setResizable(true);
             activeStage.centerOnScreen();
             activeStage.show();
 
@@ -305,7 +271,7 @@ public class SceneManager {
 
     public static void openCreateEditTermWindow(Term term) {
         try {
-            FXMLLoader loader = I18n.loader("/views/createTerm.fxml"); // важливо: саме цей шлях
+            FXMLLoader loader = I18n.loader("/views/createTerm.fxml");
             Parent root = loader.load();
 
             CreateTermController controller = loader.getController();
@@ -318,7 +284,7 @@ public class SceneManager {
             Stage stage = new Stage();
             stage.setTitle(term == null ? "Cas nastal+" : "Cas nastal+");
             stage.setScene(scene);
-            stage.setResizable(false);
+            stage.setResizable(true);
             stage.initOwner(activeStage);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.centerOnScreen();
@@ -359,6 +325,7 @@ public class SceneManager {
 
             activeStage.setScene(scene);
             activeStage.setTitle("Cas nastal+");
+            activeStage.setResizable(true);
             activeStage.centerOnScreen();
             activeStage.show();
 
@@ -395,7 +362,7 @@ public class SceneManager {
 
             activeStage.setScene(scene);
             activeStage.setTitle("Cas nastal+");
-            activeStage.setResizable(false);
+            activeStage.setResizable(true);
             activeStage.centerOnScreen();
             activeStage.show();
 
@@ -424,18 +391,32 @@ public class SceneManager {
                     newStatus,
                     getCurrentUser().getIdUser()
             );
-
             Scene scene = new Scene(root);
+            scene.getStylesheets().clear();
+
+
+            if (isDarkTheme()) {
+                scene.getStylesheets().add(
+                        SceneManager.class
+                                .getResource("/css/status-dark.css")
+                                .toExternalForm()
+                );
+            } else {
+                scene.getStylesheets().add(
+                        SceneManager.class
+                                .getResource("/css/status-light.css")
+                                .toExternalForm()
+                );
+            }
+
+
             scene.getRoot().getProperties().put("windowCss", null);
-
-            applyStyles(scene, null);
-
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Change status");
             stage.initOwner(activeStage);
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.setResizable(false);
+            stage.setResizable(true);
             stage.showAndWait();
 
         } catch (Exception e) {

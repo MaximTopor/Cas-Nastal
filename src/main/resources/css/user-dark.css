@@ -109,3 +109,19 @@
     -fx-font-size: 13;
     -fx-font-weight: bold;
 }
+/* Спільні стилі */
+.language-box {
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 2 6 2 6;
+}
+
+/* Темна тема */
+.dark-theme .language-box,
+.dark-theme .language-box .combo-box-base,
+.dark-theme .language-box .text-field {
+    -fx-background-color: #16263d;
+    -fx-border-color: #2f4d73;
+    -fx-text-fill: white;
+}

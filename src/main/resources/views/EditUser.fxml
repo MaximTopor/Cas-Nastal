@@ -4,86 +4,95 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21"
+<BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sk.upjs.paz.controller.EditUserController"
             styleClass="root-pane"
             prefWidth="700"
             prefHeight="600">
 
-    <HBox prefHeight="70"
-          alignment="CENTER_LEFT"
-          spacing="15"
-          styleClass="top-bar"
-          AnchorPane.topAnchor="0"
-          AnchorPane.leftAnchor="0"
-          AnchorPane.rightAnchor="0">
+    <top>
+        <HBox prefHeight="70"
+              alignment="CENTER_LEFT"
+              spacing="15"
+              styleClass="top-bar">
 
-        <padding>
-            <Insets top="10" left="20" right="20" bottom="10"/>
-        </padding>
+            <padding>
+                <Insets top="10" left="20" right="125" bottom="10"/>
+            </padding>
 
-        <Button text="%common.backArrow"
-                onAction="#back"
-                styleClass="primary-btn"/>
+            <Button text="%common.backArrow"
+                    onAction="#back"
+                    styleClass="primary-btn"/>
 
-        <Label text="%editUser.title"
-               styleClass="passport-name" />
-    </HBox>
+            <StackPane HBox.hgrow="ALWAYS">
+                <Label text="%editUser.title"
+                       styleClass="passport-name"/>
+            </StackPane>
 
-    <VBox spacing="18"
-          styleClass="passport-card"
-          AnchorPane.topAnchor="90"
-          AnchorPane.leftAnchor="40"
-          AnchorPane.rightAnchor="40"
-          AnchorPane.bottomAnchor="40">
-
-        <padding>
-            <Insets top="30" left="30" right="30" bottom="30"/>
-        </padding>
-
-        <HBox spacing="15" styleClass="data-row">
-            <Label text="%editUser.name" prefWidth="120" styleClass="form-label"/>
-            <TextField fx:id="nameField"/>
         </HBox>
+    </top>
 
-        <HBox spacing="15" styleClass="data-row">
-            <Label text="%editUser.surname" prefWidth="120" styleClass="form-label"/>
-            <TextField fx:id="surnameField"/>
-        </HBox>
+    <center>
+        <StackPane>
+            <VBox spacing="18"
+                  alignment="CENTER"
+                  styleClass="passport-card"
+                  maxWidth="500">
 
-        <HBox spacing="15" styleClass="data-row">
-            <Label text="%editUser.email" prefWidth="120" styleClass="form-label"/>
-            <TextField fx:id="emailField"/>
-        </HBox>
+                <padding>
+                    <Insets top="30" left="30" right="30" bottom="30"/>
+                </padding>
 
-        <HBox spacing="15" styleClass="data-row">
-            <Label text="%editUser.phone" prefWidth="120" styleClass="form-label"/>
-            <TextField fx:id="phoneField"/>
-        </HBox>
+                <HBox spacing="15" styleClass="data-row" alignment="BASELINE_CENTER">
+                    <Label text="%editUser.name" prefWidth="120" styleClass="form-label"/>
+                    <TextField fx:id="nameField"/>
+                </HBox>
 
-        <HBox spacing="15" styleClass="data-row">
-            <Label text="%editUser.address" prefWidth="120" styleClass="form-label"/>
-            <TextField fx:id="addressField"/>
-        </HBox>
+                <HBox spacing="15" styleClass="data-row" alignment="BASELINE_CENTER">
+                    <Label text="%editUser.surname" prefWidth="120" styleClass="form-label"/>
+                    <TextField fx:id="surnameField"/>
+                </HBox>
 
-        <HBox spacing="15" styleClass="data-row">
-            <Label text="%editUser.district" prefWidth="120" styleClass="form-label"/>
-            <ComboBox fx:id="districtBox" styleClass="form-combo"/>
-        </HBox>
+                <HBox spacing="15" styleClass="data-row" alignment="BASELINE_CENTER">
+                    <Label text="%editUser.email" prefWidth="120" styleClass="form-label"/>
+                    <TextField fx:id="emailField"/>
+                </HBox>
 
-        <HBox spacing="15" styleClass="data-row">
-            <Label text="%editUser.role" prefWidth="120" styleClass="form-label"/>
-            <ComboBox fx:id="roleBox" styleClass="form-combo"/>
-        </HBox>
+                <HBox spacing="15" styleClass="data-row" alignment="BASELINE_CENTER">
+                    <Label text="%editUser.phone" prefWidth="120" styleClass="form-label"/>
+                    <TextField fx:id="phoneField"/>
+                </HBox>
 
+                <HBox spacing="15" styleClass="data-row" alignment="BASELINE_CENTER">
+                    <Label text="%editUser.address" prefWidth="120" styleClass="form-label"/>
+                    <TextField fx:id="addressField"/>
+                </HBox>
+
+                <HBox spacing="15" styleClass="data-row" alignment="BASELINE_CENTER">
+                    <Label text="%editUser.district" prefWidth="120" styleClass="form-label"/>
+                    <ComboBox fx:id="districtBox" styleClass="form-combo"/>
+                </HBox>
+
+                <HBox spacing="15" styleClass="data-row" alignment="BASELINE_CENTER">
+                    <Label text="%editUser.role" prefWidth="120" styleClass="form-label"/>
+                    <ComboBox fx:id="roleBox" styleClass="form-combo"/>
+                </HBox>
+
+            </VBox>
+        </StackPane>
+    </center>
+
+    <bottom>
         <HBox alignment="CENTER">
             <Button text="%editUser.save"
                     onAction="#save"
                     styleClass="primary-btn"
                     prefWidth="200"/>
+            <padding>
+                <Insets top="10" left="20" right="20" bottom="50"/>
+            </padding>
         </HBox>
+    </bottom>
 
-    </VBox>
-
-</AnchorPane>
+</BorderPane>

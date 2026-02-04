@@ -1,5 +1,6 @@
 package sk.upjs.paz.controller;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sk.upjs.paz.app.I18n;
 import sk.upjs.paz.dao.StatusHistoryDao;
@@ -45,6 +48,10 @@ public class UserController {
     private User currentUser;
 
 
+    @FXML private AnchorPane root;
+
+    private static final double BASE_W = 1400.0;
+    private static final double BASE_H = 600.0;
 
     @FXML
     private ComboBox<String> languageBox;
@@ -87,8 +94,28 @@ public class UserController {
         );
     }
 
+
+
     @FXML
     private void initialize() {
+
+//        root.sceneProperty().addListener((obs, oldScene, scene) -> {
+//            if (scene == null) return;
+//
+//            // Коли з'явиться Stage — ставимо мінімальні розміри
+//            scene.windowProperty().addListener((o, oldW, w) -> {
+//                if (w instanceof Stage stage) {
+//                    stage.setMinWidth(BASE_W);
+//                    stage.setMinHeight(BASE_H);
+//                }
+//            });
+//
+//            // Масштабування при зміні розміру вікна
+//            scene.widthProperty().addListener((o, ov, nv) -> applyScale(scene));
+//            scene.heightProperty().addListener((o, ov, nv) -> applyScale(scene));
+//
+//            applyScale(scene);
+//        });
 
         if (languageBox != null) {
             languageBox.getItems().setAll("SK", "UK");
@@ -103,6 +130,20 @@ public class UserController {
                         : "🌙 Dark"
         );
         applyRolePermissions();
+    }
+
+    private void applyScale(Scene scene) {
+        double sx = scene.getWidth() / BASE_W;
+        double sy = scene.getHeight() / BASE_H;
+
+        // Масштабуємо пропорційно, щоб не розтягувати по-різному
+        double s = Math.min(sx, sy);
+
+        // Не зменшуємо нижче 1.0, бо мінімальний розмір і так 1400x600
+        if (s < 1.0) s = 1.0;
+
+        root.setScaleX(s);
+        root.setScaleY(s);
     }
 
     @FXML

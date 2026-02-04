@@ -155,7 +155,7 @@ public class EditUserController {
 
     @FXML
     public void back() {
-        SceneManager.openLoginScene();
+        SceneManager.openUserManagerWindow();
     }
 
     private void showError(String message) {

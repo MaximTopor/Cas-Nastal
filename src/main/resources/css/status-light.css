@@ -1,0 +1,71 @@
+/* ================= ROOT ================= */
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(to bottom, #f4f7fb, #e9eef5);
+}
+
+/* ================= CARD ================= */
+.passport-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 22;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 22;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0.25, 0, 6);
+}
+
+/* ================= TITLE ================= */
+.passport-name {
+    -fx-text-fill: #1f2a37;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+/* ================= TEXT ================= */
+.passport-card .label {
+    -fx-text-fill: #334155;
+    -fx-font-size: 13;
+}
+
+/* ================= TEXTAREA ================= */
+.passport-card .text-area {
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 14;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-text-fill: #1f2a37;
+}
+
+.passport-card .text-area .content {
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 14;
+}
+
+.passport-card .text-area:focused {
+    -fx-border-color: #3b82f6;
+}
+
+.passport-card .text-area .prompt-text {
+    -fx-fill: #64748b;
+}
+
+/* ================= BUTTONS ================= */
+.passport-card .button {
+    -fx-background-color: transparent;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-text-fill: #1f2a37;
+    -fx-padding: 10 18;
+}
+
+.passport-card .button:hover {
+    -fx-background-color: rgba(59,130,246,0.1);
+}
+
+.passport-card .primary-btn {
+    -fx-background-color: linear-gradient(to bottom, #60a5fa, #3b82f6);
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+}

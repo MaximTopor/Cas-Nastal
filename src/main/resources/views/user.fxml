@@ -5,62 +5,64 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefWidth="1400" prefHeight="600"
+<BorderPane fx:id="rootPane"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sk.upjs.paz.controller.UserController"
             styleClass="root-pane">
 
     <!-- ================= HORNÁ LIŠTA ================= -->
-    <HBox spacing="16"
-          alignment="CENTER_LEFT"
-          AnchorPane.topAnchor="0"
-          AnchorPane.leftAnchor="0"
-          AnchorPane.rightAnchor="0"
-          styleClass="top-bar">
+    <top>
+        <HBox spacing="16"
+              alignment="CENTER_LEFT"
+              styleClass="top-bar"
+              prefHeight="70">
 
-        <padding>
-            <Insets top="14" right="24" bottom="14" left="24"/>
-        </padding>
+            <padding>
+                <Insets top="14" right="24" bottom="14" left="24"/>
+            </padding>
 
-        <!-- ĽAVÁ STRANA -->
-        <Button text="%user.top.terms"
-                onAction="#openScheduleWindow"
-                styleClass="primary-btn"/>
+            <!-- ĽAVÁ STRANA -->
+            <Button text="%user.top.terms"
+                    onAction="#openScheduleWindow"
+                    styleClass="primary-btn"/>
 
-        <Button text="%user.top.messages"
-                onAction="#openMessageWindow"
-                styleClass="primary-btn"/>
+            <Button text="%user.top.messages"
+                    onAction="#openMessageWindow"
+                    styleClass="primary-btn"/>
 
-        <Button fx:id="UserManagerButton"
-                text="%user.top.userManagement"
-                onAction="#openStatusWindow"
-                styleClass="primary-btn"/>
+            <Button fx:id="UserManagerButton"
+                    text="%user.top.userManagement"
+                    onAction="#openStatusWindow"
+                    styleClass="primary-btn"/>
 
-        <Button fx:id="ChangeDistrictButton"
-                text="%user.top.changeDistrict"
-                onAction="#openChageDistrict"
-                styleClass="primary-btn"/>
+            <Button fx:id="ChangeDistrictButton"
+                    text="%user.top.changeDistrict"
+                    onAction="#openChageDistrict"
+                    styleClass="primary-btn"/>
 
-        <Region HBox.hgrow="ALWAYS"/>
+            <Region HBox.hgrow="ALWAYS"/>
 
-        <!-- PRAVÁ STRANA -->
-        <Label styleClass="id-key"/>
+            <!-- PRAVÁ STRANA -->
+            <Label styleClass="id-key"/>
 
-        <ComboBox fx:id="languageBox"
-                  prefWidth="110"/>
+            <ComboBox fx:id="languageBox"
+                      styleClass="language-box"
+                      prefWidth="110"/>
 
-        <ToggleButton fx:id="themeToggle"
-                      text="%user.top.theme"
-                      onAction="#toggleTheme"
-                      styleClass="theme-toggle"/>
+            <ToggleButton fx:id="themeToggle"
+                          text="%user.top.theme"
+                          onAction="#toggleTheme"
+                          styleClass="theme-toggle"/>
 
-        <Button text="%user.top.logout"
-                onAction="#Logout"
-                styleClass="danger-btn"/>
-    </HBox>
+            <Button text="%user.top.logout"
+                    onAction="#Logout"
+                    styleClass="danger-btn"/>
+        </HBox>
+    </top>
 
     <!-- ================= OBSAH ================= -->
+    <center>
     <VBox alignment="CENTER"
           AnchorPane.topAnchor="90"
           AnchorPane.leftAnchor="0"
@@ -137,7 +139,6 @@
             </VBox>
 
         </VBox>
-
     </VBox>
-
-</AnchorPane>
+    </center>
+</BorderPane>

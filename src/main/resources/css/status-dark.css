@@ -1,0 +1,100 @@
+/* ================= ROOT ================= */
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(to bottom, #0c1624, #121f33);
+}
+
+/* ================= CARD ================= */
+.passport-card {
+    -fx-background-color: #16263d;
+    -fx-background-radius: 22;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 22;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 24, 0.35, 0, 8);
+}
+
+/* ================= TITLE ================= */
+.passport-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+/* ================= TEXT ================= */
+.passport-card .label {
+    -fx-text-fill: #eaf3ff;
+    -fx-font-size: 13;
+}
+
+/* ================= TEXTAREA (FIX WHITE CORNERS) ================= */
+.passport-card .text-area {
+    -fx-background-color: #1b2f4a;
+    -fx-background-radius: 14;
+    -fx-background-insets: 0;
+
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+
+    -fx-text-fill: #ffffff;
+}
+
+.passport-card .text-area .content {
+    -fx-background-color: #1b2f4a;
+    -fx-background-radius: 14;
+    -fx-background-insets: 0;
+}
+
+/* важливо: viewport/scrollpane/corner часто дають білі кути */
+.passport-card .text-area .scroll-pane,
+.passport-card .text-area .viewport,
+.passport-card .text-area .corner {
+    -fx-background-color: #1b2f4a;
+    -fx-background-radius: 14;
+    -fx-background-insets: 0;
+}
+
+.passport-card .text-area:focused {
+    -fx-border-color: #2f7fc4;
+}
+
+.passport-card .text-area .prompt-text {
+    -fx-fill: #9bb8da;
+}
+
+/* скролбар */
+.passport-card .text-area .scroll-bar:vertical,
+.passport-card .text-area .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.passport-card .text-area .scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.passport-card .text-area .scroll-bar .thumb {
+    -fx-background-color: #2f4d73;
+    -fx-background-radius: 10;
+}
+
+/* ================= BUTTONS ================= */
+.passport-card .button {
+    -fx-background-color: transparent;
+    -fx-border-color: #2f4d73;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-text-fill: #eaf3ff;
+    -fx-padding: 10 18;
+}
+
+.passport-card .button:hover {
+    -fx-background-color: rgba(47,127,196,0.15);
+}
+
+.passport-card .primary-btn {
+    -fx-background-color: linear-gradient(to bottom, #4fa6dc, #2f7fc4);
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+}
+

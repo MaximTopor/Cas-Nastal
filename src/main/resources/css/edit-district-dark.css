@@ -10,6 +10,13 @@
 }
 
 /* ================= TITLE ================= */
+.root-pane,
+.root-pane .label,
+.root-pane .text-field,
+.root-pane .combo-box,
+.root-pane .button {
+    -fx-text-fill: white;
+}
 
 .title-label {
     -fx-text-fill: #ffffff;

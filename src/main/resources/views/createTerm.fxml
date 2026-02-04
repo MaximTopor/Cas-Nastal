@@ -28,22 +28,45 @@
 
             <VBox spacing="12"
                   prefWidth="360"
-                  alignment="CENTER"
+                  alignment="TOP_CENTER"
                   styleClass="form-card">
 
-                <TextField fx:id="typeField" promptText="%createTerm.type"/>
-                <DatePicker fx:id="datePicker" promptText="%createTerm.date"/>
+                <VBox spacing="4" maxWidth="360">
+                    <Label text="%createTerm.type"/>
+                    <TextField fx:id="typeField"/>
+                </VBox>
 
-                <TextField fx:id="startTimeField" promptText="%createTerm.startTime"/>
-                <TextField fx:id="endTimeField" promptText="%createTerm.endTime"/>
+                <VBox spacing="4" maxWidth="360">
+                    <Label text="%createTerm.date"/>
+                    <DatePicker fx:id="datePicker"/>
+                </VBox>
 
-                <TextField fx:id="addressField" promptText="%createTerm.address"/>
-                <TextField fx:id="capacityField" promptText="%createTerm.capacity"/>
+                <VBox spacing="4" maxWidth="360">
+                    <Label text="%createTerm.startTime"/>
+                    <TextField fx:id="startTimeField"/>
+                </VBox>
 
-                <ComboBox fx:id="regionComboBox"
-                          promptText="%createTerm.region"
-                          prefWidth="360"
-                          styleClass="form-combo"/>
+                <VBox spacing="4" maxWidth="360">
+                    <Label text="%createTerm.endTime"/>
+                    <TextField fx:id="endTimeField"/>
+                </VBox>
+
+                <VBox spacing="4" maxWidth="360">
+                    <Label text="%createTerm.address"/>
+                    <TextField fx:id="addressField"/>
+                </VBox>
+
+                <VBox spacing="4" maxWidth="360">
+                    <Label text="%createTerm.capacity"/>
+                    <TextField fx:id="capacityField"/>
+                </VBox>
+
+                <VBox spacing="4" maxWidth="360">
+                    <Label text="%createTerm.region"/>
+                    <ComboBox fx:id="regionComboBox"
+                              styleClass="form-combo"
+                              maxWidth="360"/>
+                </VBox>
 
             </VBox>
 

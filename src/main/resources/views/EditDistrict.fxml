@@ -3,38 +3,57 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21"
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sk.upjs.paz.controller.EditDistrictController"
             prefWidth="450" prefHeight="350"
             styleClass="root-pane">
 
-    <VBox spacing="14"
-          alignment="CENTER"
-          maxWidth="360"
-          AnchorPane.topAnchor="0"
-          AnchorPane.bottomAnchor="0"
-          AnchorPane.leftAnchor="0"
-          AnchorPane.rightAnchor="0">
+    <top>
+        <VBox alignment="CENTER" spacing="10" >
+            <padding>
+                <Insets top="30" right="0" bottom="0" left="0"/>
+            </padding>
 
-        <Label text="%editDistrict.title"
-               styleClass="title-label"/>
+            <Label text="%editDistrict.title"
+                   styleClass="title-label"/>
+        </VBox>
+    </top>
+    <center>
+        <StackPane>
+            <VBox spacing="10" alignment="CENTER" maxWidth="300">
 
-        <TextField fx:id="nameField"
-                   promptText="%editDistrict.name"/>
+                <VBox spacing="4">
+                    <Label text="%editDistrict.name"/>
+                    <TextField fx:id="nameField"/>
+                </VBox>
 
-        <TextField fx:id="addressField"
-                   promptText="%editDistrict.address"/>
+                <VBox spacing="4">
+                    <Label text="%editDistrict.address"/>
+                    <TextField fx:id="addressField"/>
+                </VBox>
 
-        <TextField fx:id="contactField"
-                   promptText="%editDistrict.contact"/>
+                <VBox spacing="4">
+                    <Label text="%editDistrict.contact"/>
+                    <TextField fx:id="contactField"/>
+                </VBox>
 
-        <TextField fx:id="postalCodeField"
-                   promptText="%editDistrict.postalCode"/>
+                <VBox spacing="4">
+                    <Label text="%editDistrict.postalCode"/>
+                    <TextField fx:id="postalCodeField"/>
+                </VBox>
 
-        <TextField fx:id="regionField"
-                   promptText="%editDistrict.region"/>
+                <VBox spacing="4">
+                    <Label text="%editDistrict.region"/>
+                    <TextField fx:id="regionField"/>
+                </VBox>
 
+            </VBox>
+        </StackPane>
+    </center>
+
+    <bottom>
         <HBox spacing="16" alignment="CENTER">
             <Button text="%common.save"
                     styleClass="primary-btn"
@@ -43,6 +62,6 @@
                     styleClass="secondary-btn"
                     onAction="#back"/>
         </HBox>
+    </bottom>
 
-    </VBox>
-</AnchorPane>
+</BorderPane>
