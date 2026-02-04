@@ -15,7 +15,7 @@ public abstract class TestContainer {
 
     @BeforeAll
     static void startContainer() {
-        postgres = new PostgreSQLContainer<>("postgres:15")
+        postgres = new PostgreSQLContainer<>("postgres:16")
                 .withDatabaseName("testdb")
                 .withUsername("test")
                 .withPassword("test");

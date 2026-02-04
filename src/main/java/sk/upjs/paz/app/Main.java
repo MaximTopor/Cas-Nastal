@@ -12,8 +12,4 @@ public class Main extends Application {
         SceneManager.setStage(stage);
         SceneManager.openLoginScene();
     }
-
-    public static void main(String[] args) {
-        launch();
-    }
 }

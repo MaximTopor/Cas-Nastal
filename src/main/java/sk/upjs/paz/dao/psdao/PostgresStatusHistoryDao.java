@@ -37,6 +37,24 @@ public class PostgresStatusHistoryDao implements StatusHistoryDao {
     }
 
     @Override
+    public void changeStatusAtomic(long userId, long statusId, long changedBy, String reason) {
+        jdbc.update(
+                """
+                WITH deactivated AS (
+                    UPDATE cn.status_history
+                       SET is_current = false
+                     WHERE user_id = ? AND is_current = true
+                )
+                INSERT INTO cn.status_history
+                    (user_id, status_id, changed_by, reason, is_current)
+                VALUES (?, ?, ?, ?, true)
+                """,
+                userId, userId, statusId, changedBy, reason
+        );
+    }
+
+
+    @Override
     public void insert(long userId, long statusId, long changedBy, String reason) {
         jdbc.update(
                 """

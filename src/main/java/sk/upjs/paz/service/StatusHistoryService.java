@@ -12,14 +12,8 @@ public class StatusHistoryService {
     private final StatusHistoryDao statusHistoryDao =
             Factory.INSTANCE.getStatusHistoryDao();
 
-    public void changeStatus(long userId,
-                             long statusId,
-                             long changedBy,
-                             String reason) {
-
-        statusHistoryDao.deactivateCurrent(userId);
-
-        statusHistoryDao.insert(userId, statusId, changedBy, reason);
+    public void changeStatus(long userId, long statusId, long changedBy, String reason) {
+        statusHistoryDao.changeStatusAtomic(userId, statusId, changedBy, reason);
     }
 
     public long getCurrentStatusId(long userId) {
