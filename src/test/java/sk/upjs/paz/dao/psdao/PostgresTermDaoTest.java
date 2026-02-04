@@ -1,52 +1,105 @@
 package sk.upjs.paz.dao.psdao;
 
-import org.junit.jupiter.api.*;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import sk.upjs.paz.model.Term;
+import sk.upjs.paz.testcontainer.TestContainer;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PostgresTermDaoTest {
+class PostgresTermDaoTest extends TestContainer {
 
-    private static JdbcTemplate jdbc;
     private PostgresTermDao termDao;
-
-    @BeforeAll
-    static void setupDb() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName("org.postgresql.Driver");
-        ds.setUrl("jdbc:postgresql://localhost:5433/cn");
-        ds.setUsername("casnast");
-        ds.setPassword("casnast");
-
-        jdbc = new JdbcTemplate(ds);
-    }
 
     @BeforeEach
     void setup() {
-        termDao = new PostgresTermDao(jdbc);
+        termDao = new PostgresTermDao(jdbcTemplate);
 
-        // FK-safe cleanup
-        jdbc.execute("TRUNCATE TABLE cn.schedule RESTART IDENTITY CASCADE");
-        jdbc.execute("TRUNCATE TABLE cn.terms RESTART IDENTITY CASCADE");
-        jdbc.execute("TRUNCATE TABLE cn.users RESTART IDENTITY CASCADE");
-        jdbc.execute("TRUNCATE TABLE cn.districts RESTART IDENTITY CASCADE");
+        jdbcTemplate.execute("CREATE SCHEMA IF NOT EXISTS cn");
+        jdbcTemplate.execute("SET search_path TO cn");
 
-        // district
-        jdbc.update("""
-            INSERT INTO cn.districts
-            (name, address_of_center, kontakt, psc, created_at, region)
+        // потрібні таблиці для FK/EXISTS у findVisibleForUser
+        jdbcTemplate.execute("""
+            CREATE TABLE IF NOT EXISTS cn.districts (
+                id_district BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                name VARCHAR(50) NOT NULL,
+                address_of_center VARCHAR(150) NOT NULL,
+                kontakt VARCHAR(100) NOT NULL,
+                psc INTEGER NOT NULL,
+                created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+                region VARCHAR(100) NOT NULL
+            )
+        """);
+
+        jdbcTemplate.execute("""
+            CREATE TABLE IF NOT EXISTS cn.users (
+                id_user BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                name VARCHAR(50),
+                surname VARCHAR(50),
+                email VARCHAR(100),
+                phone_number VARCHAR(15),
+                password_hash VARCHAR(255),
+                role_id INTEGER,
+                rodne_cislo VARCHAR(12),
+                date_of_birth DATE,
+                adresa VARCHAR(100),
+                district_id BIGINT NOT NULL,
+                created_at TIMESTAMP DEFAULT NOW(),
+                update_at TIMESTAMP DEFAULT NOW(),
+                CONSTRAINT fk_user_district
+                    FOREIGN KEY (district_id)
+                    REFERENCES cn.districts(id_district)
+            )
+        """);
+
+        jdbcTemplate.execute("""
+            CREATE TABLE IF NOT EXISTS cn.terms (
+                id_terms BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                type VARCHAR(100) NOT NULL,
+                date DATE NOT NULL,
+                start_time TIME NOT NULL,
+                end_time TIME NOT NULL,
+                address VARCHAR(150) NOT NULL,
+                capacity INTEGER NOT NULL,
+                okres BIGINT NOT NULL,
+                CONSTRAINT fk_terms_district
+                    FOREIGN KEY (okres)
+                    REFERENCES cn.districts(id_district)
+            )
+        """);
+
+        jdbcTemplate.execute("""
+            CREATE TABLE IF NOT EXISTS cn.schedule (
+                id_schedule BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                status_of_application VARCHAR(30) NOT NULL DEFAULT 'pending',
+                id_user BIGINT NOT NULL,
+                id_terms BIGINT NOT NULL,
+                CONSTRAINT fk_schedule_user
+                    FOREIGN KEY (id_user) REFERENCES cn.users(id_user)
+                    ON DELETE CASCADE,
+                CONSTRAINT fk_schedule_terms
+                    FOREIGN KEY (id_terms) REFERENCES cn.terms(id_terms)
+                    ON DELETE CASCADE
+            )
+        """);
+
+        // clean
+        jdbcTemplate.execute("TRUNCATE TABLE cn.schedule RESTART IDENTITY CASCADE");
+        jdbcTemplate.execute("TRUNCATE TABLE cn.terms RESTART IDENTITY CASCADE");
+        jdbcTemplate.execute("TRUNCATE TABLE cn.users RESTART IDENTITY CASCADE");
+        jdbcTemplate.execute("TRUNCATE TABLE cn.districts RESTART IDENTITY CASCADE");
+
+        // base data
+        jdbcTemplate.update("""
+            INSERT INTO cn.districts (name, address_of_center, kontakt, psc, created_at, region)
             VALUES ('Košice I','Main 1','k1@cn.sk',40101,NOW(),'KE')
         """);
 
-        // user
-        jdbc.update("""
+        jdbcTemplate.update("""
             INSERT INTO cn.users
             (name, surname, email, phone_number, password_hash,
              role_id, rodne_cislo, date_of_birth, adresa,
@@ -57,10 +110,10 @@ class PostgresTermDaoTest {
         """);
     }
 
-    private Term sampleTerm(LocalDate date) {
+    private Term sampleTerm(LocalDate date, String type) {
         return new Term(
                 0,
-                "Lekárska prehliadka",
+                type,
                 date,
                 LocalTime.of(8, 0),
                 LocalTime.of(10, 0),
@@ -72,7 +125,7 @@ class PostgresTermDaoTest {
 
     @Test
     void create_and_getAll_shouldReturnInsertedTerm() {
-        termDao.create(sampleTerm(LocalDate.now().plusDays(1)));
+        termDao.create(sampleTerm(LocalDate.now().plusDays(1), "Lekárska prehliadka"));
 
         List<Term> terms = termDao.getAll();
         assertEquals(1, terms.size());
@@ -81,12 +134,9 @@ class PostgresTermDaoTest {
 
     @Test
     void update_shouldModifyExistingTerm() {
-        termDao.create(sampleTerm(LocalDate.now().plusDays(1)));
+        termDao.create(sampleTerm(LocalDate.now().plusDays(1), "Old"));
 
-        Long id = jdbc.queryForObject(
-                "SELECT id_terms FROM cn.terms",
-                Long.class
-        );
+        Long id = jdbcTemplate.queryForObject("SELECT id_terms FROM cn.terms", Long.class);
 
         Term t = new Term(
                 id,
@@ -101,7 +151,7 @@ class PostgresTermDaoTest {
 
         termDao.update(t);
 
-        Term fromDb = jdbc.queryForObject(
+        Term fromDb = jdbcTemplate.queryForObject(
                 "SELECT * FROM cn.terms WHERE id_terms = ?",
                 (rs, rn) -> new Term(
                         rs.getLong("id_terms"),
@@ -116,55 +166,71 @@ class PostgresTermDaoTest {
                 id
         );
 
+        assertNotNull(fromDb);
         assertEquals("Updated type", fromDb.getType());
         assertEquals(50, fromDb.getCapacity());
+        assertEquals("New address", fromDb.getAddress());
     }
 
     @Test
     void getByDistrict_shouldFilterByDistrictAndNotCanceled() {
-        termDao.create(sampleTerm(LocalDate.now().plusDays(1)));
-        termDao.create(sampleTerm(LocalDate.now().plusDays(2)));
+        termDao.create(sampleTerm(LocalDate.now().plusDays(1), "Lekárska"));
+        termDao.create(sampleTerm(LocalDate.now().plusDays(2), "canceled")); // має відфільтруватися
 
         List<Term> terms = termDao.getByDistrict(1L);
-        assertEquals(2, terms.size());
+        assertEquals(1, terms.size());
+        assertEquals("Lekárska", terms.get(0).getType());
     }
 
     @Test
     void findVisibleForUser_shouldReturnFutureTerms() {
-        termDao.create(sampleTerm(LocalDate.now().plusDays(5)));
+        termDao.create(sampleTerm(LocalDate.now().plusDays(5), "Lekárska"));
 
-        List<Term> terms = termDao.findVisibleForUser(
-                1L,
-                1L,
-                LocalDate.now()
-        );
+        List<Term> terms = termDao.findVisibleForUser(1L, 1L, LocalDate.now());
 
         assertEquals(1, terms.size());
     }
 
     @Test
     void findVisibleForUser_shouldReturnPastTermIfUserRegistered() {
-        // past term
-        termDao.create(sampleTerm(LocalDate.now().minusDays(3)));
+        termDao.create(sampleTerm(LocalDate.now().minusDays(3), "Lekárska"));
 
-        Long termId = jdbc.queryForObject(
-                "SELECT id_terms FROM cn.terms",
-                Long.class
-        );
+        Long termId = jdbcTemplate.queryForObject("SELECT id_terms FROM cn.terms", Long.class);
 
-        // user is registered
-        jdbc.update("""
-            INSERT INTO cn.schedule
-            (id_terms, id_user, status_of_application)
+        jdbcTemplate.update("""
+            INSERT INTO cn.schedule (id_terms, id_user, status_of_application)
             VALUES (?, ?, 'pending')
         """, termId, 1L);
 
-        List<Term> terms = termDao.findVisibleForUser(
-                1L,
-                1L,
-                LocalDate.now()
-        );
+        List<Term> terms = termDao.findVisibleForUser(1L, 1L, LocalDate.now());
 
         assertEquals(1, terms.size());
+        assertEquals(termId, terms.get(0).getIdTerms());
+    }
+
+    @Test
+    void findVisibleForUser_shouldNotReturnPastTermIfUserNotRegistered() {
+        termDao.create(sampleTerm(LocalDate.now().minusDays(3), "Lekárska"));
+
+        List<Term> terms = termDao.findVisibleForUser(1L, 1L, LocalDate.now());
+
+        assertTrue(terms.isEmpty());
+    }
+
+    @Test
+    void findVisibleForUser_shouldNotReturnPastTermIfRegistrationCancelled() {
+        termDao.create(sampleTerm(LocalDate.now().minusDays(3), "Lekárska"));
+
+        Long termId = jdbcTemplate.queryForObject("SELECT id_terms FROM cn.terms", Long.class);
+
+        // ВАЖЛИВО: у твоєму SQL фільтр: status_of_application <> 'cancelled'
+        jdbcTemplate.update("""
+            INSERT INTO cn.schedule (id_terms, id_user, status_of_application)
+            VALUES (?, ?, 'cancelled')
+        """, termId, 1L);
+
+        List<Term> terms = termDao.findVisibleForUser(1L, 1L, LocalDate.now());
+
+        assertTrue(terms.isEmpty());
     }
 }

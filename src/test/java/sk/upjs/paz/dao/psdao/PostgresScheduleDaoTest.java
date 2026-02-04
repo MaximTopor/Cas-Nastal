@@ -2,6 +2,7 @@ package sk.upjs.paz.dao.psdao;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.dao.DataIntegrityViolationException;
 import sk.upjs.paz.model.Schedule;
 import sk.upjs.paz.testcontainer.TestContainer;
 
@@ -118,10 +119,58 @@ class PostgresScheduleDaoTest extends TestContainer {
         """);
     }
 
+    // ========= helpers =========
+
+    private long countSchedule() {
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM cn.schedule", Long.class);
+    }
+
+    private String getTermType(long termId) {
+        return jdbcTemplate.queryForObject(
+                "SELECT type FROM cn.terms WHERE id_terms = ?",
+                String.class,
+                termId
+        );
+    }
+
+    private Schedule getOnlyScheduleRow() {
+        return jdbcTemplate.queryForObject(
+                "SELECT id_schedule, status_of_application, id_user, id_terms FROM cn.schedule",
+                (rs, rn) -> new Schedule(
+                        rs.getLong("id_schedule"),
+                        rs.getString("status_of_application"),
+                        rs.getLong("id_user"),
+                        rs.getLong("id_terms")
+                )
+        );
+    }
+
+    // ========= tests =========
+
+    @Test
+    void exists_shouldReturnFalse_whenNoRow() {
+        assertFalse(dao.exists(1L, 1L));
+    }
+
     @Test
     void insert_and_exists_shouldWork() {
         dao.insert(1L, 1L);
         assertTrue(dao.exists(1L, 1L));
+        assertEquals(1, countSchedule());
+    }
+
+    @Test
+    void insert_shouldThrow_whenDuplicatePair() {
+        dao.insert(1L, 1L);
+        assertThrows(DataIntegrityViolationException.class, () -> dao.insert(1L, 1L));
+        assertEquals(1, countSchedule());
+    }
+
+    @Test
+    void getByUser_shouldReturnEmptyList_whenNoData() {
+        List<Schedule> list = dao.getByUser(1L);
+        assertNotNull(list);
+        assertTrue(list.isEmpty());
     }
 
     @Test
@@ -132,6 +181,15 @@ class PostgresScheduleDaoTest extends TestContainer {
 
         assertEquals(1, list.size());
         assertEquals("pending", list.get(0).getStatusOfApplication());
+        assertEquals(1L, list.get(0).getUserId());
+        assertEquals(1L, list.get(0).getTermsId());
+    }
+
+    @Test
+    void getByTerm_shouldReturnEmptyList_whenNoData() {
+        List<Schedule> list = dao.getByTerm(1L);
+        assertNotNull(list);
+        assertTrue(list.isEmpty());
     }
 
     @Test
@@ -142,31 +200,40 @@ class PostgresScheduleDaoTest extends TestContainer {
 
         assertEquals(1, list.size());
         assertEquals(1L, list.get(0).getUserId());
+        assertEquals(1L, list.get(0).getTermsId());
     }
 
     @Test
     void update_shouldChangeStatus() {
         dao.insert(1L, 1L);
 
-        Schedule s = jdbcTemplate.queryForObject(
-                "SELECT * FROM cn.schedule",
-                (rs, rn) -> new Schedule(
-                        rs.getLong("id_schedule"),
-                        rs.getString("status_of_application"),
-                        rs.getLong("id_user"),
-                        rs.getLong("id_terms")
-                )
-        );
+        Schedule s = getOnlyScheduleRow();
 
         s.setStatusOfApplication("end");
         dao.update(s);
 
         String status = jdbcTemplate.queryForObject(
-                "SELECT status_of_application FROM cn.schedule",
-                String.class
+                "SELECT status_of_application FROM cn.schedule WHERE id_schedule = ?",
+                String.class,
+                s.getIdSchedule()
         );
 
         assertEquals("end", status);
+    }
+
+    @Test
+    void update_shouldNotChangeAnything_whenIdDoesNotExist() {
+        dao.insert(1L, 1L);
+
+        Schedule s = new Schedule(999L, "end", 1L, 1L);
+        dao.update(s);
+
+        // запис існує, але його статус не змінився, бо оновлювали неіснуючий id
+        String status = jdbcTemplate.queryForObject(
+                "SELECT status_of_application FROM cn.schedule WHERE id_user = 1 AND id_terms = 1",
+                String.class
+        );
+        assertEquals("pending", status);
     }
 
     @Test
@@ -174,5 +241,21 @@ class PostgresScheduleDaoTest extends TestContainer {
         dao.insert(1L, 1L);
         dao.delete(1L, 1L);
         assertFalse(dao.exists(1L, 1L));
+        assertEquals(0, countSchedule());
+    }
+
+    @Test
+    void delete_shouldNotFail_whenRowDoesNotExist() {
+        assertDoesNotThrow(() -> dao.delete(1L, 1L));
+        assertEquals(0, countSchedule());
+    }
+
+    @Test
+    void cancelTerm_shouldSetTypeToCanceled() {
+        assertEquals("Lekárska", getTermType(1L));
+
+        dao.cancelTerm(1L);
+
+        assertEquals("canceled", getTermType(1L));
     }
 }
